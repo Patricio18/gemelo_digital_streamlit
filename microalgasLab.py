@@ -550,3 +550,5 @@ with right_column:
 
     # 3. Mostrar en Streamlit
     tab2.plotly_chart(fig, use_container_width=True)
+
+    #EDICION
