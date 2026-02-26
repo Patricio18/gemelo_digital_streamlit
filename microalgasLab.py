@@ -583,10 +583,10 @@ with right_column:
     tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
 
     nitrogeno = np.linspace(0, 200, 100)
-    celulas = np.linspace(0, 10, 100)
+    #celulas = np.linspace(0, 10, 100)
     df = pd.DataFrame({
         'eje_x': nitrogeno,
-        'eje_y': celulas
+        'eje_y': monod(nitrogeno, Kn=0.5)
     })
     curva_microalgas = alt.Chart(df).mark_line().encode(
         x=alt.X('Nitrogeno', title='Concentración de Nitrógeno (g/ml)'),
