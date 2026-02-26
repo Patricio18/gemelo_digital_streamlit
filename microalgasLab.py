@@ -8,6 +8,7 @@ import base64
 from io import BytesIO
 import os
 from PIL import Image
+import altair as alt
 
 st.set_page_config(page_title='DigitalTwinLab', layout="wide")
 st.markdown("""
@@ -579,12 +580,23 @@ with right_column:
             delta=f"{st.session_state.mu_cambioP:.4f}"
         )
 
-    tab1, tab2 = st.tabs(['Gráfica 1', 'Gráfica 2'])
+    tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
+
+    nitrogeno = np.linspace(0, 200, 100)
+    celulas = np.linspace(0, 10, 100)
+
+    curva_microalgas = pd.DataFrame({
+        'eje_x': nitrogeno,
+        'eje_y': celulas
+    })
+    tab3.alt.Chart(curva_microalgas).mark_line().encode(
+        x=alt.X('eje_x', title='Nitrógeno (g/L)')
+    )
 
     #st.line_chart(N)
     curva_de_crecimiento = pd.DataFrame({
-        'Chlorella': monod(nitrogeno,0.5),
-        #'Chlorella': np.linspace(0,10,100),
+        #nitrogeno: np.linspace(0,200,100),
+        'Chlorella': np.linspace(0,10,100),
         'Scenedesmus': np.linspace(100,10,100),
         'Planktothrix': np.random.normal(25,2,100)
     })
