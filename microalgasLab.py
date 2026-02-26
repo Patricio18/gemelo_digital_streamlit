@@ -586,7 +586,7 @@ with right_column:
     #celulas = np.linspace(0, 10, 100)
     df = pd.DataFrame({
         'eje_x': nitrogeno,
-        'eje_y': monod(nitrogeno, Kn=0.5)
+        'eje_y': monod(nitrogeno, 0.5)
     })
     curva_microalgas = alt.Chart(df).mark_line().encode(
         x=alt.X('Nitrogeno', title='Concentración de Nitrógeno (g/ml)'),
