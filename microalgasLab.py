@@ -90,12 +90,16 @@ if 'mu_cambioP' not in st.session_state:
 if 'mu_anteriorP' not in st.session_state:
     st.session_state.mu_anteriorP = 0
 
+cantidadMicroalgasC = st.session_state.mu_chlorella
+cantidadMicroalgasS = st.session_state.mu_scenedesmus
+cantidadMicroalgasP = st.session_state.mu_planktothrix
+
 cambios_js = st.session_state.color
 encendido_js = st.session_state.encendido
 nivel_intensidad_js = st.session_state.nivel
 #cambios_js = "true" if st.session_state.cambios else "false"
 
-
+#FUNCIÓN PARA CARGAR IMÁGENES
 def cargar(ruta):
     if not os.path.exists(ruta): return None
     with open(ruta, "rb") as f:
@@ -138,7 +142,7 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
 #    # Preparamos el string para que el navegador lo entienda
 #    fuente_imagen = f"data:image/png;base64,{b64}"
 
-
+#PROCESO PARA CREAR COLUMA DE LA IZQUIERDA QUE ES EL PANEL DE CONTROL Y SUS RERPECTIVOS ELEMENTOS
 #Left column
 with left_column:
     st.subheader('Panel de control')
@@ -172,7 +176,7 @@ with center_column:
     pixi_html = f"""
 <div id="canvas-div"></div>
 <script type="module">
-    import {{ Application, Assets, Sprite }} from 'https://cdn.jsdelivr.net/npm/pixi.js@8.1.0/dist/pixi.mjs';
+    import {{ Application, Assets, Sprite, Ticker }} from 'https://cdn.jsdelivr.net/npm/pixi.js@8.1.0/dist/pixi.mjs';
 
     (async () => {{
         // Crear App
@@ -190,6 +194,10 @@ with center_column:
         biorreactor.y = 225;      
         // Ajustar tamaño para que quepa (opcional)
         //if (biorreactor.width > 300) biorreactor.scale.set(300 / biorreactor.width);
+
+        const totalMicroalgasC = {cantidadMicroalgasC};
+        const totalMicroalgasS = {cantidadMicroalgasS};
+        const totalMicroalgasP = {cantidadMicroalgasP};
 
         const textura2 = await Assets.load('{img_lampara1}');
         const lampara = new Sprite(textura2);
@@ -209,26 +217,6 @@ with center_column:
         lampara2.y = 250;
         //if (lampara2.width > 300) lampara2.scale.set(300 / lampara2.width);
 
-        const textura4 = await Assets.load('{img_chlorella1}');
-        const chlorella = new Sprite(textura4);
-        chlorella.anchor.set(0.5,0);
-        chlorella.scale.set(0.03,0.03);
-        chlorella.x = 200;
-        chlorella.y = 270;
-
-        const textura5 = await Assets.load('{img_scenedesmus1}');
-        const scenedesmus = new Sprite(textura5);
-        scenedesmus.anchor.set(0.5,0);
-        scenedesmus.scale.set(0.03,0.03);
-        scenedesmus.x = 165;
-        scenedesmus.y = 300;
-
-        const textura6 = await Assets.load('{img_planktothrix1}');
-        const planktothrix = new Sprite(textura6);
-        planktothrix.anchor.set(0.5,0);
-        planktothrix.scale.set(0.03,0.03);
-        planktothrix.x = 235;
-        planktothrix.y = 300;
 
         const textura7 = await Assets.load('{img_lampara_amarilla1}');
         const lamp_amarilla = new Sprite(textura7);
@@ -312,9 +300,9 @@ with center_column:
         app.stage.addChild(biorreactor);
         //app.stage.addChild(lampara);
         //app.stage.addChild(lampara2);
-        app.stage.addChild(chlorella);
-        app.stage.addChild(scenedesmus);
-        app.stage.addChild(planktothrix);
+        //
+        //
+        //
         app.stage.addChild(resplandor);
         app.stage.addChild(resplandor2);
         app.stage.addChild(resplandor3);
@@ -346,6 +334,8 @@ with center_column:
 
         let aplicar_cambios = "{cambios_js}";
         let encender_resplandor = "{encendido_js}";
+        let agregar_microalgas = "{encendido_js}";
+        let detener_simulacion = "{encendido_js}";
 
         function efectuar_cambios(){{
             //colorGradiente();
@@ -402,6 +392,69 @@ with center_column:
 
         efectuar_cambios();
         
+        const microalgas = [];
+        if(agregar_microalgas === "True"){{
+            try {{
+                const textura4 = await Assets.load('{img_chlorella1}');
+                const textura5 = await Assets.load('{img_scenedesmus1}');
+                const textura6 = await Assets.load('{img_planktothrix1}');
+                for (let i = 0; i < totalMicroalgasC * 1000; i++) {{
+                    const chlorella = new Sprite(textura4);
+                    chlorella.anchor.set(0.5,0);
+                    chlorella.scale.set(0.01,0.01);
+                    chlorella.x = 200;
+                    chlorella.y = 270;
+                    chlorella.vx = (Math.random() - 0.5) * 0.5;
+                    chlorella.vy = (Math.random() - 0.5) * 0.5;
+                    app.stage.addChild(chlorella);
+                    microalgas.push(chlorella);
+
+                    const scenedesmus = new Sprite(textura5);
+                    scenedesmus.anchor.set(0.5,0);
+                    scenedesmus.scale.set(0.01,0.01);
+                    scenedesmus.x = 165;
+                    scenedesmus.y = 300;
+                    scenedesmus.vx = (Math.random() - 0.5) * 0.5;
+                    scenedesmus.vy = (Math.random() - 0.5) * 0.5;
+                    app.stage.addChild(scenedesmus);
+                    microalgas.push(scenedesmus);
+
+                    const planktothrix = new Sprite(textura6);
+                    planktothrix.anchor.set(0.5,0);
+                    planktothrix.scale.set(0.01,0.01);
+                    planktothrix.x = 235;
+                    planktothrix.y = 300;
+                    planktothrix.vx = (Math.random() - 0.5) * 0.05;
+                    planktothrix.vy = (Math.random() - 0.5) * 0.05;
+                    app.stage.addChild(planktothrix);
+                    microalgas.push(planktothrix);
+               }}
+
+            }}  catch (error) {{
+                console.error("Error al cargar la textura de Chlorella:", error);
+        }}
+
+        let tiempoInicio = Date.now();
+        let simulacionActiva = true;
+        let duracionSimulacion = 60000; // 60 segundos
+
+            app.ticker.add(() => {{
+                if (simulacionActiva !=true) return;
+                microalgas.forEach((celula) => {{
+                    celula.x += celula.vx;
+                    celula.y += celula.vy;
+                    celula.rotation += 0.01;
+
+                    // Rebotar en los bordes del biorreactor
+                    if (celula.x < 123 || celula.x > 275) celula.vx *= -1;  
+                    if (celula.y < 250 || celula.y > 330) celula.vy *= -1;
+                }});
+                if(detener_simulacion === "False"){{
+                    app.ticker.stop();
+                    //app.ticker.start();
+                }}
+            }});
+        }}
     }})();
 </script>
 """
@@ -462,6 +515,9 @@ with right_column:
         mu = mu_max * (N/(Kn + N))
         return mu
     
+    st.divider()
+
+    st.button("Instrucciones para el usuario", type="secondary", key="btn_instrucciones")
 
     if st.button("Aplicar", type="primary", key="btn_aplicar"):
         st.session_state.color = color_de_luz
@@ -495,6 +551,10 @@ with right_column:
         #st.session_state.color = color_de_luz
         #cambios_js = st.session_state.color
         st.rerun()
+    
+    if st.button("Detener simulación", type="primary", key="btn_apagar"):
+        st.session_state.encendido = "False"
+        st.rerun()
 
         st.divider()
     sub_col5, sub_col6, sub_col7 = st.columns(3)
@@ -523,7 +583,8 @@ with right_column:
 
     #st.line_chart(N)
     curva_de_crecimiento = pd.DataFrame({
-        'Chlorella': np.linspace(0,10,100),
+        'Chlorella': monod(nitrogeno,0.5),
+        #'Chlorella': np.linspace(0,10,100),
         'Scenedesmus': np.linspace(100,10,100),
         'Planktothrix': np.random.normal(25,2,100)
     })
@@ -550,5 +611,3 @@ with right_column:
 
     # 3. Mostrar en Streamlit
     tab2.plotly_chart(fig, use_container_width=True)
-
-    #EDICION
