@@ -588,10 +588,10 @@ with right_column:
         'eje_x': nitrogeno,
         'eje_y': celulas
     })
-    curva_microalgas = alt.Chart(df).mark_line().encode({
-        'eje_x': nitrogeno,
-        'eje_y': celulas
-    })
+    curva_microalgas = alt.Chart(df).mark_line().encode(
+        x=alt.X('Nitrogeno', title='Concentración de Nitrógeno (g/ml)'),
+        y=alt.Y('Células', title='Cantidad de Células (g/ml)'), scacale=alt.Scale(domain=(0, 10)) 
+    )
     tab3.altair_chart(curva_microalgas, use_container_width=True)
 
     #st.line_chart(N)
