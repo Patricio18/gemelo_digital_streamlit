@@ -584,14 +584,15 @@ with right_column:
 
     nitrogeno = np.linspace(0, 200, 100)
     celulas = np.linspace(0, 10, 100)
-
-    curva_microalgas = pd.DataFrame({
+    df = pd.DataFrame({
         'eje_x': nitrogeno,
         'eje_y': celulas
     })
-    tab3.alt.Chart(curva_microalgas).mark_line().encode(
-        x=alt.X('eje_x', title='Nitrógeno (g/L)')
-    )
+    curva_microalgas = alt.Chart(df).mark_line().encode({
+        'eje_x': nitrogeno,
+        'eje_y': celulas
+    })
+    tab3.altair_chart(curva_microalgas, use_container_width=True)
 
     #st.line_chart(N)
     curva_de_crecimiento = pd.DataFrame({
