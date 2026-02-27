@@ -637,9 +637,9 @@ with right_column:
     #G R A F I C A     3
     nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 100)
-    monod_chlorella = monod(rango_nitrogeno,st.session_state.mu_chlorella)
-    monod_scenedesmus = monod(rango_nitrogeno,st.session_state.mu_scenedesmus)
-    monod_planktothrix = monod(rango_nitrogeno,st.session_state.mu_planktothrix)
+    monod_chlorella = st.session_state.mu_chlorella
+    monod_scenedesmus = st.session_state.mu_scenedesmus
+    monod_planktothrix = st.session_state.mu_planktothrix
 
     df_monod = pd.DataFrame({
         'Nitrógeno (g/ml)': np.linspace(0, 200, 100),
