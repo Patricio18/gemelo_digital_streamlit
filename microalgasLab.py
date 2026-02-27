@@ -531,7 +531,7 @@ with right_column:
         st.session_state.encendido = "True"
         st.session_state.nivel = intensidad
         #C    H    L    O    R    E    L    L    A
-        st.session_state.mu_chlorella = monod(nitrogeno,2.5)
+        st.session_state.mu_chlorella = monod(nitrogeno,10.5)
         st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
         st.session_state.mu_anteriorC = st.session_state.mu_chlorella
         #S    C    E    N    E    D    E    S    M    U    S
