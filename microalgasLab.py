@@ -612,3 +612,30 @@ with right_column:
 
     # 3. Mostrar en Streamlit
     tab2.plotly_chart(fig, use_container_width=True)
+
+    monod_chlorella = monod(nitrogeno,0.5)
+    monod_scenedesmus = monod(nitrogeno,0.1)
+    monod_planktothrix = monod(nitrogeno,0.9)
+
+    df_monod = pd.DataFrame({
+        'Nitrógeno (g/ml)': np.linspace(0, 200, 100),
+        'Chlorella': monod_chlorella,
+        'Scenedesmus': monod_scenedesmus,
+        'Planktothrix': monod_planktothrix
+    })
+
+    df_melted = df_monod.melt(id_vars='Nitrógeno (g/ml)', var_name='Especie', value_name='Tasa de Crecimiento')
+
+    grafica_monod = alt.Chart(df_melted).mark_line().encode(
+        x=alt.X('Nitrógeno (g/ml)', 
+                title='Concentración de Nitrógeno (g/ml)',
+                scale=alt.Scale(domain=[0, 200])
+        ),
+        y=alt.Y('Tasa de Crecimiento', 
+                title='Tasa de Crecimiento (g/ml/h)',
+                scale=alt.Scale(domain=[0, 1.5])
+        ),  
+        color='Especie'
+    ).interactive()
+
+    tab3.altair_chart(grafica_monod, use_container_width=True)
