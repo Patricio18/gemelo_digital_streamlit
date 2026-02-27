@@ -618,7 +618,7 @@ with right_column:
     monod_planktothrix = monod(nitrogeno,0.9)
 
     df_monod = pd.DataFrame({
-        'Nitrógeno (g/ml)': np.linspace(0, 200, 100),
+        'Nitrógeno (g/ml)': nitrogeno,
         'Chlorella': monod_chlorella,
         'Scenedesmus': monod_scenedesmus,
         'Planktothrix': monod_planktothrix
