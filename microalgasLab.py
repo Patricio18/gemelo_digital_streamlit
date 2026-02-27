@@ -531,7 +531,7 @@ with right_column:
         st.session_state.encendido = "True"
         st.session_state.nivel = intensidad
         #C    H    L    O    R    E    L    L    A
-        st.session_state.mu_chlorella = monod(nitrogeno,10.5)
+        st.session_state.mu_chlorella = monod(nitrogeno,0.5)
         st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
         st.session_state.mu_anteriorC = st.session_state.mu_chlorella
         #S    C    E    N    E    D    E    S    M    U    S
@@ -539,7 +539,7 @@ with right_column:
         st.session_state.mu_cambioS = st.session_state.mu_scenedesmus - st.session_state.mu_anteriorS
         st.session_state.mu_anteriorS = st.session_state.mu_scenedesmus
         #P    L    A    N    K    T    O    T    H    R    I    X
-        st.session_state.mu_planktothrix = monod(nitrogeno,1.5)
+        st.session_state.mu_planktothrix = monod(nitrogeno,0.9)
         st.session_state.mu_cambioP = st.session_state.mu_planktothrix - st.session_state.mu_anteriorP
         st.session_state.mu_anteriorP = st.session_state.mu_planktothrix
 
@@ -637,7 +637,7 @@ with right_column:
     #G R A F I C A     3
     nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 100)
-    monod_chlorella = monod(rango_nitrogeno,0.5)
+    monod_chlorella = monod(rango_nitrogeno,2.5)
     monod_scenedesmus = monod(rango_nitrogeno,0.1)
     monod_planktothrix = monod(rango_nitrogeno,0.9)
 
