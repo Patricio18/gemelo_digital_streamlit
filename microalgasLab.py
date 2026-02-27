@@ -509,6 +509,8 @@ with right_column:
     
     #mu = 0
     
+
+    #E     C     U     A     C     I     Ó     N               D     E               M     O     N     O     D               P     A     R     A               C     H     L     O     R     E     L     L     A
     def monod(N, Kn): 
         mu_max = 1.2
         #s = 0.1
@@ -518,6 +520,10 @@ with right_column:
     
     st.divider()
 
+
+
+    #B     O     T     O     N     E     S
+
     st.button("Instrucciones para el usuario", type="secondary", key="btn_instrucciones")
 
     if st.button("Aplicar", type="primary", key="btn_aplicar"):
@@ -525,7 +531,7 @@ with right_column:
         st.session_state.encendido = "True"
         st.session_state.nivel = intensidad
         #C    H    L    O    R    E    L    L    A
-        st.session_state.mu_chlorella = monod(nitrogeno,0.5)
+        st.session_state.mu_chlorella = monod(nitrogeno,2.5)
         st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
         st.session_state.mu_anteriorC = st.session_state.mu_chlorella
         #S    C    E    N    E    D    E    S    M    U    S
@@ -533,7 +539,7 @@ with right_column:
         st.session_state.mu_cambioS = st.session_state.mu_scenedesmus - st.session_state.mu_anteriorS
         st.session_state.mu_anteriorS = st.session_state.mu_scenedesmus
         #P    L    A    N    K    T    O    T    H    R    I    X
-        st.session_state.mu_planktothrix = monod(nitrogeno,0.9)
+        st.session_state.mu_planktothrix = monod(nitrogeno,1.5)
         st.session_state.mu_cambioP = st.session_state.mu_planktothrix - st.session_state.mu_anteriorP
         st.session_state.mu_anteriorP = st.session_state.mu_planktothrix
 
@@ -558,6 +564,11 @@ with right_column:
         st.rerun()
 
         st.divider()
+
+
+
+
+    #I   N   D   I   C   A   D   O   R   E   S               D   E               R   E   S   U   L   T   A   D   O   S
     sub_col5, sub_col6, sub_col7 = st.columns(3)
 
     with sub_col5:
@@ -580,8 +591,13 @@ with right_column:
             delta=f"{st.session_state.mu_cambioP:.4f}"
         )
 
-    tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
 
+
+
+    #A     N     Á     L     I     S     I     S               D     E               R     E     S     U     L     T     A     D     O     S
+
+    tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
+    #G R A F I C A     1
     #st.line_chart(N)
     curva_de_crecimiento = pd.DataFrame({
         #nitrogeno: np.linspace(0,200,100),
@@ -591,6 +607,9 @@ with right_column:
     })
     tab1.line_chart(curva_de_crecimiento)
 
+
+
+    #G R A F I C A     2
     # 1. Preparar los datos (igual que arriba)
     df = pd.DataFrame({
         'Horas': range(10),
@@ -614,6 +633,8 @@ with right_column:
     tab2.plotly_chart(fig, use_container_width=True)
 
 
+
+    #G R A F I C A     3
     nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 100)
     monod_chlorella = monod(rango_nitrogeno,0.5)
