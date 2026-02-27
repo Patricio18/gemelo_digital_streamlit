@@ -656,7 +656,7 @@ with right_column:
                 scale=alt.Scale(domain=[0, 200])
         ),
         y=alt.Y('Tasa de Crecimiento', 
-                title='Tasa de Crecimiento (g/ml/h)',
+                title='Cantidad de células (g/ml)',
                 scale=alt.Scale(domain=[0, 1.5])
         ),  
         color='Especie'
