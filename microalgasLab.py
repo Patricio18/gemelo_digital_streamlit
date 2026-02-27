@@ -643,7 +643,7 @@ with right_column:
 
     df_identificador = pd.DataFrame({"Nitrogeno seleccionado": [nitrogeno_seleccionado]})
     capa_marcador = alt.Chart(df_identificador).mark_rule(color='red').encode(
-        x=alt.X('Nitrogeno seleccionado:')
+        x=('Nitrogeno seleccionado:')
     )
 
     grafica_resultante = (grafica_monod + capa_marcador).interactive()
