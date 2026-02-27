@@ -637,6 +637,13 @@ with right_column:
                 scale=alt.Scale(domain=[0, 1.5])
         ),  
         color='Especie'
-    ).interactive()
+    )
 
-    tab3.altair_chart(grafica_monod, use_container_width=True)
+    df_identificador = pd.DataFrame({"Nitrogeno seleccionado:" [nitrogeno]})
+    capa_marcador = alt.Chart(df_identificador).mark_rule(color='red').encode(
+        x=alt.X('Nitrogeno seleccionado:')
+    )
+
+    grafica_resultante = (grafica_monod + capa_marcador).interactive()
+    
+    tab3.altair_chart(grafica_resultante, use_container_width=True)
