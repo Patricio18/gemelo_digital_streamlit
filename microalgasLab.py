@@ -614,7 +614,7 @@ with right_column:
     tab2.plotly_chart(fig, use_container_width=True)
 
 
-    nitrogeno_seleccionado = 30
+    nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 100)
     monod_chlorella = monod(rango_nitrogeno,0.5)
     monod_scenedesmus = monod(rango_nitrogeno,0.1)
