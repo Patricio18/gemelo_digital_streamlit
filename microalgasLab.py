@@ -649,7 +649,7 @@ with right_column:
     # En 'y' pones una LISTA con los nombres de las columnas que quieres que sean líneas
     fig = px.line(
         df, 
-        x='Horas', 
+        x='Dias', 
         y=['Chlorella', 'Scenedesmus', 'Planktothrix'],
         title='Cinética de Crecimiento de Microalgas',
         labels={'value': 'Cantidad de células (g/ml)',
