@@ -600,7 +600,7 @@ with right_column:
     #G R A F I C A     1
 
     #tiempo_horas = np.linspace(0, 24, 100)
-    tiempo_dias = np.linspace(0, 24, 100)
+    tiempo_dias = np.linspace(0, 10, 10)
     cantidad_inicial = 100
 
     exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_dias)
