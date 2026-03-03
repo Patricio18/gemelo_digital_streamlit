@@ -638,7 +638,7 @@ with right_column:
     #G R A F I C A     2
     # 1. Preparar los datos (igual que arriba)
     df = pd.DataFrame({
-        'Horas': range(10),
+        'Horas': range(11),
         'Biomasa': exp_chlorella[0:11],
         'Nitrato':exp_scenedesmus[0:11],
         'CO2': exp_planktothrix[0:11]
