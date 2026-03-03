@@ -654,7 +654,7 @@ with right_column:
         title='Cinética de Crecimiento de Microalgas',
         labels={'value': 'Cantidad de células (g/ml)',
                 'variable': 'Especie',
-                'T': 'Tiempo (días)'}, # Etiquetas bonitas
+                'T': 'Tiempo (días okey)'}, # Etiquetas bonitas
         markers=True # Poner puntitos en cada dato
     )
 
