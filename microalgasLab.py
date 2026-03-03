@@ -638,10 +638,10 @@ with right_column:
     #G R A F I C A     2
     # 1. Preparar los datos (igual que arriba)
     df = pd.DataFrame({
-        'Horas': range(11),
-        'Biomasa': exp_chlorella[0:11],
-        'Nitrato':exp_scenedesmus[0:11],
-        'CO2': exp_planktothrix[0:11]
+        'Horas': tiempo_horas,
+        'Biomasa': exp_chlorella,
+        'Nitrato':exp_scenedesmus,
+        'CO2': exp_planktothrix
     })
 
     # 2. Crear la gráfica con Plotly
