@@ -649,9 +649,11 @@ with right_column:
     fig = px.line(
         df, 
         x='Horas', 
-        y=['Cantidad de células (g/ml)'],
+        y=['Chlorella', 'Scenedesmus', 'Planktothrix'],
         title='Cinética de Crecimiento de Microalgas',
-        labels={'value': 'Concentración', 'variable': 'Variables'}, # Etiquetas bonitas
+        labels={'value': 'Cantidad de células (g/ml)',
+                'variable': 'Especie',
+                'T': 'Tiempo (horas)'}, # Etiquetas bonitas
         markers=True # Poner puntitos en cada dato
     )
 
