@@ -639,7 +639,7 @@ with right_column:
     #G R A F I C A     2
     # 1. Preparar los datos (igual que arriba)
     df = pd.DataFrame({
-        'Horas': tiempo_dias,
+        'Días': tiempo_dias,
         'Chlorella': exp_chlorella,
         'Scenedesmus': exp_scenedesmus,
         'Planktothrix': exp_planktothrix
@@ -649,12 +649,12 @@ with right_column:
     # En 'y' pones una LISTA con los nombres de las columnas que quieres que sean líneas
     fig = px.line(
         df, 
-        x='Dias', 
+        x='Días', 
         y=['Chlorella', 'Scenedesmus', 'Planktothrix'],
         title='Cinética de Crecimiento de Microalgas',
         labels={'value': 'Cantidad de células (g/ml)',
                 'variable': 'Especie',
-                'T': 'Tiempo (días)'}, # Etiquetas bonitas
+                'Días': 'Tiempo (días)'}, # Etiquetas bonitas
         markers=True # Poner puntitos en cada dato
     )
 
