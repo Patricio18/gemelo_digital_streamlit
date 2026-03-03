@@ -598,14 +598,40 @@ with right_column:
 
     tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
     #G R A F I C A     1
-    #st.line_chart(N)
-    curva_de_crecimiento = pd.DataFrame({
-        #nitrogeno: np.linspace(0,200,100),
-        'Chlorella': np.linspace(0,10,100),
-        'Scenedesmus': np.linspace(100,10,100),
-        'Planktothrix': np.random.normal(25,2,100)
+
+    tiempo_horas = np.linspace(0, 24, 100)
+    cantidad_inicial = 100
+
+    exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_horas)
+    exp_scenedesmus = cantidad_inicial * np.exp(st.session_state.mu_scenedesmus * tiempo_horas)
+    exp_planktothrix = cantidad_inicial * np.exp(st.session_state.mu_planktothrix * tiempo_horas)
+
+    df = pd.DataFrame({
+        'Horas': tiempo_horas,
+        'Chlorella': exp_chlorella,
+        'Scenedesmus': exp_scenedesmus,
+        'Planktothrix': exp_planktothrix
     })
-    tab1.line_chart(curva_de_crecimiento)
+
+    df_melted = df.melt(id_vars='Horas', var_name='Especie', value_name='Cantidad de células (g/ml)')
+
+    grafica_exp = alt.Chart(df_melted).mark_line().encode(
+        x=alt.X('Horas', 
+                title='Tiempo (horas)',
+                scale=alt.Scale(domain=[0, 24])
+        ),
+        y=alt.Y('Cantidad de células (g/ml)', 
+                title='Cantidad de células (g/ml)',
+                scale=alt.Scale(domain=[0, 10000])
+        ),
+    
+        color='Especie',
+        tooltip=['Horas', 'Cantidad de células (g/ml)']
+
+    ).interactive()
+
+
+    tab1.altair_chart(grafica_exp, use_container_width=True)
 
 
 
