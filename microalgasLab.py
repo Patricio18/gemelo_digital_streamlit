@@ -639,9 +639,9 @@ with right_column:
     # 1. Preparar los datos (igual que arriba)
     df = pd.DataFrame({
         'Horas': tiempo_horas,
-        'Biomasa': exp_chlorella,
-        'Nitrato':exp_scenedesmus,
-        'CO2': exp_planktothrix
+        'Chlorella': exp_chlorella,
+        'Scenedesmus': exp_scenedesmus,
+        'Planktothrix': exp_planktothrix
     })
 
     # 2. Crear la gráfica con Plotly
@@ -649,11 +649,12 @@ with right_column:
     fig = px.line(
         df, 
         x='Horas', 
-        y=['Biomasa', 'Nitrato', 'CO2'],
+        y=['Cantidad de células (g/ml)'],
         title='Cinética de Crecimiento de Microalgas',
         labels={'value': 'Concentración', 'variable': 'Variables'}, # Etiquetas bonitas
         markers=True # Poner puntitos en cada dato
     )
+
 
     # 3. Mostrar en Streamlit
     tab2.plotly_chart(fig, use_container_width=True)
