@@ -173,7 +173,7 @@ with left_column:
     #st.divider()
     st.write("--------------------")
 
-    chlorella_column, scenedesmus_column, planktothrix_column = st.columns(2)
+    chlorella_column, scenedesmus_column = st.columns(2)
     with chlorella_column:
         mu_maxChlorella = st.number_input("Tasa de crecimiento máxima de Chlorella (1/días)", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
     with scenedesmus_column:
