@@ -170,6 +170,7 @@ with left_column:
 
     #cambio_intensidad = st.session_state.intensidad_actual - st.session_state.intensidad_anterior
 
+    st.divider()
 
 
 with center_column:
