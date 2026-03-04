@@ -171,16 +171,23 @@ with left_column:
     #cambio_intensidad = st.session_state.intensidad_actual - st.session_state.intensidad_anterior
 
     #st.divider()
-    st.write("--------------------")
+    #st.write("--------------------")
 
-    chlorella_column, scenedesmus_column, planktothrix_column = st.columns(3)
-    with chlorella_column:
+    mumax_chlorella_column, mumax_scenedesmus_column, mumax_planktothrix_column = st.columns(3)
+    with mumax_chlorella_column:
         mu_maxChlorella = st.number_input("Tasa de crecimiento máxima de Chlorella (1/días)", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
-    with scenedesmus_column:
+    with mumax_scenedesmus_column:
         mu_maxScenedesmus = st.number_input("Tasa de crecimiento máxima de Scenedesmus (1/días)", min_value=0.0, max_value=5.0, value=1.5, step=0.01)
-    with planktothrix_column:
+    with mumax_planktothrix_column:
         mu_maxPlanktothrix = st.number_input("Tasa de crecimiento máxima de Planktothrix (1/días)", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
 
+    kn_chlorella_column, kn_scenedesmus_column, kn_planktothrix_column = st.columns(3)
+    with kn_chlorella_column:
+        kn_chlorella = st.number_input("Constante de semisaturación de Chlorella (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
+    with kn_scenedesmus_column:
+        kn_scenedesmus = st.number_input("Constante de semisaturación de Scenedesmus (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
+    with kn_planktothrix_column:
+        kn_planktothrix = st.number_input("Constante de semisaturación de Planktothrix (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
 
 with center_column:
     st.subheader('Visualización')
