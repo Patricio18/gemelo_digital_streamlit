@@ -170,7 +170,7 @@ with left_column:
 
     #cambio_intensidad = st.session_state.intensidad_actual - st.session_state.intensidad_anterior
 
-    #st.divider()
+    st.divider()
     #st.write("--------------------")
 
     mumax_chlorella_column, mumax_scenedesmus_column, mumax_planktothrix_column = st.columns(3)
