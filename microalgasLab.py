@@ -174,7 +174,7 @@ with left_column:
     #st.write("--------------------")
 
     mumax_chlorella_column, mumax_scenedesmus_column, mumax_planktothrix_column = st.columns(3)
-    st.markdown("# Tasa máxima de crecimiento #")
+    st.markdown("## Tasa máxima de crecimiento ##")
     with mumax_chlorella_column:
         mu_maxChlorella = st.number_input("Tasa de crecimiento máxima de Chlorella (1/días)", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
     with mumax_scenedesmus_column:
