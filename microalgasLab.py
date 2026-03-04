@@ -643,7 +643,7 @@ with right_column:
                 scale=alt.Scale(domain=[0, 10000])
         ),
     
-        #color='Especie',
+        color='Especie',
         tooltip=['Dias', 'Cantidad de células (g/ml)']
 
     ).interactive()
