@@ -646,8 +646,14 @@ with right_column:
                 title='Cantidad de células (g/ml)',
                 scale=alt.Scale(domain=[0, 10000])
         ),
-    
-        color='Especie',
+
+        color =alt.Color(
+            'Especie',
+            title='Especie',
+            scale=alt.Scale(domain=['Chlorella', 'Scenedesmus', 'Planktothrix'],
+                            range=['green', 'blue', 'orange'])
+        ),
+        #color='Especie',
         tooltip=['Dias', 'Cantidad de células (g/ml)']
 
     ).interactive()
