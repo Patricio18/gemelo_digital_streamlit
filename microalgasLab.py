@@ -541,18 +541,18 @@ with right_column:
     
 
     #E     C     U     A     C     I     Ó     N               D     E               M     O     N     O     D               P     A     R     A               C     H     L     O     R     E     L     L     A
-    #def monod(mu_max, N, Kn): 
-        #mu_max = 1.2
-        #s = 0.1
-        #Ks = 0.5
-     #   mu = mu_max * (N/(Kn + N))
-      #  return mu
+    def monod(mu_max, N, Kn): 
+        mu_max = 1.2
+        s = 0.1
+        Ks = 0.5
+        mu = mu_max * (N/(Kn + N))
+        return mu
     
     cantidad_inicial = 100
     
-    def monod(mu_max, y, N, Kn): 
-        mu = - (mu_max/y) * (N/(Kn + N)) * cantidad_inicial
-        return mu
+    #def monod(mu_max, y, N, Kn): 
+    #    mu = - (mu_max/y) * (N/(Kn + N)) * cantidad_inicial
+    #    return mu
     st.divider()
 
 
