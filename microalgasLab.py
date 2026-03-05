@@ -173,16 +173,16 @@ with left_column:
     st.divider()
     #st.write("--------------------")
     
-    st.markdown("##### Tasa máxima de crecimiento")
+    st.markdown("##### Tasa máxima de crecimiento (1/días)")
 
     mumax_chlorella_column, mumax_scenedesmus_column, mumax_planktothrix_column = st.columns(3)
     
     with mumax_chlorella_column:
-        mu_maxChlorella = st.number_input("Tasa de crecimiento máxima de Chlorella (1/días)", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
+        mu_maxChlorella = st.number_input("Chlorella", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
     with mumax_scenedesmus_column:
-        mu_maxScenedesmus = st.number_input("Tasa de crecimiento máxima de Scenedesmus (1/días)", min_value=0.0, max_value=5.0, value=1.5, step=0.01)
+        mu_maxScenedesmus = st.number_input("Scenedesmus", min_value=0.0, max_value=5.0, value=1.5, step=0.01)
     with mumax_planktothrix_column:
-        mu_maxPlanktothrix = st.number_input("Tasa de crecimiento máxima de Planktothrix (1/días)", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
+        mu_maxPlanktothrix = st.number_input("Planktothrix", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
 
     st.markdown("##### Coeficiente de sustrato")
     kn_chlorella_column, kn_scenedesmus_column, kn_planktothrix_column = st.columns(3)
