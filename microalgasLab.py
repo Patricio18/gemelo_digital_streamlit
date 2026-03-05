@@ -548,6 +548,8 @@ with right_column:
      #   mu = mu_max * (N/(Kn + N))
       #  return mu
     
+    cantidad_inicial = 100
+    
     def monod(mu_max, y, N, Kn): 
         mu = - (mu_max/y) * (N/(Kn + N)) * cantidad_inicial
         return mu
@@ -639,7 +641,7 @@ with right_column:
 
     #tiempo_horas = np.linspace(0, 24, 100)
     tiempo_dias = np.linspace(0, 10, 10)
-    cantidad_inicial = 100
+    
 
     exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_dias)
     exp_scenedesmus = cantidad_inicial * np.exp(st.session_state.mu_scenedesmus * tiempo_dias)
