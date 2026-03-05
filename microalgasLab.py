@@ -187,11 +187,11 @@ with left_column:
     st.markdown("##### Coeficiente de sustrato")
     kn_chlorella_column, kn_scenedesmus_column, kn_planktothrix_column = st.columns(3)
     with kn_chlorella_column:
-        kn_chlorella = st.number_input("Constante de saturación de Chlorella (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
+        kn_chlorella = st.number_input("Chlorella", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
     with kn_scenedesmus_column:
-        kn_scenedesmus = st.number_input("Constante de saturación de Scenedesmus (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
+        kn_scenedesmus = st.number_input("Scenedesmus", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
     with kn_planktothrix_column:
-        kn_planktothrix = st.number_input("Constante de saturación de Planktothrix (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
+        kn_planktothrix = st.number_input("Planktothrix", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
 
 with center_column:
     st.subheader('Visualización')
