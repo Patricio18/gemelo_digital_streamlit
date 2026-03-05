@@ -184,6 +184,7 @@ with left_column:
     with mumax_planktothrix_column:
         mu_maxPlanktothrix = st.number_input("Tasa de crecimiento máxima de Planktothrix (1/días)", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
 
+    st.markdown("##### Coeficiente de sustrato")
     kn_chlorella_column, kn_scenedesmus_column, kn_planktothrix_column = st.columns(3)
     with kn_chlorella_column:
         kn_chlorella = st.number_input("Constante de saturación de Chlorella (g/ml)", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
