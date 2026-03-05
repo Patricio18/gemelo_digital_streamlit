@@ -549,7 +549,7 @@ with right_column:
       #  return mu
     
     def monod(mu_max,y, N, Kn): 
-        mu = -mu_max/y * (N/(Kn + N)) * cantidad_inicial
+        mu = (-mu_max/y) * (N/(Kn + N)) * cantidad_inicial
         return mu
     st.divider()
 
