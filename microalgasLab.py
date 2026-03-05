@@ -146,7 +146,7 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
 #PROCESO PARA CREAR COLUMA DE LA IZQUIERDA QUE ES EL PANEL DE CONTROL Y SUS RERPECTIVOS ELEMENTOS
 #Left column
 with left_column:
-    st.subheader('Panel de control')
+    st.subheader('**Panel de control**')
 
     color_de_luz = st.radio(
         'Elige el color de luz',
