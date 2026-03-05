@@ -676,7 +676,12 @@ with right_column:
         labels={'value': 'Cantidad de células (g/ml)',
                 'variable': 'Especie',
                 'Días': 'Tiempo (días)'}, # Etiquetas bonitas
-        markers=True # Poner puntitos en cada dato
+        markers=True, # Poner puntitos en cada dato
+        color_discrete_map={
+            'Chlorella': 'green',
+            'Scenedesmus': 'blue',
+            'Planktothrix': 'orange'
+        }
     )
 
 
