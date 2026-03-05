@@ -551,7 +551,7 @@ with right_column:
     cantidad_inicial = 100
     
     def monod2(mu_max, y, N, Kn): 
-        mu = - (mu_max/y) * (N/(Kn + N)) * cantidad_inicial
+        mu = (- (mu_max/y) * (N/(Kn + N)) * cantidad_inicial)
         return mu
     st.divider()
 
