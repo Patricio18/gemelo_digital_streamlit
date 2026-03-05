@@ -193,6 +193,15 @@ with left_column:
     with kn_planktothrix_column:
         kn_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
 
+    st.markdown("##### Rendimiento")
+    Y_chlorella_column, Y_scenedesmus_column, Y_planktothrix_column = st.columns(3)
+    with Y_chlorella_column:
+        Y_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
+    with Y_scenedesmus_column:
+        Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
+    with Y_planktothrix_column:
+        Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
+
 with center_column:
     st.subheader('Visualización')
     pixi_html = f"""
@@ -580,8 +589,8 @@ with right_column:
             #st.session_state.color = color_de_luz
             #cambios_js = st.session_state.color
             st.rerun()
-   
-    
+
+
     
     with sub_columnaBoton2:
     
