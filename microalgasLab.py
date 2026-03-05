@@ -541,13 +541,16 @@ with right_column:
     
 
     #E     C     U     A     C     I     Ó     N               D     E               M     O     N     O     D               P     A     R     A               C     H     L     O     R     E     L     L     A
-    def monod(mu_max, N, Kn): 
+    #def monod(mu_max, N, Kn): 
         #mu_max = 1.2
         #s = 0.1
         #Ks = 0.5
-        mu = mu_max * (N/(Kn + N))
-        return mu
+     #   mu = mu_max * (N/(Kn + N))
+      #  return mu
     
+    def monod(mu_max,y, N, Kn): 
+        mu = -mu_max/y * (N/(Kn + N)) * cantidad_inicial
+        return mu
     st.divider()
 
 
@@ -562,15 +565,15 @@ with right_column:
             st.session_state.encendido = "True"
             st.session_state.nivel = intensidad
             #C    H    L    O    R    E    L    L    A
-            st.session_state.mu_chlorella = monod(mu_maxChlorella, nitrogeno, kn_chlorella)
+            st.session_state.mu_chlorella = monod(mu_maxChlorella, Y_chlorella, nitrogeno, kn_chlorella)
             st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
             st.session_state.mu_anteriorC = st.session_state.mu_chlorella
             #S    C    E    N    E    D    E    S    M    U    S
-            st.session_state.mu_scenedesmus = monod(mu_maxScenedesmus, nitrogeno, kn_scenedesmus)
+            st.session_state.mu_scenedesmus = monod(mu_maxScenedesmus, Y_scenedesmus, nitrogeno, kn_scenedesmus)
             st.session_state.mu_cambioS = st.session_state.mu_scenedesmus - st.session_state.mu_anteriorS
             st.session_state.mu_anteriorS = st.session_state.mu_scenedesmus
             #P    L    A    N    K    T    O    T    H    R    I    X
-            st.session_state.mu_planktothrix = monod(mu_maxPlanktothrix, nitrogeno, kn_planktothrix)
+            st.session_state.mu_planktothrix = monod(mu_maxPlanktothrix, Y_planktothrix, nitrogeno, kn_planktothrix)
             st.session_state.mu_cambioP = st.session_state.mu_planktothrix - st.session_state.mu_anteriorP
             st.session_state.mu_anteriorP = st.session_state.mu_planktothrix
 
@@ -713,9 +716,9 @@ with right_column:
     #G R A F I C A     3
     nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 100)
-    monod_chlorella = monod(mu_maxChlorella, rango_nitrogeno, kn_chlorella)
-    monod_scenedesmus = monod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus)
-    monod_planktothrix = monod(mu_maxPlanktothrix, rango_nitrogeno, kn_planktothrix)
+    monod_chlorella = monod(mu_maxChlorella, Y_chlorella, rango_nitrogeno, kn_chlorella)
+    monod_scenedesmus = monod(mu_maxScenedesmus, Y_scenedesmus, rango_nitrogeno, kn_scenedesmus)
+    monod_planktothrix = monod(mu_maxPlanktothrix, Y_planktothrix, rango_nitrogeno, kn_planktothrix)
 
     df_monod = pd.DataFrame({
         'Nitrógeno (g/ml)': np.linspace(0, 200, 100),
