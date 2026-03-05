@@ -146,7 +146,7 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
 #PROCESO PARA CREAR COLUMA DE LA IZQUIERDA QUE ES EL PANEL DE CONTROL Y SUS RERPECTIVOS ELEMENTOS
 #Left column
 with left_column:
-    st.subheader('**Panel de control**')
+    st.subheader('Panel de control')
 
     color_de_luz = st.radio(
         'Elige el color de luz',
@@ -173,8 +173,8 @@ with left_column:
     st.divider()
     #st.write("--------------------")
     
-    st.markdown("##### Tasa máxima de crecimiento (1/días)")
-
+    #st.markdown("##### Tasa máxima de crecimiento (1/días)")
+    st.caption("Tasa máxima de crecimiento (1/días)")
     mumax_chlorella_column, mumax_scenedesmus_column, mumax_planktothrix_column = st.columns(3)
     
     with mumax_chlorella_column:
