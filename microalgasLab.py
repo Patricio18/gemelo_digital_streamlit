@@ -567,15 +567,15 @@ with right_column:
             st.session_state.encendido = "True"
             st.session_state.nivel = intensidad
             #C    H    L    O    R    E    L    L    A
-            st.session_state.mu_chlorella = monod(mu_maxChlorella, Y_chlorella, nitrogeno, kn_chlorella)
+            st.session_state.mu_chlorella = monod(mu_maxChlorella, nitrogeno, kn_chlorella)
             st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
             st.session_state.mu_anteriorC = st.session_state.mu_chlorella
             #S    C    E    N    E    D    E    S    M    U    S
-            st.session_state.mu_scenedesmus = monod(mu_maxScenedesmus, Y_scenedesmus, nitrogeno, kn_scenedesmus)
+            st.session_state.mu_scenedesmus = monod(mu_maxScenedesmus, nitrogeno, kn_scenedesmus)
             st.session_state.mu_cambioS = st.session_state.mu_scenedesmus - st.session_state.mu_anteriorS
             st.session_state.mu_anteriorS = st.session_state.mu_scenedesmus
             #P    L    A    N    K    T    O    T    H    R    I    X
-            st.session_state.mu_planktothrix = monod(mu_maxPlanktothrix, Y_planktothrix, nitrogeno, kn_planktothrix)
+            st.session_state.mu_planktothrix = monod(mu_maxPlanktothrix, nitrogeno, kn_planktothrix)
             st.session_state.mu_cambioP = st.session_state.mu_planktothrix - st.session_state.mu_anteriorP
             st.session_state.mu_anteriorP = st.session_state.mu_planktothrix
 
