@@ -24,7 +24,7 @@ st.markdown("""
 )
 st.title("DINÁMICA POBLACIONAL DE MICROALGAS🧫")
 #st.header('Columnas')
-left_column, center_column, right_column = st.columns(3)
+center_column, right_column = st.columns(2)
 
 #encendido = 'False'
 if 'encendido' not in st.session_state:
@@ -145,13 +145,9 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
 
 
 
-st.sidebar.markdown("Panel de control")
-
-
-
 #PROCESO PARA CREAR COLUMA DE LA IZQUIERDA QUE ES EL PANEL DE CONTROL Y SUS RERPECTIVOS ELEMENTOS
 #Left column
-with left_column:
+with st.sidebar:
     st.subheader('Panel de control')
 
     color_de_luz = st.radio(
