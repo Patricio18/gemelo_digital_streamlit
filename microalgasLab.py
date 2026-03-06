@@ -25,7 +25,7 @@ st.markdown("""
 #st.title("DINÁMICA POBLACIONAL DE MICROALGAS🧫")
 st.markdown("<h1 style= 'text-align: center;'>DINÁMICA POBLACIONAL DE MICROALGAS🧫</h1>", unsafe_allow_html=True)
 #st.header('Columnas')
-center_column, right_column = st.columns(2)
+center_column, right_column = st.columns([1,2])
 
 #encendido = 'False'
 if 'encendido' not in st.session_state:
