@@ -484,42 +484,43 @@ with center_column:
 
 #Right column
 with right_column:
+    with st.container(border=True):
     #st.subheader('Experimentación y Resultados')
-    st.markdown("<h3 style= 'text-align: center;'>Experimentación y Resultados</h3>", unsafe_allow_html=True)
-    sub_col1, sub_col2, sub_col3, sub_col4 = st.columns(4)
-    with sub_col1:
-        with st.container(border=True):
-        #st.write("Color de luz: ", color_de_luz)
-            st.metric(
-                label="Color de luz",
-                value=st.session_state.color_actual,
-                delta=st.session_state.color_anterior
-            )
-    with sub_col2:
-        with st.container(border=True):
-        #st.write("Intensidad de luz:", intensidad)
-        #st.write("Células Chlorella: ", st.session_state.mu)
-            st.metric(
-                label="Intensidad de luz",
-                value=f"{intensidad}",
-                delta=f"{st.session_state.cambio_intensidad} lx"
-            )
-    with sub_col3:
-        with st.container(border=True):
-        #st.write("Temperatura: ", temperatura)
-            st.metric(
-                label="Temperatura",
-                value=temperatura,
-                delta=f"{st.session_state.cambio_temperatura}"
-            )
-    with sub_col4:
-        with st.container(border=True):
-        #st.write("Nitrógeno: ", nitrogeno)
-            st.metric(
-                label="Nitrógeno",
-                value=nitrogeno,
-                delta=f"{st.session_state.cambio_nitrogeno}"
-            )
+        st.markdown("<h3 style= 'text-align: center;'>Experimentación y Resultados</h3>", unsafe_allow_html=True)
+        sub_col1, sub_col2, sub_col3, sub_col4 = st.columns(4)
+        with sub_col1:
+            with st.container(border=True):
+            #st.write("Color de luz: ", color_de_luz)
+                st.metric(
+                    label="Color de luz",
+                    value=st.session_state.color_actual,
+                    delta=st.session_state.color_anterior
+                )
+        with sub_col2:
+            with st.container(border=True):
+            #st.write("Intensidad de luz:", intensidad)
+            #st.write("Células Chlorella: ", st.session_state.mu)
+                st.metric(
+                    label="Intensidad de luz",
+                    value=f"{intensidad}",
+                    delta=f"{st.session_state.cambio_intensidad} lx"
+                )
+        with sub_col3:
+            with st.container(border=True):
+            #st.write("Temperatura: ", temperatura)
+                st.metric(
+                    label="Temperatura",
+                    value=temperatura,
+                    delta=f"{st.session_state.cambio_temperatura}"
+                )
+        with sub_col4:
+            with st.container(border=True):
+            #st.write("Nitrógeno: ", nitrogeno)
+                st.metric(
+                    label="Nitrógeno",
+                    value=nitrogeno,
+                    delta=f"{st.session_state.cambio_nitrogeno}"
+                )
     
     st.divider()
 
