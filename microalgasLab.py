@@ -582,7 +582,7 @@ with right_column:
                 value=nitrogeno,
                 delta=f"{st.session_state.cambio_nitrogeno}"
             )
-            
+
     #tab_1, tab_2= st.tabs([ "📋Datos", "📊Gráficas"])
     #st.caption(f"el color es: {st.session_state.color}")
 
@@ -750,3 +750,4 @@ with right_column:
         grafica_resultante = (grafica_monod + capa_marcador).interactive()
         
         tab3.altair_chart(grafica_resultante, use_container_width=True)
+st.divider()
