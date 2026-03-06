@@ -175,7 +175,7 @@ with st.sidebar:
     st.divider()
     #st.write("--------------------")
     
-    with st.expander("Tasa máxima de crecimiento (1/días)", expanded=True):
+    with st.expander("Tasa máxima de crecimiento (1/días)", expanded=False):
         mu_maxChlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
         mu_maxScenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5.0, value=1.5, step=0.01)
         mu_maxPlanktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
