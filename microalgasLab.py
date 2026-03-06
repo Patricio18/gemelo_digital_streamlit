@@ -687,7 +687,7 @@ with right_column:
             df, 
             x='Días', 
             y=['Chlorella', 'Scenedesmus', 'Planktothrix'],
-            title='Cinética de Crecimiento de Microalgas',
+            #title='Cinética de Crecimiento de Microalgas',
             labels={'value': 'Cantidad de células (g/ml)',
                     'variable': 'Especie',
                     'Días': 'Tiempo (días)'}, # Etiquetas bonitas
