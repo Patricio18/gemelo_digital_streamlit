@@ -493,31 +493,34 @@ with right_column:
                 delta=st.session_state.color_anterior
             )
     with sub_col2:
+        with st.container(border=True):
         #st.write("Intensidad de luz:", intensidad)
         #st.write("Células Chlorella: ", st.session_state.mu)
-        st.metric(
-            label="Intensidad de luz",
-            value=f"{intensidad}",
-            delta=f"{st.session_state.cambio_intensidad} lx"
-        )
+            st.metric(
+                label="Intensidad de luz",
+                value=f"{intensidad}",
+                delta=f"{st.session_state.cambio_intensidad} lx"
+            )
     with sub_col3:
+        with st.container(border=True):
         #st.write("Temperatura: ", temperatura)
-        st.metric(
-            label="Temperatura",
-            value=temperatura,
-            delta=f"{st.session_state.cambio_temperatura}"
-        )
+            st.metric(
+                label="Temperatura",
+                value=temperatura,
+                delta=f"{st.session_state.cambio_temperatura}"
+            )
     with sub_col4:
+        with st.container(border=True):
         #st.write("Nitrógeno: ", nitrogeno)
-        st.metric(
-            label="Nitrógeno",
-            value=nitrogeno,
-            delta=f"{st.session_state.cambio_nitrogeno}"
-        )
+            st.metric(
+                label="Nitrógeno",
+                value=nitrogeno,
+                delta=f"{st.session_state.cambio_nitrogeno}"
+            )
     
     st.divider()
 
-    tab_1, tab_2, tab_3 = st.tabs(["📊Gráficas", "📋Datos", "📚Ecuaciones"])
+    tab_1, tab_2= st.tabs([ "📋Datos", "📊Gráficas"])
     #st.caption(f"el color es: {st.session_state.color}")
 
     
