@@ -192,6 +192,23 @@ with st.sidebar:
         Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
 
 
+
+
+    #E     C     U     A     C     I     Ó     N               D     E               M     O     N     O     D               P     A     R     A               C     H     L     O     R     E     L     L     A
+    def monod(mu_max, N, Kn): 
+        mu_max = 1.2
+        s = 0.1
+        Ks = 0.5
+        mu = mu_max * (N/(Kn + N))
+        return mu
+    
+    cantidad_inicial = 100
+    
+    def monod2(mu_max, y, N, Kn): 
+        mu = ( (mu_max/-y) * (N/(Kn + N)) * cantidad_inicial)
+        return mu
+
+
     #B     O     T     O     N     E     S
     sub_columnaBoton1, sub_columnaBoton2 = st.columns(2)
     with sub_columnaBoton1:
@@ -581,25 +598,6 @@ with right_column:
     #st.write(N)
     
     #mu = 0
-    
-
-    #E     C     U     A     C     I     Ó     N               D     E               M     O     N     O     D               P     A     R     A               C     H     L     O     R     E     L     L     A
-    def monod(mu_max, N, Kn): 
-        mu_max = 1.2
-        s = 0.1
-        Ks = 0.5
-        mu = mu_max * (N/(Kn + N))
-        return mu
-    
-    cantidad_inicial = 100
-    
-    def monod2(mu_max, y, N, Kn): 
-        mu = ( (mu_max/-y) * (N/(Kn + N)) * cantidad_inicial)
-        return mu
-    st.divider()
-
-
-
     
 
     st.divider()
