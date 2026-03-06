@@ -603,7 +603,7 @@ with right_column:
 
 
     #I   N   D   I   C   A   D   O   R   E   S               D   E               R   E   S   U   L   T   A   D   O   S
-    '''sub_col5, sub_col6, sub_col7 = st.columns(3)
+    """"sub_col5, sub_col6, sub_col7 = st.columns(3)
 
     with sub_col5:
         st.metric(
@@ -623,7 +623,7 @@ with right_column:
             label="Planktohrix",
             value=f"{st.session_state.mu_planktothrix:.4f}",
             delta=f"{st.session_state.mu_cambioP:.4f}"
-        )'''
+        )"""
 
 
 st.divider()
