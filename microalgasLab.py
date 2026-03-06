@@ -632,7 +632,7 @@ with right_column:
         #tiempo_horas = np.linspace(0, 24, 100)
         tiempo_dias = np.linspace(0, 10, 10)
         
-
+        
         exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_dias)
         exp_scenedesmus = cantidad_inicial * np.exp(st.session_state.mu_scenedesmus * tiempo_dias)
         exp_planktothrix = cantidad_inicial * np.exp(st.session_state.mu_planktothrix * tiempo_dias)
@@ -667,7 +667,7 @@ with right_column:
 
         ).interactive()
 
-
+        grafica_exp.update_layout(height=300, width=500)
         tab1.altair_chart(grafica_exp, use_container_width=True)
 
 
