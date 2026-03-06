@@ -145,7 +145,7 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
 
 
 
-st.sidebar.markdown("### Instrucciones")
+st.sidebar.markdown("Panel de control")
 
 
 
