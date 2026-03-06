@@ -156,6 +156,9 @@ with st.sidebar:
         horizontal=True
     )
     
+    with st.expander("💡 Información sobre la intensidad de luz", expanded=True):
+        mu1 = st.number_input("Tasa máxima de crecimiento de Chlorella (1/días)", min_value=0.0, max_value=5.0, value=1.2, step=0.01)  
+
     intensidad = st.slider("☀️Seleccione la Intensidad de luz (lx)", 0, 15000, 300, step=1)
     temperatura = st.slider("🌡️Seleccione la Temperatura (°C)", 0, 45, 25, step=1)
     nitrogeno = st.slider("🧪Seleccione la cantidad de Nitrógeno (g/ml)", 0, 200, 100, step=1)
