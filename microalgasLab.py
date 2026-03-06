@@ -143,6 +143,12 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
 #    # Preparamos el string para que el navegador lo entienda
 #    fuente_imagen = f"data:image/png;base64,{b64}"
 
+
+
+st.sidebar.markdown("### Instrucciones")
+
+
+
 #PROCESO PARA CREAR COLUMA DE LA IZQUIERDA QUE ES EL PANEL DE CONTROL Y SUS RERPECTIVOS ELEMENTOS
 #Left column
 with left_column:
