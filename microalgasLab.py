@@ -750,4 +750,4 @@ with right_column:
         grafica_resultante = (grafica_monod + capa_marcador).interactive()
         
         tab3.altair_chart(grafica_resultante, use_container_width=True)
-st.divider()
+        st.divider()
