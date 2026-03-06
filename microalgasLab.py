@@ -585,7 +585,7 @@ with right_column:
     
     st.divider()
 
-    tab_1, tab_2= st.tabs([ "📋Datos", "📊Gráficas"])
+    #tab_1, tab_2= st.tabs([ "📋Datos", "📊Gráficas"])
     #st.caption(f"el color es: {st.session_state.color}")
 
     
@@ -598,9 +598,6 @@ with right_column:
     #st.write(N)
     
     #mu = 0
-    
-
-    st.divider()
 
 
 
@@ -628,132 +625,134 @@ with right_column:
             delta=f"{st.session_state.mu_cambioP:.4f}"
         )
 
+    columna_inf_izq, columna_inf_centro, columna_inf_der = st.columns([1,2,1])
+    with columna_inf_izq:
 
 
 
-    #A     N     Á     L     I     S     I     S               D     E               R     E     S     U     L     T     A     D     O     S
+        #A     N     Á     L     I     S     I     S               D     E               R     E     S     U     L     T     A     D     O     S
 
-    tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
-    #G R A F I C A     1
+        tab1, tab2, tab3 = st.tabs(['Gráfica 1', 'Gráfica 2', 'Gráfica 3'])
+        #G R A F I C A     1
 
-    #tiempo_horas = np.linspace(0, 24, 100)
-    tiempo_dias = np.linspace(0, 10, 10)
-    
+        #tiempo_horas = np.linspace(0, 24, 100)
+        tiempo_dias = np.linspace(0, 10, 10)
+        
 
-    exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_dias)
-    exp_scenedesmus = cantidad_inicial * np.exp(st.session_state.mu_scenedesmus * tiempo_dias)
-    exp_planktothrix = cantidad_inicial * np.exp(st.session_state.mu_planktothrix * tiempo_dias)
+        exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_dias)
+        exp_scenedesmus = cantidad_inicial * np.exp(st.session_state.mu_scenedesmus * tiempo_dias)
+        exp_planktothrix = cantidad_inicial * np.exp(st.session_state.mu_planktothrix * tiempo_dias)
 
-    df = pd.DataFrame({
-        'Dias': tiempo_dias,
-        'Chlorella': exp_chlorella,
-        'Scenedesmus': exp_scenedesmus,
-        'Planktothrix': exp_planktothrix
-    })
+        df = pd.DataFrame({
+            'Dias': tiempo_dias,
+            'Chlorella': exp_chlorella,
+            'Scenedesmus': exp_scenedesmus,
+            'Planktothrix': exp_planktothrix
+        })
 
-    df_melted = df.melt(id_vars='Dias', var_name='Especie', value_name='Cantidad de células (g/ml)')
+        df_melted = df.melt(id_vars='Dias', var_name='Especie', value_name='Cantidad de células (g/ml)')
 
-    grafica_exp = alt.Chart(df_melted).mark_line().encode(
-        x=alt.X('Dias', 
-                title='Tiempo (días)',
-                scale=alt.Scale(domain=[0, 10])
-        ),
-        y=alt.Y('Cantidad de células (g/ml)', 
-                title='Cantidad de células (g/ml)',
-                scale=alt.Scale(domain=[0, 10000])
-        ),
+        grafica_exp = alt.Chart(df_melted).mark_line().encode(
+            x=alt.X('Dias', 
+                    title='Tiempo (días)',
+                    scale=alt.Scale(domain=[0, 10])
+            ),
+            y=alt.Y('Cantidad de células (g/ml)', 
+                    title='Cantidad de células (g/ml)',
+                    scale=alt.Scale(domain=[0, 10000])
+            ),
 
-        color =alt.Color(
-            'Especie',
-            title='Especie',
-            scale=alt.Scale(domain=['Chlorella', 'Scenedesmus', 'Planktothrix'],
-                            range=['green', 'blue', 'orange'])
-        ),
-        #color='Especie',
-        tooltip=['Dias', 'Cantidad de células (g/ml)']
+            color =alt.Color(
+                'Especie',
+                title='Especie',
+                scale=alt.Scale(domain=['Chlorella', 'Scenedesmus', 'Planktothrix'],
+                                range=['green', 'blue', 'orange'])
+            ),
+            #color='Especie',
+            tooltip=['Dias', 'Cantidad de células (g/ml)']
 
-    ).interactive()
-
-
-    tab1.altair_chart(grafica_exp, use_container_width=True)
+        ).interactive()
 
 
-
-    #G R A F I C A     2
-    # 1. Preparar los datos (igual que arriba)
-    df = pd.DataFrame({
-        'Días': tiempo_dias,
-        'Chlorella': exp_chlorella,
-        'Scenedesmus': exp_scenedesmus,
-        'Planktothrix': exp_planktothrix
-    })
-
-    # 2. Crear la gráfica con Plotly
-    # En 'y' pones una LISTA con los nombres de las columnas que quieres que sean líneas
-    fig = px.line(
-        df, 
-        x='Días', 
-        y=['Chlorella', 'Scenedesmus', 'Planktothrix'],
-        title='Cinética de Crecimiento de Microalgas',
-        labels={'value': 'Cantidad de células (g/ml)',
-                'variable': 'Especie',
-                'Días': 'Tiempo (días)'}, # Etiquetas bonitas
-        markers=True, # Poner puntitos en cada dato
-        color_discrete_map={
-            'Chlorella': 'green',
-            'Scenedesmus': 'blue',
-            'Planktothrix': 'orange'
-        }
-    )
-
-
-    # 3. Mostrar en Streamlit
-    tab2.plotly_chart(fig, use_container_width=True)
+        tab1.altair_chart(grafica_exp, use_container_width=True)
 
 
 
-    #G R A F I C A     3
-    nitrogeno_seleccionado = st.session_state.nitrogeno_actual
-    rango_nitrogeno = np.linspace(0, 200, 100)
-    monod_chlorella = monod(mu_maxChlorella, rango_nitrogeno, kn_chlorella)
-    monod_scenedesmus = monod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus)
-    monod_planktothrix = monod(mu_maxPlanktothrix, rango_nitrogeno, kn_planktothrix)
+        #G R A F I C A     2
+        # 1. Preparar los datos (igual que arriba)
+        df = pd.DataFrame({
+            'Días': tiempo_dias,
+            'Chlorella': exp_chlorella,
+            'Scenedesmus': exp_scenedesmus,
+            'Planktothrix': exp_planktothrix
+        })
 
-    df_monod = pd.DataFrame({
-        'Nitrógeno (g/ml)': np.linspace(0, 200, 100),
-        'Chlorella': monod_chlorella,
-        'Scenedesmus': monod_scenedesmus,
-        'Planktothrix': monod_planktothrix
-    })
+        # 2. Crear la gráfica con Plotly
+        # En 'y' pones una LISTA con los nombres de las columnas que quieres que sean líneas
+        fig = px.line(
+            df, 
+            x='Días', 
+            y=['Chlorella', 'Scenedesmus', 'Planktothrix'],
+            title='Cinética de Crecimiento de Microalgas',
+            labels={'value': 'Cantidad de células (g/ml)',
+                    'variable': 'Especie',
+                    'Días': 'Tiempo (días)'}, # Etiquetas bonitas
+            markers=True, # Poner puntitos en cada dato
+            color_discrete_map={
+                'Chlorella': 'green',
+                'Scenedesmus': 'blue',
+                'Planktothrix': 'orange'
+            }
+        )
 
-    df_melted = df_monod.melt(id_vars='Nitrógeno (g/ml)', var_name='Especie', value_name='Tasa de Crecimiento')
 
-    grafica_monod = alt.Chart(df_melted).mark_line().encode(
-        x=alt.X('Nitrógeno (g/ml)', 
-                title='Concentración de Nitrógeno (g/ml)',
-                scale=alt.Scale(domain=[0, 200])
-        ),
-        y=alt.Y('Tasa de Crecimiento', 
-                title='Cantidad de células (g/ml)',
-                scale=alt.Scale(domain=[0, 1.5])
-        ),  
-        color =alt.Color(
-            'Especie',
-            title='Especie',
-            scale=alt.Scale(domain=['Chlorella', 'Scenedesmus', 'Planktothrix'],
-                            range=['green', 'blue', 'orange'])
-        ),
-    )
+        # 3. Mostrar en Streamlit
+        tab2.plotly_chart(fig, use_container_width=True)
 
-    df_identificador = pd.DataFrame({"Nitrogeno seleccionado": [nitrogeno_seleccionado]})
-    capa_marcador = alt.Chart(df_identificador).mark_rule(
-        color='red',
-        strokeWidth=2,
-        strokeDash=[5,5]
-    ).encode(
-        x="Nitrogeno seleccionado"
-    )
 
-    grafica_resultante = (grafica_monod + capa_marcador).interactive()
-    
-    tab3.altair_chart(grafica_resultante, use_container_width=True)
+
+        #G R A F I C A     3
+        nitrogeno_seleccionado = st.session_state.nitrogeno_actual
+        rango_nitrogeno = np.linspace(0, 200, 100)
+        monod_chlorella = monod(mu_maxChlorella, rango_nitrogeno, kn_chlorella)
+        monod_scenedesmus = monod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus)
+        monod_planktothrix = monod(mu_maxPlanktothrix, rango_nitrogeno, kn_planktothrix)
+
+        df_monod = pd.DataFrame({
+            'Nitrógeno (g/ml)': np.linspace(0, 200, 100),
+            'Chlorella': monod_chlorella,
+            'Scenedesmus': monod_scenedesmus,
+            'Planktothrix': monod_planktothrix
+        })
+
+        df_melted = df_monod.melt(id_vars='Nitrógeno (g/ml)', var_name='Especie', value_name='Tasa de Crecimiento')
+
+        grafica_monod = alt.Chart(df_melted).mark_line().encode(
+            x=alt.X('Nitrógeno (g/ml)', 
+                    title='Concentración de Nitrógeno (g/ml)',
+                    scale=alt.Scale(domain=[0, 200])
+            ),
+            y=alt.Y('Tasa de Crecimiento', 
+                    title='Cantidad de células (g/ml)',
+                    scale=alt.Scale(domain=[0, 1.5])
+            ),  
+            color =alt.Color(
+                'Especie',
+                title='Especie',
+                scale=alt.Scale(domain=['Chlorella', 'Scenedesmus', 'Planktothrix'],
+                                range=['green', 'blue', 'orange'])
+            ),
+        )
+
+        df_identificador = pd.DataFrame({"Nitrogeno seleccionado": [nitrogeno_seleccionado]})
+        capa_marcador = alt.Chart(df_identificador).mark_rule(
+            color='red',
+            strokeWidth=2,
+            strokeDash=[5,5]
+        ).encode(
+            x="Nitrogeno seleccionado"
+        )
+
+        grafica_resultante = (grafica_monod + capa_marcador).interactive()
+        
+        tab3.altair_chart(grafica_resultante, use_container_width=True)
