@@ -490,7 +490,7 @@ with right_column:
         with st.container(border=True, height=125):
         #st.write("Color de luz: ", color_de_luz)
             st.metric(
-                st.markdown("<h4 text-align: center;'>Color de luz</h4>", unsafe_allow_html=True),
+                label="Color de luz",
                 value=st.session_state.color_actual,
                 delta=st.session_state.color_anterior
             )
@@ -499,7 +499,7 @@ with right_column:
         #st.write("Intensidad de luz:", intensidad)
         #st.write("Células Chlorella: ", st.session_state.mu)
             st.metric(
-                label="<h4 text-align: center;'>Intensidad de luz</h4>",
+                label="Intensidad de luz",
                 value=f"{intensidad}",
                 delta=f"{st.session_state.cambio_intensidad} lx"
             )
@@ -507,7 +507,7 @@ with right_column:
         with st.container(border=True, height=125):
         #st.write("Temperatura: ", temperatura)
             st.metric(
-                label="<h4 text-align: center;'>Temperatura</h4>",
+                label="Temperatura",
                 value=temperatura,
                 delta=f"{st.session_state.cambio_temperatura}"
             )
@@ -515,7 +515,7 @@ with right_column:
         with st.container(border=True, height=125):
         #st.write("Nitrógeno: ", nitrogeno)
             st.metric(
-                label="<h4>Nitrógeno</h4>",
+                label="Nitrógeno",
                 value=nitrogeno,
                 delta=f"{st.session_state.cambio_nitrogeno}"
             )
