@@ -667,7 +667,7 @@ with right_column:
 
         ).interactive()
 
-        grafica_exp.update_layout(height=300, width=500)
+        grafica_exp.update_layout(height=300)
         tab1.altair_chart(grafica_exp, use_container_width=True)
 
 
