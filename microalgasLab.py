@@ -485,12 +485,13 @@ with right_column:
 
     sub_col1, sub_col2, sub_col3, sub_col4 = st.columns(4)
     with sub_col1:
+        with st.container(border=True):
         #st.write("Color de luz: ", color_de_luz)
-        st.metric(
-            label="Color de luz",
-            value=st.session_state.color_actual,
-            delta=st.session_state.color_anterior
-        )
+            st.metric(
+                label="Color de luz",
+                value=st.session_state.color_actual,
+                delta=st.session_state.color_anterior
+            )
     with sub_col2:
         #st.write("Intensidad de luz:", intensidad)
         #st.write("Células Chlorella: ", st.session_state.mu)
