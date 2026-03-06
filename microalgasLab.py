@@ -514,6 +514,9 @@ with right_column:
             delta=f"{st.session_state.cambio_nitrogeno}"
         )
     
+    st.divider()
+
+    tab_1, tab_2, tab_3 = st.tabs(["📊Gráficas", "📋Datos", "📚Ecuaciones"])
     #st.caption(f"el color es: {st.session_state.color}")
 
     
