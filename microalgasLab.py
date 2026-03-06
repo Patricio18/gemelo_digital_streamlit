@@ -193,7 +193,7 @@ with st.sidebar:
 
 with center_column:
     #st.subheader('Visualización')
-    st.markdown("<h2 style= 'text-align: center;'>Visualización</h2>", unsafe_allow_html=True)
+    st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
     pixi_html = f"""
 <div id="canvas-div"></div>
 <script type="module">
