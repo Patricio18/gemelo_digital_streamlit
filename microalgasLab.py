@@ -22,7 +22,8 @@ st.markdown("""
 """,
     unsafe_allow_html=True
 )
-st.title("<h1 style= 'text-align: center;'> DINÁMICA POBLACIONAL DE MICROALGAS🧫</h1>", unsafe_allow_html=True)
+#st.title("DINÁMICA POBLACIONAL DE MICROALGAS🧫")
+st.markdown("<h1 style= 'text-align: center;'> DINÁMICA POBLACIONAL DE MICROALGAS🧫</h1>", unsafe_allow_html=True)
 #st.header('Columnas')
 center_column, right_column = st.columns(2)
 
