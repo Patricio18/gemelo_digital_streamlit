@@ -627,7 +627,7 @@ with right_column:
 
 
 st.divider()
-columna_inf_izq, columna_inf_centro, columna_inf_der = st.columns([1,4,1])
+columna_inf_izq, columna_inf_centro, columna_inf_der = st.columns([1,5,1])
 with columna_inf_centro:
 
     #A     N     Á     L     I     S     I     S               D     E               R     E     S     U     L     T     A     D     O     S
