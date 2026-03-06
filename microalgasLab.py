@@ -625,8 +625,8 @@ with right_column:
             delta=f"{st.session_state.mu_cambioP:.4f}"
         )
 
-    columna_inf_izq, columna_inf_centro, columna_inf_der = st.columns([1,2,1])
-    with columna_inf_izq:
+columna_inf_izq, columna_inf_centro, columna_inf_der = st.columns([1,2,1])
+with columna_inf_izq:
 
 
 
