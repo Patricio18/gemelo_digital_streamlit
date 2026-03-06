@@ -23,7 +23,7 @@ st.markdown("""
     unsafe_allow_html=True
 )
 #st.title("DINÁMICA POBLACIONAL DE MICROALGAS🧫")
-st.markdown("<h1 style= 'text-align: center;'> DINÁMICA POBLACIONAL DE MICROALGAS🧫</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style= 'text-align: center;'>DINÁMICA POBLACIONAL DE MICROALGAS🧫</h1>", unsafe_allow_html=True)
 #st.header('Columnas')
 center_column, right_column = st.columns(2)
 
@@ -483,8 +483,8 @@ with center_column:
 
 #Right column
 with right_column:
-    st.subheader('Experimentación y Resultados')
-
+    #st.subheader('Experimentación y Resultados')
+    st.markdown("<h3 style= 'text-align: center;'>Experimentación y Resultados</h3>", unsafe_allow_html=True)
     sub_col1, sub_col2, sub_col3, sub_col4 = st.columns(4)
     with sub_col1:
         with st.container(border=True):
