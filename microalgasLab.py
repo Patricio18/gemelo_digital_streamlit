@@ -180,12 +180,12 @@ with st.sidebar:
         mu_maxScenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5.0, value=1.5, step=0.01)
         mu_maxPlanktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
 
-    with st.expander("Coeficiente de sustrato", expanded=True):
+    with st.expander("Coeficiente de sustrato", expanded=False):
         kn_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
         kn_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
         kn_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=2.5, step=0.1)
 
-    with st.expander("Rendimiento", expanded=True):
+    with st.expander("Rendimiento", expanded=False):
         Y_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
         Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
         Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
