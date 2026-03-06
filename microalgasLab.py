@@ -665,6 +665,8 @@ with right_column:
             #color='Especie',
             tooltip=['Dias', 'Cantidad de células (g/ml)']
 
+        ).properties(
+            height=300
         ).interactive()
 
         grafica_exp.update_layout(height=300)
