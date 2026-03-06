@@ -503,7 +503,7 @@ with right_column:
                 value=f"{intensidad}",
                 delta=f"{st.session_state.cambio_intensidad} lx"
             )
-    #with sub_col3:
+    with sub_col3:
         with st.container(border=True, height=125):
         #st.write("Temperatura: ", temperatura)
             st.metric(
