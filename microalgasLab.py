@@ -191,6 +191,52 @@ with st.sidebar:
         Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
         Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
 
+
+    #B     O     T     O     N     E     S
+    sub_columnaBoton1, sub_columnaBoton2 = st.columns(2)
+    with sub_columnaBoton1:
+    #st.button("Instrucciones para el usuario", type="secondary", key="btn_instrucciones")
+
+        if st.button("Aplicar", type="primary", key="btn_aplicar"):
+            st.session_state.color = color_de_luz
+            st.session_state.encendido = "True"
+            st.session_state.nivel = intensidad
+            #C    H    L    O    R    E    L    L    A
+            st.session_state.mu_chlorella = monod(mu_maxChlorella, nitrogeno, kn_chlorella)
+            st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
+            st.session_state.mu_anteriorC = st.session_state.mu_chlorella
+            #S    C    E    N    E    D    E    S    M    U    S
+            st.session_state.mu_scenedesmus = monod(mu_maxScenedesmus, nitrogeno, kn_scenedesmus)
+            st.session_state.mu_cambioS = st.session_state.mu_scenedesmus - st.session_state.mu_anteriorS
+            st.session_state.mu_anteriorS = st.session_state.mu_scenedesmus
+            #P    L    A    N    K    T    O    T    H    R    I    X
+            st.session_state.mu_planktothrix = monod(mu_maxPlanktothrix, nitrogeno, kn_planktothrix)
+            st.session_state.mu_cambioP = st.session_state.mu_planktothrix - st.session_state.mu_anteriorP
+            st.session_state.mu_anteriorP = st.session_state.mu_planktothrix
+
+            st.session_state.intensidad_actual = intensidad
+            st.session_state.cambio_intensidad = st.session_state.intensidad_actual - st.session_state.intensidad_anterior
+            st.session_state.intensidad_anterior = st.session_state.intensidad_actual
+
+            st.session_state.temperatura_actual = temperatura
+            st.session_state.cambio_temperatura = st.session_state.temperatura_actual - st.session_state.temperatura_anterior
+            st.session_state.temperatura_anterior = st.session_state.temperatura_actual
+
+            st.session_state.nitrogeno_actual = nitrogeno
+            st.session_state.cambio_nitrogeno = st.session_state.nitrogeno_actual - st.session_state.nitrogeno_anterior
+            st.session_state.nitrogeno_anterior = st.session_state.nitrogeno_actual
+            #monod(nitrogeno,Kn=0.5)
+            #st.session_state.color = color_de_luz
+            #cambios_js = st.session_state.color
+            st.rerun()
+
+
+    
+    with sub_columnaBoton2:
+    
+        if st.button("Detener simulación", type="primary", key="btn_apagar"):
+            st.session_state.encendido = "False"
+            st.rerun()
 with center_column:
     #st.subheader('Visualización')
     st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
@@ -554,53 +600,9 @@ with right_column:
 
 
 
-    #B     O     T     O     N     E     S
-    sub_columnaBoton1, sub_columnaBoton2 = st.columns(2)
-    with sub_columnaBoton1:
-    #st.button("Instrucciones para el usuario", type="secondary", key="btn_instrucciones")
-
-        if st.button("Aplicar", type="primary", key="btn_aplicar"):
-            st.session_state.color = color_de_luz
-            st.session_state.encendido = "True"
-            st.session_state.nivel = intensidad
-            #C    H    L    O    R    E    L    L    A
-            st.session_state.mu_chlorella = monod(mu_maxChlorella, nitrogeno, kn_chlorella)
-            st.session_state.mu_cambioC = st.session_state.mu_chlorella - st.session_state.mu_anteriorC
-            st.session_state.mu_anteriorC = st.session_state.mu_chlorella
-            #S    C    E    N    E    D    E    S    M    U    S
-            st.session_state.mu_scenedesmus = monod(mu_maxScenedesmus, nitrogeno, kn_scenedesmus)
-            st.session_state.mu_cambioS = st.session_state.mu_scenedesmus - st.session_state.mu_anteriorS
-            st.session_state.mu_anteriorS = st.session_state.mu_scenedesmus
-            #P    L    A    N    K    T    O    T    H    R    I    X
-            st.session_state.mu_planktothrix = monod(mu_maxPlanktothrix, nitrogeno, kn_planktothrix)
-            st.session_state.mu_cambioP = st.session_state.mu_planktothrix - st.session_state.mu_anteriorP
-            st.session_state.mu_anteriorP = st.session_state.mu_planktothrix
-
-            st.session_state.intensidad_actual = intensidad
-            st.session_state.cambio_intensidad = st.session_state.intensidad_actual - st.session_state.intensidad_anterior
-            st.session_state.intensidad_anterior = st.session_state.intensidad_actual
-
-            st.session_state.temperatura_actual = temperatura
-            st.session_state.cambio_temperatura = st.session_state.temperatura_actual - st.session_state.temperatura_anterior
-            st.session_state.temperatura_anterior = st.session_state.temperatura_actual
-
-            st.session_state.nitrogeno_actual = nitrogeno
-            st.session_state.cambio_nitrogeno = st.session_state.nitrogeno_actual - st.session_state.nitrogeno_anterior
-            st.session_state.nitrogeno_anterior = st.session_state.nitrogeno_actual
-            #monod(nitrogeno,Kn=0.5)
-            #st.session_state.color = color_de_luz
-            #cambios_js = st.session_state.color
-            st.rerun()
-
-
     
-    with sub_columnaBoton2:
-    
-        if st.button("Detener simulación", type="primary", key="btn_apagar"):
-            st.session_state.encendido = "False"
-            st.rerun()
 
-            st.divider()
+    st.divider()
 
 
 
