@@ -192,7 +192,8 @@ with st.sidebar:
         Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
 
 with center_column:
-    st.subheader('Visualización')
+    #st.subheader('Visualización')
+    st.markdown("<h2 style= 'text-align: center;'>Visualización</h2>", unsafe_allow_html=True)
     pixi_html = f"""
 <div id="canvas-div"></div>
 <script type="module">
