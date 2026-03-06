@@ -582,9 +582,7 @@ with right_column:
                 value=nitrogeno,
                 delta=f"{st.session_state.cambio_nitrogeno}"
             )
-    
-    st.divider()
-
+            
     #tab_1, tab_2= st.tabs([ "📋Datos", "📊Gráficas"])
     #st.caption(f"el color es: {st.session_state.color}")
 
