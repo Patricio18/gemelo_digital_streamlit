@@ -490,7 +490,7 @@ with right_column:
         with st.container(border=True, height=125):
         #st.write("Color de luz: ", color_de_luz)
             st.metric(
-                label="<h4 text-align: center;'>Color de luz</h4>", unsafe_allow_html=True,
+                st.markdown("<h4 text-align: center;'>Color de luz</h4>", unsafe_allow_html=True),
                 value=st.session_state.color_actual,
                 delta=st.session_state.color_anterior
             )
