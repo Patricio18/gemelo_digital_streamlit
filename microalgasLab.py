@@ -701,7 +701,7 @@ with right_column:
             }
         )
 
-        fig.update_layout(height=315)
+        fig.update_layout(height=315, nticks=5)
         # 3. Mostrar en Streamlit
         tab2.plotly_chart(fig, use_container_width=True)
 
