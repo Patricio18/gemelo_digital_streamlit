@@ -191,7 +191,10 @@ with st.sidebar:
         Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
         Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
 
-
+    with st.expander("🔋Capacidad de carga", expanded=False):
+        Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
+        Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
+        Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
 
 
     #E     C     U     A     C     I     Ó     N               D     E               M     O     N     O     D               P     A     R     A               C     H     L     O     R     E     L     L     A
@@ -676,11 +679,17 @@ with right_column:
 
         #G R A F I C A     2
         # 1. Preparar los datos (igual que arriba)
+        Log_chlorella = Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial) / cantidad_inicial) * np.exp(-mu_maxChlorella * tiempo_dias))
+        Log_scenedesmus = Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial) / cantidad_inicial) * np.exp(-mu_maxScenedesmus * tiempo_dias))
+        Log_planktothrix = Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial) / cantidad_inicial) * np.exp(-mu_maxPlanktothrix * tiempo_dias))
+
+
+
         df = pd.DataFrame({
             'Días': tiempo_dias,
-            'Chlorella': exp_chlorella,
-            'Scenedesmus': exp_scenedesmus,
-            'Planktothrix': exp_planktothrix
+            'Chlorella': Log_chlorella,
+            'Scenedesmus': Log_scenedesmus,
+            'Planktothrix': Log_planktothrix
         })
 
         # 2. Crear la gráfica con Plotly
