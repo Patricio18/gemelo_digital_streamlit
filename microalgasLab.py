@@ -705,7 +705,7 @@ with right_column:
             height=315, 
             yaxis=dict(
                 tickformat=".2e",
-                nticks=10
+                nticks=7
             )
         )
         # 3. Mostrar en Streamlit
