@@ -761,3 +761,4 @@ with right_column:
         
         tab3.altair_chart(grafica_resultante, use_container_width=True)
         #st.divider()
+        #G R A F I C A     4
