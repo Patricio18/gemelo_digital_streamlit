@@ -627,7 +627,7 @@ with right_column:
     with columna_inf_centro:
 
         #A     N     Á     L     I     S     I     S               D     E               R     E     S     U     L     T     A     D     O     S
-        tab1, tab2, tab3 = st.tabs(['Cinética de crecimiento', 'Cinética de crecimiento 2', 'Modelo de Monod'])
+        tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Cinética de crecimiento', 'Cinética de crecimiento 2', 'Modelo de Monod', 'Efecto de la intensidad de luz', 'Efecto de la temperatura', 'Efecto del nitrógeno', 'Comparativa entre especies'])
         #G R A F I C A     1
         #tiempo_horas = np.linspace(0, 24, 100)
         tiempo_dias = np.linspace(0, 10, 10)
