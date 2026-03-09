@@ -749,7 +749,9 @@ with right_column:
             x="Nitrogeno seleccionado"
         )
 
-        grafica_resultante = (grafica_monod + capa_marcador).interactive()
+        grafica_resultante = (grafica_monod + capa_marcador).properties(
+            height=300
+        ).interactive()
         
         tab3.altair_chart(grafica_resultante, use_container_width=True)
         st.divider()
