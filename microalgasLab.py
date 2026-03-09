@@ -754,4 +754,4 @@ with right_column:
         ).interactive()
         
         tab3.altair_chart(grafica_resultante, use_container_width=True)
-        st.divider()
+        #st.divider()
