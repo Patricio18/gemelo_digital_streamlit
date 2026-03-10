@@ -634,7 +634,7 @@ with right_column:
         tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Crecimiento exponencial', 'Crecimiento exponencial 2', 'Tasa de crecimiento', 'Efecto de la intensidad de luz', 'Efecto de la temperatura', 'Efecto del nitrógeno', 'Comparativa entre especies'])
         #G R A F I C A     1
         #tiempo_horas = np.linspace(0, 24, 100)
-        tiempo_dias = np.linspace(0, 10, 10)
+        tiempo_dias = np.linspace(0, 20, 20)
         
         
         exp_chlorella = cantidad_inicial * np.exp(st.session_state.mu_chlorella * tiempo_dias)
