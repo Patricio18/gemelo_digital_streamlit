@@ -771,4 +771,43 @@ with right_column:
         
         tab3.altair_chart(grafica_resultante, use_container_width=True)
         #st.divider()
+        
+        
         #G R A F I C A     4
+        Log_chlorella = Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial) / cantidad_inicial) * np.exp(-mu_maxChlorella * tiempo_dias))
+        Log_scenedesmus = Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial) / cantidad_inicial) * np.exp(-mu_maxScenedesmus * tiempo_dias))
+        Log_planktothrix = Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial) / cantidad_inicial) * np.exp(-mu_maxPlanktothrix * tiempo_dias))
+        df = pd.DataFrame({
+            'Dias': tiempo_dias,
+            'Chlorella': Log_chlorella,
+            'Scenedesmus': Log_scenedesmus,
+            'Planktothrix': Log_planktothrix
+        })
+
+        df_melted = df.melt(id_vars='Dias', var_name='Especie', value_name='Cantidad de células (g/ml)')
+
+        grafica_log = alt.Chart(df_melted).mark_line().encode(
+            x=alt.X('Dias', 
+                    title='Tiempo (días)',
+                    scale=alt.Scale(domain=[0, 10])
+            ),
+            y=alt.Y('Cantidad de células (g/ml)', 
+                    title='Cantidad de células (g/ml)',
+                    scale=alt.Scale(domain=[0, 10000])
+            ),
+
+            color =alt.Color(
+                'Especie',
+                title='Especie',
+                scale=alt.Scale(domain=['Chlorella', 'Scenedesmus', 'Planktothrix'],
+                                range=['green', 'blue', 'orange'])
+            ),
+            #color='Especie',
+            tooltip=['Dias', 'Cantidad de células (g/ml)']
+
+        ).properties(
+            height=300
+        ).interactive()
+
+        #grafica_exp.update_layout(height=300)
+        tab4.altair_chart(grafica_log, use_container_width=True)
