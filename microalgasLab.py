@@ -206,7 +206,7 @@ with st.sidebar:
         mu = mu_max * (N/(Kn + N))
         return mu
     
-    cantidad_inicial = 1
+    cantidad_inicial = 100
     
     def monod2(mu_max, y, N, Kn): 
         mu = ( (mu_max/-y) * (N/(Kn + N)) * cantidad_inicial)
