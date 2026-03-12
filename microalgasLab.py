@@ -260,7 +260,7 @@ with st.sidebar:
             st.rerun()
 with center_column:
     vista1, vista2 = st.tabs(["Especies en conjunto", "Especies por separado"])
-    
+
     #st.subheader('Visualización')
     st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
     pixi_html = f"""
@@ -549,7 +549,7 @@ with center_column:
 </script>
 """
     components.html(pixi_html, height=510)
-
+    vista1.pixi_html(pixi_html, height=510)
 #Right column
 with right_column:
     #st.subheader('Experimentación y Resultados')
