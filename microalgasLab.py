@@ -548,7 +548,7 @@ with center_column:
     }})();
 </script>
 """
-    components.html(pixi_html, height=510)
+    #components.html(pixi_html, height=510)
     vista1.pixi_html(pixi_html, height=510)
 #Right column
 with right_column:
