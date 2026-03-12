@@ -259,297 +259,296 @@ with st.sidebar:
             st.session_state.encendido = "False"
             st.rerun()
 with center_column:
-    vista1, vista2 = st.tabs(["Especies en conjunto", "Especies por separado"])
+    #vista1, vista2 = st.tabs(["Especies en conjunto", "Especies por separado"])
+    
+    #st.subheader('Visualización')
+    st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
+    pixi_html = f"""
+<div id="canvas-div"></div>
+<script type="module">
+    import {{ Application, Assets, Sprite, Ticker }} from 'https://cdn.jsdelivr.net/npm/pixi.js@8.1.0/dist/pixi.mjs';
 
-    with vista1:
-        #st.subheader('Visualización')
-        st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
-        pixi_html = f"""
-    <div id="canvas-div"></div>
-    <script type="module">
-        import {{ Application, Assets, Sprite, Ticker }} from 'https://cdn.jsdelivr.net/npm/pixi.js@8.1.0/dist/pixi.mjs';
+    (async () => {{
+        // Crear App
+        const app = new Application();
+        await app.init({{ width: 400, height: 600, backgroundAlpha: 0 }});
+        document.getElementById("canvas-div").appendChild(app.canvas);
 
-        (async () => {{
-            // Crear App
-            const app = new Application();
-            await app.init({{ width: 400, height: 600, backgroundAlpha: 0 }});
-            document.getElementById("canvas-div").appendChild(app.canvas);
+        // Cargar Imagen (usando el texto base64 de Python)
+        const textura = await Assets.load('{img_biorreactor1}');       
+        // Crear Sprite y mostrarlo
+        const biorreactor = new Sprite(textura);
+        biorreactor.anchor.set(0.5);          // Centro de la imagen
+        biorreactor.scale.set(1,0.8);
+        biorreactor.x = app.screen.width / 2; // Centro de la pantalla
+        biorreactor.y = 225;      
+        // Ajustar tamaño para que quepa (opcional)
+        //if (biorreactor.width > 300) biorreactor.scale.set(300 / biorreactor.width);
 
-            // Cargar Imagen (usando el texto base64 de Python)
-            const textura = await Assets.load('{img_biorreactor1}');       
-            // Crear Sprite y mostrarlo
-            const biorreactor = new Sprite(textura);
-            biorreactor.anchor.set(0.5);          // Centro de la imagen
-            biorreactor.scale.set(1,0.8);
-            biorreactor.x = app.screen.width / 2; // Centro de la pantalla
-            biorreactor.y = 225;      
-            // Ajustar tamaño para que quepa (opcional)
-            //if (biorreactor.width > 300) biorreactor.scale.set(300 / biorreactor.width);
+        const totalMicroalgasC = {cantidadMicroalgasC};
+        const totalMicroalgasS = {cantidadMicroalgasS};
+        const totalMicroalgasP = {cantidadMicroalgasP};
 
-            const totalMicroalgasC = {cantidadMicroalgasC};
-            const totalMicroalgasS = {cantidadMicroalgasS};
-            const totalMicroalgasP = {cantidadMicroalgasP};
+        const textura2 = await Assets.load('{img_lampara1}');
+        const lampara = new Sprite(textura2);
+        lampara.anchor.set(0.5);
+        lampara.scale.set(0.62,0.5);
+        lampara.rotation = (Math.PI * 1.5);
+        lampara.x = 15;
+        lampara.y = 380;
+        //if (lampara.width > 300) lampara.scale.set(300 / lampara.width);
 
-            const textura2 = await Assets.load('{img_lampara1}');
-            const lampara = new Sprite(textura2);
-            lampara.anchor.set(0.5);
-            lampara.scale.set(0.62,0.5);
-            lampara.rotation = (Math.PI * 1.5);
-            lampara.x = 15;
-            lampara.y = 380;
-            //if (lampara.width > 300) lampara.scale.set(300 / lampara.width);
-
-            const textura3 = await Assets.load('{img_lampara1}');
-            const lampara2 = new Sprite(textura3);
-            lampara2.anchor.set(0.5);
-            lampara2.scale.set(0.62,0.5);
-            lampara2.rotation = (Math.PI * 1.5);
-            lampara2.x = 350;
-            lampara2.y = 250;
-            //if (lampara2.width > 300) lampara2.scale.set(300 / lampara2.width);
+        const textura3 = await Assets.load('{img_lampara1}');
+        const lampara2 = new Sprite(textura3);
+        lampara2.anchor.set(0.5);
+        lampara2.scale.set(0.62,0.5);
+        lampara2.rotation = (Math.PI * 1.5);
+        lampara2.x = 350;
+        lampara2.y = 250;
+        //if (lampara2.width > 300) lampara2.scale.set(300 / lampara2.width);
 
 
-            const textura7 = await Assets.load('{img_lampara_amarilla1}');
-            const lamp_amarilla = new Sprite(textura7);
-            lamp_amarilla.anchor.set(0.5);
-            lamp_amarilla.scale.set(0.62,0.5);
-            lamp_amarilla.rotation = (Math.PI * 1.5);
-            
-            const textura8 = await Assets.load('{img_lampara_roja1}');
-            const lamp_roja = new Sprite(textura8);
-            lamp_roja.anchor.set(0.5);
-            lamp_roja.scale.set(0.62,0.5);
-            lamp_roja.rotation = (Math.PI * 1.5);
+        const textura7 = await Assets.load('{img_lampara_amarilla1}');
+        const lamp_amarilla = new Sprite(textura7);
+        lamp_amarilla.anchor.set(0.5);
+        lamp_amarilla.scale.set(0.62,0.5);
+        lamp_amarilla.rotation = (Math.PI * 1.5);
+        
+        const textura8 = await Assets.load('{img_lampara_roja1}');
+        const lamp_roja = new Sprite(textura8);
+        lamp_roja.anchor.set(0.5);
+        lamp_roja.scale.set(0.62,0.5);
+        lamp_roja.rotation = (Math.PI * 1.5);
 
-            const textura9 = await Assets.load('{img_lampara_verde1}');
-            const lamp_verde = new Sprite(textura9);
-            lamp_verde.anchor.set(0.5);
-            lamp_verde.scale.set(0.62,0.5);
-            lamp_verde.rotation = (Math.PI * 1.5);
+        const textura9 = await Assets.load('{img_lampara_verde1}');
+        const lamp_verde = new Sprite(textura9);
+        lamp_verde.anchor.set(0.5);
+        lamp_verde.scale.set(0.62,0.5);
+        lamp_verde.rotation = (Math.PI * 1.5);
 
-            const textura10 = await Assets.load('{img_lampara_violeta1}');
-            const lamp_violeta = new Sprite(textura10);
-            lamp_violeta.anchor.set(0.5);
-            lamp_violeta.scale.set(0.62,0.5);
-            lamp_violeta.rotation = (Math.PI * 1.5);
+        const textura10 = await Assets.load('{img_lampara_violeta1}');
+        const lamp_violeta = new Sprite(textura10);
+        lamp_violeta.anchor.set(0.5);
+        lamp_violeta.scale.set(0.62,0.5);
+        lamp_violeta.rotation = (Math.PI * 1.5);
 
-            const imgResplandor = await Assets.load('{img_resplandor1}');
-            const resplandor = new Sprite(imgResplandor);
-            resplandor.anchor.set(0.5,0);
-            resplandor.scale.set(0.2,0.3);
-            resplandor.rotation = (Math.PI / 2);
-            resplandor.x = 225;
-            resplandor.y = 380;
+        const imgResplandor = await Assets.load('{img_resplandor1}');
+        const resplandor = new Sprite(imgResplandor);
+        resplandor.anchor.set(0.5,0);
+        resplandor.scale.set(0.2,0.3);
+        resplandor.rotation = (Math.PI / 2);
+        resplandor.x = 225;
+        resplandor.y = 380;
 
-            const imgResplandor2 = await Assets.load('{img_resplandor1}');
-            const resplandor2 = new Sprite(imgResplandor2);
-            resplandor2.anchor.set(0.5,0);
-            resplandor2.scale.set(0.2,0.3);
-            resplandor2.rotation = (Math.PI / 2);
-            resplandor2.x = 250;
-            resplandor2.y = 360;
+        const imgResplandor2 = await Assets.load('{img_resplandor1}');
+        const resplandor2 = new Sprite(imgResplandor2);
+        resplandor2.anchor.set(0.5,0);
+        resplandor2.scale.set(0.2,0.3);
+        resplandor2.rotation = (Math.PI / 2);
+        resplandor2.x = 250;
+        resplandor2.y = 360;
 
-            const imgResplandor3 = await Assets.load('{img_resplandor1}');
-            const resplandor3 = new Sprite(imgResplandor3);
-            resplandor3.anchor.set(0.5,0);
-            resplandor3.scale.set(0.2,0.3);
-            resplandor3.rotation = (Math.PI / 2);
-            resplandor3.x = 275;
-            resplandor3.y = 345;
+        const imgResplandor3 = await Assets.load('{img_resplandor1}');
+        const resplandor3 = new Sprite(imgResplandor3);
+        resplandor3.anchor.set(0.5,0);
+        resplandor3.scale.set(0.2,0.3);
+        resplandor3.rotation = (Math.PI / 2);
+        resplandor3.x = 275;
+        resplandor3.y = 345;
 
-            const imgResplandor4 = await Assets.load('{img_resplandor1}');
-            const resplandor4 = new Sprite(imgResplandor4);
-            resplandor4.anchor.set(0.5,0);
-            resplandor4.scale.set(0.2,0.3);
-            resplandor4.rotation = (Math.PI / 2);
-            resplandor4.x = 495;
-            resplandor4.y = 250;
+        const imgResplandor4 = await Assets.load('{img_resplandor1}');
+        const resplandor4 = new Sprite(imgResplandor4);
+        resplandor4.anchor.set(0.5,0);
+        resplandor4.scale.set(0.2,0.3);
+        resplandor4.rotation = (Math.PI / 2);
+        resplandor4.x = 495;
+        resplandor4.y = 250;
 
-            const imgResplandor5 = await Assets.load('{img_resplandor1}');
-            const resplandor5 = new Sprite(imgResplandor5);
-            resplandor5.anchor.set(0.5,0);
-            resplandor5.scale.set(0.2,0.3);
-            resplandor5.rotation = (Math.PI / 2);
-            resplandor5.x = 470;
-            resplandor5.y = 270;
+        const imgResplandor5 = await Assets.load('{img_resplandor1}');
+        const resplandor5 = new Sprite(imgResplandor5);
+        resplandor5.anchor.set(0.5,0);
+        resplandor5.scale.set(0.2,0.3);
+        resplandor5.rotation = (Math.PI / 2);
+        resplandor5.x = 470;
+        resplandor5.y = 270;
 
-            const imgResplandor6 = await Assets.load('{img_resplandor1}');
-            const resplandor6 = new Sprite(imgResplandor6);
-            resplandor6.anchor.set(0.5,0);
-            resplandor6.scale.set(0.2,0.3);
-            resplandor6.rotation = (Math.PI / 2);
-            resplandor6.x = 445;
-            resplandor6.y = 290;
+        const imgResplandor6 = await Assets.load('{img_resplandor1}');
+        const resplandor6 = new Sprite(imgResplandor6);
+        resplandor6.anchor.set(0.5,0);
+        resplandor6.scale.set(0.2,0.3);
+        resplandor6.rotation = (Math.PI / 2);
+        resplandor6.x = 445;
+        resplandor6.y = 290;
 
-            resplandor.visible = false;
-            resplandor2.visible = false;
-            resplandor3.visible = false;
-            resplandor4.visible = false;
-            resplandor5.visible = false;
-            resplandor6.visible = false;
+        resplandor.visible = false;
+        resplandor2.visible = false;
+        resplandor3.visible = false;
+        resplandor4.visible = false;
+        resplandor5.visible = false;
+        resplandor6.visible = false;
 
-            app.stage.addChild(biorreactor);
-            //app.stage.addChild(lampara);
-            //app.stage.addChild(lampara2);
-            //
-            //
-            //
-            app.stage.addChild(resplandor);
-            app.stage.addChild(resplandor2);
-            app.stage.addChild(resplandor3);
-            app.stage.addChild(resplandor4);
-            app.stage.addChild(resplandor5);
-            app.stage.addChild(resplandor6);
+        app.stage.addChild(biorreactor);
+        //app.stage.addChild(lampara);
+        //app.stage.addChild(lampara2);
+        //
+        //
+        //
+        app.stage.addChild(resplandor);
+        app.stage.addChild(resplandor2);
+        app.stage.addChild(resplandor3);
+        app.stage.addChild(resplandor4);
+        app.stage.addChild(resplandor5);
+        app.stage.addChild(resplandor6);
 
-            let imagen1 = new Sprite(lampara);
-            let imagen2 = new Sprite(lampara2);
-            app.stage.addChild(imagen2);
-            app.stage.addChild(imagen1);
+        let imagen1 = new Sprite(lampara);
+        let imagen2 = new Sprite(lampara2);
+        app.stage.addChild(imagen2);
+        app.stage.addChild(imagen1);
 
-            //Crear difuminado del resplandor
-            const endAlpha = 15000;
-            //const steps = 100;
-            const niv_intensidad = {nivel_intensidad_js}
+        //Crear difuminado del resplandor
+        const endAlpha = 15000;
+        //const steps = 100;
+        const niv_intensidad = {nivel_intensidad_js}
 
-            function colorGradiente(){{
-                const alpha = niv_intensidad / endAlpha;
-                resplandor.alpha = alpha;
-                resplandor2.alpha = alpha;
-                resplandor3.alpha = alpha;
-                resplandor4.alpha = alpha;
-                resplandor5.alpha = alpha;
-                resplandor6.alpha = alpha;
+        function colorGradiente(){{
+            const alpha = niv_intensidad / endAlpha;
+            resplandor.alpha = alpha;
+            resplandor2.alpha = alpha;
+            resplandor3.alpha = alpha;
+            resplandor4.alpha = alpha;
+            resplandor5.alpha = alpha;
+            resplandor6.alpha = alpha;
+        }}
+
+        colorGradiente();
+
+        let aplicar_cambios = "{cambios_js}";
+        let encender_resplandor = "{encendido_js}";
+        let agregar_microalgas = "{encendido_js}";
+        let detener_simulacion = "{encendido_js}";
+
+        function efectuar_cambios(){{
+            //colorGradiente();
+            if(encender_resplandor === "True"){{
+                resplandor.visible = true;
+                resplandor2.visible = true;
+                resplandor3.visible = true;
+                resplandor4.visible = true;
+                resplandor5.visible = true;
+                resplandor6.visible = true;
+            }}    
+        
+            if(aplicar_cambios === "🟡Amarillo"){{
+                imagen1.texture = lamp_amarilla.texture;
+                imagen2.texture = lamp_amarilla.texture;
+                resplandor.tint = 0xffff00;
+                resplandor2.tint = 0xffff00;
+                resplandor3.tint = 0xffff00;
+                resplandor4.tint = 0xffff00;
+                resplandor5.tint = 0xffff00;
+                resplandor6.tint = 0xffff00;
             }}
-
-            colorGradiente();
-
-            let aplicar_cambios = "{cambios_js}";
-            let encender_resplandor = "{encendido_js}";
-            let agregar_microalgas = "{encendido_js}";
-            let detener_simulacion = "{encendido_js}";
-
-            function efectuar_cambios(){{
-                //colorGradiente();
-                if(encender_resplandor === "True"){{
-                    resplandor.visible = true;
-                    resplandor2.visible = true;
-                    resplandor3.visible = true;
-                    resplandor4.visible = true;
-                    resplandor5.visible = true;
-                    resplandor6.visible = true;
-                }}    
-            
-                if(aplicar_cambios === "🟡Amarillo"){{
-                    imagen1.texture = lamp_amarilla.texture;
-                    imagen2.texture = lamp_amarilla.texture;
-                    resplandor.tint = 0xffff00;
-                    resplandor2.tint = 0xffff00;
-                    resplandor3.tint = 0xffff00;
-                    resplandor4.tint = 0xffff00;
-                    resplandor5.tint = 0xffff00;
-                    resplandor6.tint = 0xffff00;
-                }}
-                else if(aplicar_cambios === "🔴Rojo"){{
-                    imagen1.texture = lamp_roja.texture;
-                    imagen2.texture = lamp_roja.texture;
-                    resplandor.tint=0xff0000;
-                    resplandor2.tint = 0xff0000;
-                    resplandor3.tint = 0xff0000;
-                    resplandor4.tint = 0xff0000;
-                    resplandor5.tint = 0xff0000;
-                    resplandor6.tint = 0xff0000;
-                }}
-                else if(aplicar_cambios === "🟢Verde"){{
-                    imagen1.texture = lamp_verde.texture;
-                    imagen2.texture = lamp_verde.texture;
-                    resplandor.tint=0x00ff00;
-                    resplandor2.tint = 0x00ff00;
-                    resplandor3.tint = 0x00ff00;
-                    resplandor4.tint = 0x00ff00;
-                    resplandor5.tint = 0x00ff00;
-                    resplandor6.tint = 0x00ff00;
-                }}
-                else if(aplicar_cambios === "🟣Violeta"){{
-                    imagen1.texture = lamp_violeta.texture;
-                    imagen2.texture = lamp_violeta.texture;
-                    resplandor.tint=0x8800ff;
-                    resplandor2.tint = 0x8800ff;
-                    resplandor3.tint = 0x8800ff;
-                    resplandor4.tint = 0x8800ff;
-                    resplandor5.tint = 0x8800ff;
-                    resplandor6.tint = 0x8800ff;
-                }}
+            else if(aplicar_cambios === "🔴Rojo"){{
+                imagen1.texture = lamp_roja.texture;
+                imagen2.texture = lamp_roja.texture;
+                resplandor.tint=0xff0000;
+                resplandor2.tint = 0xff0000;
+                resplandor3.tint = 0xff0000;
+                resplandor4.tint = 0xff0000;
+                resplandor5.tint = 0xff0000;
+                resplandor6.tint = 0xff0000;
             }}
-
-            efectuar_cambios();
-            
-            const microalgas = [];
-            if(agregar_microalgas === "True"){{
-                try {{
-                    const textura4 = await Assets.load('{img_chlorella1}');
-                    const textura5 = await Assets.load('{img_scenedesmus1}');
-                    const textura6 = await Assets.load('{img_planktothrix1}');
-                    for (let i = 0; i < totalMicroalgasC * 1000; i++) {{
-                        const chlorella = new Sprite(textura4);
-                        chlorella.anchor.set(0.5,0);
-                        chlorella.scale.set(0.01,0.01);
-                        chlorella.x = 200;
-                        chlorella.y = 270;
-                        chlorella.vx = (Math.random() - 0.5) * 0.5;
-                        chlorella.vy = (Math.random() - 0.5) * 0.5;
-                        app.stage.addChild(chlorella);
-                        microalgas.push(chlorella);
-
-                        const scenedesmus = new Sprite(textura5);
-                        scenedesmus.anchor.set(0.5,0);
-                        scenedesmus.scale.set(0.01,0.01);
-                        scenedesmus.x = 165;
-                        scenedesmus.y = 300;
-                        scenedesmus.vx = (Math.random() - 0.5) * 0.5;
-                        scenedesmus.vy = (Math.random() - 0.5) * 0.5;
-                        app.stage.addChild(scenedesmus);
-                        microalgas.push(scenedesmus);
-
-                        const planktothrix = new Sprite(textura6);
-                        planktothrix.anchor.set(0.5,0);
-                        planktothrix.scale.set(0.01,0.01);
-                        planktothrix.x = 235;
-                        planktothrix.y = 300;
-                        planktothrix.vx = (Math.random() - 0.5) * 0.05;
-                        planktothrix.vy = (Math.random() - 0.5) * 0.05;
-                        app.stage.addChild(planktothrix);
-                        microalgas.push(planktothrix);
-                }}
-
-                }}  catch (error) {{
-                    console.error("Error al cargar la textura de Chlorella:", error);
+            else if(aplicar_cambios === "🟢Verde"){{
+                imagen1.texture = lamp_verde.texture;
+                imagen2.texture = lamp_verde.texture;
+                resplandor.tint=0x00ff00;
+                resplandor2.tint = 0x00ff00;
+                resplandor3.tint = 0x00ff00;
+                resplandor4.tint = 0x00ff00;
+                resplandor5.tint = 0x00ff00;
+                resplandor6.tint = 0x00ff00;
             }}
+            else if(aplicar_cambios === "🟣Violeta"){{
+                imagen1.texture = lamp_violeta.texture;
+                imagen2.texture = lamp_violeta.texture;
+                resplandor.tint=0x8800ff;
+                resplandor2.tint = 0x8800ff;
+                resplandor3.tint = 0x8800ff;
+                resplandor4.tint = 0x8800ff;
+                resplandor5.tint = 0x8800ff;
+                resplandor6.tint = 0x8800ff;
+            }}
+        }}
 
-            let tiempoInicio = Date.now();
-            let simulacionActiva = true;
-            let duracionSimulacion = 60000; // 60 segundos
+        efectuar_cambios();
+        
+        const microalgas = [];
+        if(agregar_microalgas === "True"){{
+            try {{
+                const textura4 = await Assets.load('{img_chlorella1}');
+                const textura5 = await Assets.load('{img_scenedesmus1}');
+                const textura6 = await Assets.load('{img_planktothrix1}');
+                for (let i = 0; i < totalMicroalgasC * 1000; i++) {{
+                    const chlorella = new Sprite(textura4);
+                    chlorella.anchor.set(0.5,0);
+                    chlorella.scale.set(0.01,0.01);
+                    chlorella.x = 200;
+                    chlorella.y = 270;
+                    chlorella.vx = (Math.random() - 0.5) * 0.5;
+                    chlorella.vy = (Math.random() - 0.5) * 0.5;
+                    app.stage.addChild(chlorella);
+                    microalgas.push(chlorella);
 
-                app.ticker.add(() => {{
-                    if (simulacionActiva !=true) return;
-                    microalgas.forEach((celula) => {{
-                        celula.x += celula.vx;
-                        celula.y += celula.vy;
-                        celula.rotation += 0.01;
+                    const scenedesmus = new Sprite(textura5);
+                    scenedesmus.anchor.set(0.5,0);
+                    scenedesmus.scale.set(0.01,0.01);
+                    scenedesmus.x = 165;
+                    scenedesmus.y = 300;
+                    scenedesmus.vx = (Math.random() - 0.5) * 0.5;
+                    scenedesmus.vy = (Math.random() - 0.5) * 0.5;
+                    app.stage.addChild(scenedesmus);
+                    microalgas.push(scenedesmus);
 
-                        // Rebotar en los bordes del biorreactor
-                        if (celula.x < 123 || celula.x > 275) celula.vx *= -1;  
-                        if (celula.y < 250 || celula.y > 330) celula.vy *= -1;
-                    }});
-                    if(detener_simulacion === "False"){{
-                        app.ticker.stop();
-                        //app.ticker.start();
-                    }}
+                    const planktothrix = new Sprite(textura6);
+                    planktothrix.anchor.set(0.5,0);
+                    planktothrix.scale.set(0.01,0.01);
+                    planktothrix.x = 235;
+                    planktothrix.y = 300;
+                    planktothrix.vx = (Math.random() - 0.5) * 0.05;
+                    planktothrix.vy = (Math.random() - 0.5) * 0.05;
+                    app.stage.addChild(planktothrix);
+                    microalgas.push(planktothrix);
+               }}
+
+            }}  catch (error) {{
+                console.error("Error al cargar la textura de Chlorella:", error);
+        }}
+
+        let tiempoInicio = Date.now();
+        let simulacionActiva = true;
+        let duracionSimulacion = 60000; // 60 segundos
+
+            app.ticker.add(() => {{
+                if (simulacionActiva !=true) return;
+                microalgas.forEach((celula) => {{
+                    celula.x += celula.vx;
+                    celula.y += celula.vy;
+                    celula.rotation += 0.01;
+
+                    // Rebotar en los bordes del biorreactor
+                    if (celula.x < 123 || celula.x > 275) celula.vx *= -1;  
+                    if (celula.y < 250 || celula.y > 330) celula.vy *= -1;
                 }});
-            }}
-        }})();
-    </script>
-    """
-        components.html(pixi_html, height=510)
+                if(detener_simulacion === "False"){{
+                    app.ticker.stop();
+                    //app.ticker.start();
+                }}
+            }});
+        }}
+    }})();
+</script>
+"""
+    components.html(pixi_html, height=510)
     
 #Right column
 with right_column:
