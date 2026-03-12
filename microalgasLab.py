@@ -259,6 +259,8 @@ with st.sidebar:
             st.session_state.encendido = "False"
             st.rerun()
 with center_column:
+    vista1, vista2 = st.tabs(["Especies en conjunto", "Especies por separado"])
+    
     #st.subheader('Visualización')
     st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
     pixi_html = f"""
