@@ -9,6 +9,8 @@ from io import BytesIO
 import os
 from PIL import Image
 import altair as alt
+import serial
+import time
 
 st.set_page_config(page_title='DigitalTwinLab', layout="wide")
 st.markdown("""
@@ -138,16 +140,16 @@ if not img_biorreactor1 or not img_lampara1 or not img_lampara_amarilla1 or not 
     st.info(f"Estoy buscando en esta carpeta: {os.getcwd()}")
     st.stop() # Se detiene aquí si no hay imagen
 
-#with open(img_biorreactor,"rb") as f:
-#    datos = f.read()
-#    b64 = base64.b64encode(datos).decode()
-#    # Preparamos el string para que el navegador lo entienda
-#    fuente_imagen = f"data:image/png;base64,{b64}"
+puerto = 'COM7'
+
+@st.cache_resource
+def iniciar_conexion(puerto):
+    try:
+        return serial.Serial(puerto, 115200, timeout=1)
+    except Exception as e:
+        return None
 
 
-
-#PROCESO PARA CREAR COLUMA DE LA IZQUIERDA QUE ES EL PANEL DE CONTROL Y SUS RERPECTIVOS ELEMENTOS
-#Left column
 with st.sidebar:
     #st.header('Panel de control')
     st.markdown("<h3 style= 'text-align: center;'>Panel de control</h3>", unsafe_allow_html=True)
@@ -239,6 +241,7 @@ with st.sidebar:
             st.session_state.cambio_intensidad = st.session_state.intensidad_actual - st.session_state.intensidad_anterior
             st.session_state.intensidad_anterior = st.session_state.intensidad_actual
 
+            #st.session_state.temperatura_actual = temperatura
             st.session_state.temperatura_actual = temperatura
             st.session_state.cambio_temperatura = st.session_state.temperatura_actual - st.session_state.temperatura_anterior
             st.session_state.temperatura_anterior = st.session_state.temperatura_actual
@@ -259,8 +262,6 @@ with st.sidebar:
             st.session_state.encendido = "False"
             st.rerun()
 with center_column:
-    vista1, vista2 = st.tabs(["Especies en conjunto", "Especies por separado"])
-    with vista1:
         #st.subheader('Visualización')
         st.markdown("<h3 style= 'text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
         pixi_html = f"""
@@ -279,9 +280,9 @@ with center_column:
             // Crear Sprite y mostrarlo
             const biorreactor = new Sprite(textura);
             biorreactor.anchor.set(0.5);          // Centro de la imagen
-            biorreactor.scale.set(0.9,0.7);
+            biorreactor.scale.set(1,0.8);
             biorreactor.x = app.screen.width / 2; // Centro de la pantalla
-            biorreactor.y = 200;      
+            biorreactor.y = 225;      
             // Ajustar tamaño para que quepa (opcional)
             //if (biorreactor.width > 300) biorreactor.scale.set(300 / biorreactor.width);
 
@@ -292,19 +293,19 @@ with center_column:
             const textura2 = await Assets.load('{img_lampara1}');
             const lampara = new Sprite(textura2);
             lampara.anchor.set(0.5);
-            lampara.scale.set(0.52,0.4);
+            lampara.scale.set(0.62,0.5);
             lampara.rotation = (Math.PI * 1.5);
-            lampara.x = 25;
-            lampara.y = 325;
+            lampara.x = 20;
+            lampara.y = 355;
             //if (lampara.width > 300) lampara.scale.set(300 / lampara.width);
 
             const textura3 = await Assets.load('{img_lampara1}');
             const lampara2 = new Sprite(textura3);
             lampara2.anchor.set(0.5);
-            lampara2.scale.set(0.52,0.4);
+            lampara2.scale.set(0.62,0.5);
             lampara2.rotation = (Math.PI * 1.5);
-            lampara2.x = 335;
-            lampara2.y = 220;
+            lampara2.x = 340;
+            lampara2.y = 230;
             //if (lampara2.width > 300) lampara2.scale.set(300 / lampara2.width);
 
 
@@ -337,48 +338,48 @@ with center_column:
             resplandor.anchor.set(0.5,0);
             resplandor.scale.set(0.2,0.3);
             resplandor.rotation = (Math.PI / 2);
-            resplandor.x = 225;
-            resplandor.y = 380;
+            resplandor.x = 220;
+            resplandor.y = 370;
 
             const imgResplandor2 = await Assets.load('{img_resplandor1}');
             const resplandor2 = new Sprite(imgResplandor2);
             resplandor2.anchor.set(0.5,0);
             resplandor2.scale.set(0.2,0.3);
             resplandor2.rotation = (Math.PI / 2);
-            resplandor2.x = 250;
-            resplandor2.y = 360;
+            resplandor2.x = 245;
+            resplandor2.y = 350;
 
             const imgResplandor3 = await Assets.load('{img_resplandor1}');
             const resplandor3 = new Sprite(imgResplandor3);
             resplandor3.anchor.set(0.5,0);
             resplandor3.scale.set(0.2,0.3);
             resplandor3.rotation = (Math.PI / 2);
-            resplandor3.x = 275;
-            resplandor3.y = 345;
+            resplandor3.x = 270;
+            resplandor3.y = 335;
 
             const imgResplandor4 = await Assets.load('{img_resplandor1}');
             const resplandor4 = new Sprite(imgResplandor4);
             resplandor4.anchor.set(0.5,0);
             resplandor4.scale.set(0.2,0.3);
             resplandor4.rotation = (Math.PI / 2);
-            resplandor4.x = 495;
-            resplandor4.y = 250;
+            resplandor4.x = 500;
+            resplandor4.y = 240;
 
             const imgResplandor5 = await Assets.load('{img_resplandor1}');
             const resplandor5 = new Sprite(imgResplandor5);
             resplandor5.anchor.set(0.5,0);
             resplandor5.scale.set(0.2,0.3);
             resplandor5.rotation = (Math.PI / 2);
-            resplandor5.x = 470;
-            resplandor5.y = 270;
+            resplandor5.x = 475;
+            resplandor5.y = 260;
 
             const imgResplandor6 = await Assets.load('{img_resplandor1}');
             const resplandor6 = new Sprite(imgResplandor6);
             resplandor6.anchor.set(0.5,0);
             resplandor6.scale.set(0.2,0.3);
             resplandor6.rotation = (Math.PI / 2);
-            resplandor6.x = 445;
-            resplandor6.y = 290;
+            resplandor6.x = 450;
+            resplandor6.y = 280;
 
             resplandor.visible = false;
             resplandor2.visible = false;
@@ -576,14 +577,50 @@ with right_column:
                 value=f"{intensidad}",
                 delta=f"{st.session_state.cambio_intensidad} lx"
             )
+    
     with sub_col3:
-        with st.container(border=True, height=135):
+        @st.fragment(run_every=15)
+        def actualizar_temperatura():
+            ser = iniciar_conexion(puerto)
+        #with st.container(border=True, height=135):
         #st.write("Temperatura: ", temperatura)
-            st.metric(
-                label="Temperatura",
-                value=temperatura,
-                delta=f"{st.session_state.cambio_temperatura}"
-            )
+         #   st.metric(
+          #      label="Temperatura",
+           #     value=temperatura,
+            #    delta=f"{st.session_state.cambio_temperatura}"
+            #)
+            if ser is not None:
+                try:
+                    if ser.in_waiting > 0:
+                        linea = ser.readline().decode('utf-8').strip()
+
+                        if linea:
+                            temp_valor = float(linea)
+                            temp_cambio = temp_valor - st.session_state.temperatura_anterior
+                            #temp_anterior = temp_valor
+                            st.metric(
+                                label="Temperatura",
+                                value=f"{temp_valor} °C",
+                                delta=f"{temp_cambio:.2f} °C"
+                            )
+                            st.session_state.temperatura_anterior = temp_valor
+                    #else:
+                    #    st.warning(f"Esperando datos de Arduino en {puerto}...")
+                    #    ser = iniciar_conexion(puerto)  # Intentar reconectar
+                    else:
+                       val_actual = st.session_state.get("temperatura_anterior", 0.0)
+                       st.metric(
+                            label="Temperatura (Esperando datos...)",
+                            value=f"{val_actual} °C",
+                            delta=f"0.00 °C"   
+                        )  
+                except Exception as e:
+                    st.warning(f"Error al leer datos de temperatura: {e}")
+            else:
+                st.error(f"No se pudo establecer conexión con Arduino en {puerto}. Mostrando temperatura del slider.")
+
+        actualizar_temperatura()
+        
     with sub_col4:
         with st.container(border=True, height=135):
         #st.write("Nitrógeno: ", nitrogeno)
@@ -817,3 +854,4 @@ with right_column:
 
         #grafica_exp.update_layout(height=300)
         tab4.altair_chart(grafica_log, use_container_width=True)
+
