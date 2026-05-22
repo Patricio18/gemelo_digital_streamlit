@@ -948,13 +948,13 @@ with right_column:
                 st.markdown("""
                 **1️⃣ Gráfica 1:** Crecimiento Exponencial.  
                 **2️⃣ Gráfica 2:** Crecimiento Logístico.  
-                **3️⃣ Gráfica 3:** Monod.
+                **3️⃣ Gráfica 3:** Monod.  
                 **4️⃣ Gráfica 4:** Crecimiento con Fotoinhibición.
                 """)
             with col_b:
                 st.markdown("""
                 **5️⃣ Gráfica 5:** Ajuste Térmico.  
-                **6️⃣ Gráfica 6:** Competencia entre especies por el Nitrógeno.
+                **6️⃣ Gráfica 6:** Competencia entre especies por el Nitrógeno.  
                 **7️⃣ Gráfica 7:** Comparativa entre especies por la intensidad de luz.
                 """)
         #--------------------------------------------------------------------------------------------------#
