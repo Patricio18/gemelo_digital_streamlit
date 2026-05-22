@@ -955,7 +955,7 @@ with right_column:
                 st.markdown("""
                 **5️⃣ Gráfica 5:** Ajuste Térmico.  
                 **6️⃣ Gráfica 6:** Competencia entre especies por el Nitrógeno.  
-                **7️⃣ Gráfica 7:** Comparativa entre especies por la intensidad de luz.
+                **7️⃣ Gráfica 7:** Competencia entre especies por la intensidad de luz.
                 """)
         #--------------------------------------------------------------------------------------------------#
         #     G   R   Á   F   I   C   A   S       D   E       C   R   E   C   I   M   I   E   N   T   O
