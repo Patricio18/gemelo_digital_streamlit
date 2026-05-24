@@ -1244,9 +1244,9 @@ if st.session_state.dibujar_grafica:
     tiempo_dias = np.linspace(0, dias_simulacion, dias_simulacion + 1) # Esto crea un rango de 0 a 30 días con un punto por cada día (31 puntos en total)
     #tiempo_dias = np.arange(0, 31)
  
-    exp_chlorella = cantidad_inicial_chlorella * np.exp(st.session_state.mu_chlorella * tiempo_dias)
-    exp_scenedesmus = cantidad_inicial_scenedesmus * np.exp(st.session_state.mu_scenedesmus * tiempo_dias)
-    exp_planktothrix = cantidad_inicial_planktothrix * np.exp(st.session_state.mu_planktothrix * tiempo_dias)
+    exp_chlorella = int(cantidad_inicial_chlorella * np.exp(st.session_state.mu_chlorella * tiempo_dias))
+    exp_scenedesmus = int(cantidad_inicial_scenedesmus * np.exp(st.session_state.mu_scenedesmus * tiempo_dias))
+    exp_planktothrix = int(cantidad_inicial_planktothrix * np.exp(st.session_state.mu_planktothrix * tiempo_dias))
 
     #Dataframe con los resultados de la cantidad de microalgas que se reproducieron en función del tiempo para cada especie
     df = pd.DataFrame({
@@ -1266,9 +1266,9 @@ if st.session_state.dibujar_grafica:
     #  G R A F I C A   2
     #/////////////////////
     # 1. Preparar los datos (igual que arriba)
-    Log_chlorella = Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial_chlorella) / cantidad_inicial_chlorella) * np.exp(-mu_maxChlorella* tiempo_dias))
-    Log_scenedesmus = Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial_scenedesmus) / cantidad_inicial_scenedesmus) * np.exp(-mu_maxScenedesmus * tiempo_dias))
-    Log_planktothrix = Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial_planktothrix) / cantidad_inicial_planktothrix) * np.exp(-mu_maxPlanktothrix * tiempo_dias))
+    Log_chlorella = int(Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial_chlorella) / cantidad_inicial_chlorella) * np.exp(-mu_maxChlorella* tiempo_dias)))
+    Log_scenedesmus = int(Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial_scenedesmus) / cantidad_inicial_scenedesmus) * np.exp(-mu_maxScenedesmus * tiempo_dias)))
+    Log_planktothrix = int(Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial_planktothrix) / cantidad_inicial_planktothrix) * np.exp(-mu_maxPlanktothrix * tiempo_dias)))
 
     df2 = pd.DataFrame({
         'Días': tiempo_dias,
