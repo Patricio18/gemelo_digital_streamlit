@@ -400,7 +400,7 @@ with st.sidebar:
                 sub_col2, sub_col3, sub_col4 = st.columns(3)
                 
                 with sub_col2:
-                    with st.container(border=True, height=135):
+                    with st.container():
                         st.metric(
                             label="Intensidad de luz",
                             value=f"{sensor_luz:.2f} lx",
@@ -408,14 +408,14 @@ with st.sidebar:
                         )  
                 
                 with sub_col3:
-                    with st.container(border=True, height=135):
+                    with st.container():
                         st.metric(
                             label="Temperatura",
                             value=f"{sensor_temperatura:.2f} °C",
                             delta=f"{sensor_temperaturaCambio:.2f} °C"
                         )
                 with sub_col4:
-                    with st.container(border=True, height=135):
+                    with st.container():
                     #st.write("Nitrógeno: ", nitrogeno)
                         st.metric(
                             label="Nitrógeno",
