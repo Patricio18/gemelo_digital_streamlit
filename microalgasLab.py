@@ -1244,9 +1244,9 @@ if st.session_state.dibujar_grafica:
     tiempo_dias = np.linspace(0, dias_simulacion, dias_simulacion + 1) # Esto crea un rango de 0 a 30 días con un punto por cada día (31 puntos en total)
     #tiempo_dias = np.arange(0, 31)
  
-    exp_chlorella = int(cantidad_inicial_chlorella * np.exp(st.session_state.mu_chlorella * tiempo_dias))
-    exp_scenedesmus = int(cantidad_inicial_scenedesmus * np.exp(st.session_state.mu_scenedesmus * tiempo_dias))
-    exp_planktothrix = int(cantidad_inicial_planktothrix * np.exp(st.session_state.mu_planktothrix * tiempo_dias))
+    exp_chlorella = np.round(cantidad_inicial_chlorella * np.exp(st.session_state.mu_chlorella * tiempo_dias))
+    exp_scenedesmus = np.round(cantidad_inicial_scenedesmus * np.exp(st.session_state.mu_scenedesmus * tiempo_dias))
+    exp_planktothrix = np.round(cantidad_inicial_planktothrix * np.exp(st.session_state.mu_planktothrix * tiempo_dias))
 
     #Dataframe con los resultados de la cantidad de microalgas que se reproducieron en función del tiempo para cada especie
     df = pd.DataFrame({
@@ -1266,9 +1266,9 @@ if st.session_state.dibujar_grafica:
     #  G R A F I C A   2
     #/////////////////////
     # 1. Preparar los datos (igual que arriba)
-    Log_chlorella = int(Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial_chlorella) / cantidad_inicial_chlorella) * np.exp(-mu_maxChlorella* tiempo_dias)))
-    Log_scenedesmus = int(Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial_scenedesmus) / cantidad_inicial_scenedesmus) * np.exp(-mu_maxScenedesmus * tiempo_dias)))
-    Log_planktothrix = int(Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial_planktothrix) / cantidad_inicial_planktothrix) * np.exp(-mu_maxPlanktothrix * tiempo_dias)))
+    Log_chlorella = np.round(Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial_chlorella) / cantidad_inicial_chlorella) * np.exp(-mu_maxChlorella* tiempo_dias)))
+    Log_scenedesmus = np.round(Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial_scenedesmus) / cantidad_inicial_scenedesmus) * np.exp(-mu_maxScenedesmus * tiempo_dias)))
+    Log_planktothrix = np.round(Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial_planktothrix) / cantidad_inicial_planktothrix) * np.exp(-mu_maxPlanktothrix * tiempo_dias)))
 
     df2 = pd.DataFrame({
         'Días': tiempo_dias,
@@ -1287,9 +1287,9 @@ if st.session_state.dibujar_grafica:
     #/////////////////////
     nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 101)
-    monod_chlorella = monod(mu_maxChlorella, rango_nitrogeno, kn_chlorella)
-    monod_scenedesmus = monod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus)
-    monod_planktothrix = monod(mu_maxPlanktothrix, rango_nitrogeno, kn_planktothrix)
+    monod_chlorella = np.round(monod(mu_maxChlorella, rango_nitrogeno, kn_chlorella))
+    monod_scenedesmus = (np.roundmonod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus))
+    monod_planktothrix = np.round(monod(mu_maxPlanktothrix, rango_nitrogeno, kn_planktothrix))
 
     df_monod = pd.DataFrame({
         'Nitrógeno (mg/L)': rango_nitrogeno,
@@ -1393,9 +1393,9 @@ if st.session_state.dibujar_grafica:
 
         #GRAFICA 6
         if nitrogeno_hoy > 0:
-            mu_chl = mu_maxChlo * (nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy))
-            mu_sce = mu_maxScen * (nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy))
-            mu_plk = mu_maxPlank * (nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy))
+            mu_chl = np.round(mu_maxChlo * (nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy)))
+            mu_sce = np.round(mu_maxScen * (nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy)))
+            mu_plk = np.round(mu_maxPlank * (nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy)))
         else:
             mu_chl = mu_sce = mu_plk = 0
         
@@ -1430,9 +1430,9 @@ if st.session_state.dibujar_grafica:
         
         #GRAFICA 7
         luz_disponible = (intensidad * 0.015) * np.exp(-((alphaC*N_chlorella)+(alphaS*N_scenedesmus)+(alphaP*N_planktothrix)))
-        tasa_crecimiento_luz_chl = mu_maxChlorella * (luz_disponible/(KI_chlorella + luz_disponible))
-        tasa_crecimiento_luz_sce = mu_maxScenedesmus * (luz_disponible/(KI_scenedesmus + luz_disponible))
-        tasa_crecimiento_luz_plank = mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible))
+        tasa_crecimiento_luz_chl = np.round(mu_maxChlorella * (luz_disponible/(KI_chlorella + luz_disponible)))
+        tasa_crecimiento_luz_sce = np.round(mu_maxScenedesmus * (luz_disponible/(KI_scenedesmus + luz_disponible)))
+        tasa_crecimiento_luz_plank = np.round(mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible)))
 
         N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl)
         N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce)
