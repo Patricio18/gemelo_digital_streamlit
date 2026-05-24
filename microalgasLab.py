@@ -1288,7 +1288,7 @@ if st.session_state.dibujar_grafica:
     nitrogeno_seleccionado = st.session_state.nitrogeno_actual
     rango_nitrogeno = np.linspace(0, 200, 101)
     monod_chlorella = np.round(monod(mu_maxChlorella, rango_nitrogeno, kn_chlorella))
-    monod_scenedesmus = (np.roundmonod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus))
+    monod_scenedesmus = np.round(monod(mu_maxScenedesmus, rango_nitrogeno, kn_scenedesmus))
     monod_planktothrix = np.round(monod(mu_maxPlanktothrix, rango_nitrogeno, kn_planktothrix))
 
     df_monod = pd.DataFrame({
