@@ -371,7 +371,7 @@ with st.sidebar:
         with right_column:
           
             st.markdown("<h3 style= 'text-align: center;'>Experimentación y Resultados</h3>", unsafe_allow_html=True)
-            @st.fragment(run_every=15)
+            @st.fragment(run_every=10)
             def actualizar_datosSensores():
                 ser = iniciar_conexion(puerto)
                 sensor_temperatura = st.session_state.temperatura_anterior
