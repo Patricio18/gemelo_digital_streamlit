@@ -1266,15 +1266,15 @@ if st.session_state.dibujar_grafica:
     #  G R A F I C A   2
     #/////////////////////
     # 1. Preparar los datos (igual que arriba)
-    Log_chlorella = np.round(Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial_chlorella) / cantidad_inicial_chlorella) * np.exp(-mu_maxChlorella* tiempo_dias)))
-    Log_scenedesmus = np.round(Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial_scenedesmus) / cantidad_inicial_scenedesmus) * np.exp(-mu_maxScenedesmus * tiempo_dias)))
-    Log_planktothrix = np.round(Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial_planktothrix) / cantidad_inicial_planktothrix) * np.exp(-mu_maxPlanktothrix * tiempo_dias)))
+    Log_chlorella = Kc_chlorella / (1 + ((Kc_chlorella - cantidad_inicial_chlorella) / cantidad_inicial_chlorella) * np.exp(-mu_maxChlorella* tiempo_dias))
+    Log_scenedesmus = Kc_scenedesmus / (1 + ((Kc_scenedesmus - cantidad_inicial_scenedesmus) / cantidad_inicial_scenedesmus) * np.exp(-mu_maxScenedesmus * tiempo_dias))
+    Log_planktothrix = Kc_planktothrix / (1 + ((Kc_planktothrix - cantidad_inicial_planktothrix) / cantidad_inicial_planktothrix) * np.exp(-mu_maxPlanktothrix * tiempo_dias))
 
     df2 = pd.DataFrame({
         'Días': tiempo_dias,
-        'Chlorella': Log_chlorella,
-        'Scenedesmus': Log_scenedesmus,
-        'Planktothrix': Log_planktothrix
+        'Chlorella': np.round(Log_chlorella).astype('int64'),
+        'Scenedesmus': np.round(Log_scenedesmus).astype('int64'),
+        'Planktothrix': np.round(Log_planktothrix).astype('int64')
     })    
 
     df_melted2 = df2.melt(id_vars='Días', var_name='Especie', value_name='Cantidad de células (cel/ml)')
