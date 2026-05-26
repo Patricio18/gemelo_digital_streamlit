@@ -1437,7 +1437,7 @@ if st.session_state.dibujar_grafica:
         N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl)
         N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce)
         N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank)
-        registro_historico2.append({'Días': dia, 'Chlorella': np.roundo(N_chlorella).astype('int64'), 'Scenedesmus': np.roundo(N_scenedesmus).astype('int64'), 'Planktothrix': np.roundo(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
+        registro_historico2.append({'Días': dia, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
         df_historico2 = pd.DataFrame(registro_historico2)
         df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Especie (cel/ml)')
         #################################################################################################
