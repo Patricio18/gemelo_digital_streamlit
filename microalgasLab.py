@@ -1293,9 +1293,9 @@ if st.session_state.dibujar_grafica:
 
     df_monod = pd.DataFrame({
         'Nitrógeno (mg/L)': rango_nitrogeno,
-        'Chlorella': monod_chlorella,
-        'Scenedesmus': monod_scenedesmus,
-        'Planktothrix': monod_planktothrix
+        'Chlorella': np.round(monod_chlorella).astype('int64'), #monod_chlorella,
+        'Scenedesmus': np.round(monod_scenedesmus).astype('int64'), #monod_scenedesmus,
+        'Planktothrix': np.round(monod_planktothrix).astype('int64') # monod_planktothrix
     })
 
     #df_melted3 = df_monod.melt(id_vars='Nitrógeno (g/ml)', var_name='Especie', value_name='Tasa de Crecimiento')
@@ -1424,7 +1424,7 @@ if st.session_state.dibujar_grafica:
         N_scenedesmus += crec_sce
         N_planktothrix += crec_plk
 
-        registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
+        registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
         df_historico = pd.DataFrame(registro_historico)
         df_melted6 = df_historico.melt(id_vars=['Dias', 'Nitrógeno (mg/L)'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Consumo de Nitrogeno (mg/L)')
         
@@ -1437,7 +1437,7 @@ if st.session_state.dibujar_grafica:
         N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl)
         N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce)
         N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank)
-        registro_historico2.append({'Días': dia, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
+        registro_historico2.append({'Días': dia, 'Chlorella': np.roundo(N_chlorella).astype('int64'), 'Scenedesmus': np.roundo(N_scenedesmus).astype('int64'), 'Planktothrix': np.roundo(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
         df_historico2 = pd.DataFrame(registro_historico2)
         df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Especie (cel/ml)')
         #################################################################################################
