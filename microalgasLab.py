@@ -1244,16 +1244,16 @@ if st.session_state.dibujar_grafica:
     tiempo_dias = np.linspace(0, dias_simulacion, dias_simulacion + 1) # Esto crea un rango de 0 a 30 días con un punto por cada día (31 puntos en total)
     #tiempo_dias = np.arange(0, 31)
  
-    exp_chlorella = np.round(cantidad_inicial_chlorella * np.exp(st.session_state.mu_chlorella * tiempo_dias))
-    exp_scenedesmus = np.round(cantidad_inicial_scenedesmus * np.exp(st.session_state.mu_scenedesmus * tiempo_dias))
-    exp_planktothrix = np.round(cantidad_inicial_planktothrix * np.exp(st.session_state.mu_planktothrix * tiempo_dias))
+    exp_chlorella = cantidad_inicial_chlorella * np.exp(st.session_state.mu_chlorella * tiempo_dias)
+    exp_scenedesmus = cantidad_inicial_scenedesmus * np.exp(st.session_state.mu_scenedesmus * tiempo_dias)
+    exp_planktothrix = cantidad_inicial_planktothrix * np.exp(st.session_state.mu_planktothrix * tiempo_dias)
 
     #Dataframe con los resultados de la cantidad de microalgas que se reproducieron en función del tiempo para cada especie
     df = pd.DataFrame({
         'Dias': tiempo_dias,
-        'Chlorella': exp_chlorella,
-        'Scenedesmus': exp_scenedesmus,
-        'Planktothrix': exp_planktothrix
+        'Chlorella': np.round(exp_chlorella).astype('int64'),
+        'Scenedesmus': np.round(exp_scenedesmus).astype('int64'),
+        'Planktothrix': np.round(exp_planktothrix).astype('int64')
     })
 
 
