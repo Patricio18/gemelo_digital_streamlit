@@ -1034,7 +1034,7 @@ with right_column:
                 yaxis = dict(
                             #type='log',
                             range=[0, 5],
-                            title='Cantidad de Celtulas (mg/L)',
+                            title='Cantidad de Celtulas (cel/ml)',
                             #exponentformat='power'
                             ),
                 legend = dict(title='Especie'),
