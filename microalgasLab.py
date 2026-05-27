@@ -1293,9 +1293,9 @@ if st.session_state.dibujar_grafica:
 
     df_monod = pd.DataFrame({
         'Nitrógeno (mg/L)': rango_nitrogeno,
-        'Chlorella': np.round(monod_chlorella).astype('int64'), #monod_chlorella,
-        'Scenedesmus': np.round(monod_scenedesmus).astype('int64'), #monod_scenedesmus,
-        'Planktothrix': np.round(monod_planktothrix).astype('int64') # monod_planktothrix
+        'Chlorella': monod_chlorella, #monod_chlorella,
+        'Scenedesmus': monod_scenedesmus, #monod_scenedesmus,
+        'Planktothrix': monod_planktothrix # monod_planktothrix
     })
 
     #df_melted3 = df_monod.melt(id_vars='Nitrógeno (g/ml)', var_name='Especie', value_name='Tasa de Crecimiento')
@@ -1546,8 +1546,8 @@ if st.session_state.dibujar_grafica:
                             ),
                 yaxis = dict(
                             #type='log',
-                            range=[0, 5],
-                            title='Cantidad de Celtulas (cel/ml)',
+                            #range=[0, 5],
+                            title='Tasa específica de crecimiento (día<sup>-1</sup>)',
                             #exponentformat='power'
                             ),
                 legend = dict(title='Especie'),
