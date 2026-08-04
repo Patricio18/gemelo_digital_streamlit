@@ -455,11 +455,11 @@ with st.sidebar:
             Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
 
     with st.expander("🔋Capacidad de carga", expanded=False):
-            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=1000000.0, value=1.0, step=0.1)
+            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=50000000.0, value=1.0, step=0.1)
             st.session_state.microalgas_totales_C = Kc_chlorella
-            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=1000000.0, value=1.0, step=0.1)
+            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=50000000.0, value=1.0, step=0.1)
             st.session_state.microalgas_totales_S = Kc_scenedesmus
-            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=1000000.0, value=1.0, step=0.1)
+            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=50000000.0, value=1.0, step=0.1)
             st.session_state.microalgas_totales_P = Kc_planktothrix
 
     dias_simulacion = st.slider("Duración de la simulación (días)", 1, 30, 15, step=1)
