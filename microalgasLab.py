@@ -273,9 +273,9 @@ with st.sidebar:
                 tauS = st.number_input(":blue[Scenedesmus]", min_value=0.001, max_value=0.5, value=0.1, step=0.001, format="%.3f", key="tauS")
                 tauP = st.number_input(":orange[Planktothrix]", min_value=0.001, max_value=0.5, value=0.1, step=0.001, format="%.3f", key="tauP")
             with st.expander("Valor de la tasa de respiración (R)", expanded=False):
-                R_chlorella = st.number_input(":green[Chlorella]", min_value=0.01, max_value=0.3, value=0.05, step=0.01, key="R_chlorella")
-                R_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.01, max_value=0.3, value=0.05, step=0.01, key="R_scenedesmus")
-                R_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=0.3, value=0.05, step=0.01, key="R_planktothrix")
+                R_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_chlorella")
+                R_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_scenedesmus")
+                R_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_planktothrix")
             with st.expander("Coeficiente de saturacion luminosa", expanded=False):
                 KI_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=0.5, step=0.1, key="KI_chlorella")
                 KI_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1, key="KI_scenedesmus")
@@ -285,13 +285,13 @@ with st.sidebar:
         temperatura = st.slider("🌡️Seleccione la Temperatura (°C)", 0, 45, 25, step=1)
         with st.expander("🔥Variables de temperatura", expanded=False):
             with st.expander("Valor de la tasa metabólica de referencia", expanded=False):
-                resp_refC = st.number_input(":green[Chlorella]", min_value=0.01, max_value=0.1, value=0.05, step=0.01)
-                resp_refS = st.number_input(":blue[Scenedesmus]", min_value=0.01, max_value=0.1, value=0.05, step=0.01)
-                resp_refP = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=0.1, value=0.05, step=0.01)
+                resp_refC = st.number_input(":green[Chlorella]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
+                resp_refS = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
+                resp_refP = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
             with st.expander("Valor del Q10", expanded=False):
-                q10C = st.number_input(":green[Chlorella]", min_value=1.0, max_value=3.0, value=2.0, step=0.1)
-                q10S = st.number_input(":blue[Scenedesmus]", min_value=1.0, max_value=3.0, value=2.0, step=0.1)
-                q10P = st.number_input(":orange[Planktothrix]", min_value=1.0, max_value=3.0, value=2.0, step=0.1)
+                q10C = st.number_input(":green[Chlorella]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
+                q10S = st.number_input(":blue[Scenedesmus]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
+                q10P = st.number_input(":orange[Planktothrix]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
             with st.expander("Valor de la temperatura de referencia", expanded=False):
                 temp_refC = st.number_input(":green[Chlorella]", min_value=15, max_value=30, value=25, step=1)
                 temp_refS = st.number_input(":blue[Scenedesmus]", min_value=15, max_value=30, value=25, step=1)
@@ -318,8 +318,8 @@ with st.sidebar:
                 with st.container():
                     st.metric(
                         label="Intensidad de luz",
-                        value=f"{intensidad} lx",
-                        delta=f"{st.session_state.cambio_intensidad} lx"   
+                        value=f"{intensidad} μmol m⁻² s⁻¹",
+                        delta=f"{st.session_state.cambio_intensidad} μmol m⁻² s⁻¹"   
                     )  
                     
             with sub_col2:
