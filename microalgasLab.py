@@ -285,9 +285,9 @@ with st.sidebar:
         temperatura = st.slider("🌡️Seleccione la Temperatura (°C)", 0, 45, 25, step=1)
         with st.expander("🔥Variables de temperatura", expanded=False):
             with st.expander("Valor de la tasa metabólica de referencia", expanded=False):
-                resp_refC = st.number_input(":green[Chlorella]", min_value=0, max_value=0.5, value=0.1, step=0.1)
-                resp_refS = st.number_input(":blue[Scenedesmus]", min_value=0, max_value=0.5, value=0.1, step=0.1)
-                resp_refP = st.number_input(":orange[Planktothrix]", min_value=0, max_value=0.5, value=0.1, step=0.1)
+                resp_refC = st.number_input(":green[Chlorella]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
+                resp_refS = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
+                resp_refP = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
             with st.expander("Valor del Q10", expanded=False):
                 q10C = st.number_input(":green[Chlorella]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
                 q10S = st.number_input(":blue[Scenedesmus]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
