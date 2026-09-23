@@ -434,9 +434,9 @@ with st.sidebar:
     # ---------------------------------------------------------------------------------------------------------------#
     
     with st.expander("Cantidad inicial de microalgas (cel/ml)", expanded=False):
-            cantidad_inicial_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=1000000.0, value=10.0, step=0.1)
-            cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=1000000.0, value=10.0, step=0.1)
-            cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=1000000.0, value=10.0, step=0.1)
+            cantidad_inicial_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
+            cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
+            cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
     
     with st.expander("📈Tasa máxima de crecimiento (1/días)", expanded=False):
             mu_maxChlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
@@ -448,21 +448,21 @@ with st.sidebar:
             
 
     with st.expander("🔋Coeficiente de sustrato", expanded=False):
-            kn_chlorella = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=100.0, value=2.5, step=0.1)
-            kn_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0001, max_value=100.0, value=2.5, step=0.1)
-            kn_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0001, max_value=100.0, value=2.5, step=0.1)
+            kn_chlorella = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=100.0, value=8.584, step=0.1)
+            kn_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0001, max_value=100.0, value=8.584, step=0.1)
+            kn_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0001, max_value=100.0, value=8.584, step=0.1)
 
     with st.expander("⚡Rendimiento", expanded=False):
-            Y_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
-            Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
-            Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1)
+            Y_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=30.0, value=0.5, step=0.1)
+            Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=30.0, value=0.5, step=0.1)
+            Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=30.0, value=0.5, step=0.1)
 
     with st.expander("🔋Capacidad de carga", expanded=False):
-            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=50000000.0, value=1.0, step=0.1)
+            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10000.0, value=1.0, step=0.1)
             st.session_state.microalgas_totales_C = Kc_chlorella
-            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=50000000.0, value=1.0, step=0.1)
+            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10000.0, value=1.0, step=0.1)
             st.session_state.microalgas_totales_S = Kc_scenedesmus
-            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=50000000.0, value=1.0, step=0.1)
+            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10000.0, value=1.0, step=0.1)
             st.session_state.microalgas_totales_P = Kc_planktothrix
 
     dias_simulacion = st.slider("Duración de la simulación (días)", 1, 30, 15, step=1)
@@ -493,7 +493,7 @@ with st.sidebar:
 
     def modelo_haldane(mumax, alpha, intensidad_luz, tau, R):
         k_bar = mumax + R
-        I_umol = intensidad_luz / 54
+        I_umol = intensidad_luz
         mu_i = k_bar*((alpha*I_umol)/((tau*alpha*(I_umol**2))+(alpha*I_umol + 1))) - R
         return mu_i
 
