@@ -258,8 +258,11 @@ with st.sidebar:
             ("🟡Amarillo","🔴Rojo","🟢Verde","🟣Violeta"),
             horizontal=True
         )  
-
-        intensidad = st.slider("☀️Seleccione la Intensidad de luz (lx)", 0, 15000, 300, step=1)
+        unidad_de_luz = st.radio('Elige la unidad de luz',("μmol m⁻² s⁻¹","lux"), horizontal=True)
+        if unidad_de_luz == "μmol m⁻² s⁻¹":
+            intensidad = st.slider("☀️Seleccione la Intensidad de luz (μmol m⁻² s⁻¹)", 0, 800, 300, step=1)
+        if unidad_de_luz == "lux":
+            intensidad = st.slider("☀️Seleccione la Intensidad de luz (lux)", 0, 15000, 300, step=1)
         with st.expander("💡Variables de intensidad de luz", expanded=False):
             with st.expander("Valor de la  absorción de fotones (alpha)", expanded=False):
                 alphaC = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=0.01, value=0.001, step=0.0001, format="%.4f", key="alphaC")
