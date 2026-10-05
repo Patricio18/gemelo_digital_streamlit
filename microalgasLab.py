@@ -1417,31 +1417,45 @@ if st.session_state.dibujar_grafica:
             else:
                 lim_N_chl = lim_N_sce = lim_N_plk = 0
             
-            mu_real_chl = (mu_maxChlo * (luz_disponible/(KI_chlorella + luz_disponible))) * lim_N_chl
-            mu_real_sce = (mu_maxScen * (luz_disponible/(KI_scenedesmus + luz_disponible))) * lim_N_sce
-            mu_real_plk = (mu_maxPlank * (luz_disponible/(KI_planktothrix + luz_disponible))) * lim_N_plk
+# CORRECCIÓN 2: CONECTAR EL MODELO DE HALDANE REAL AL CICLO DE CRECIMIENTO
+            mu_luz_C = modelo_haldane(mu_maxChlo, alphaC, luz_disponible, tauC, R_chlorella)
+            mu_luz_S = modelo_haldane(mu_maxScen, alphaS, luz_disponible, tauS, R_scenedesmus)
+            mu_luz_P = modelo_haldane(mu_maxPlank, alphaP, luz_disponible, tauP, R_planktothrix)
 
-            # Crecimiento en mg/L
+            # Restricción multiplicativa: si hay inanición (lim_N = 0), detiene la fotosíntesis positiva.
+            # Se permite decaimiento si mu_luz es negativo por fotorrespiración extrema.
+            mu_real_chl = mu_luz_C * lim_N_chl if mu_luz_C > 0 else mu_luz_C
+            mu_real_sce = mu_luz_S * lim_N_sce if mu_luz_S > 0 else mu_luz_S
+            mu_real_plk = mu_luz_P * lim_N_plk if mu_luz_P > 0 else mu_luz_P
+
+            # Crecimiento tentativo en mg/L
             crec_chl = mu_real_chl * N_chlorella * dt
             crec_sce = mu_real_sce * N_scenedesmus * dt
             crec_plk = mu_real_plk * N_planktothrix * dt
 
-            # Consumo de nitrógeno nativo (mg N consumidos = mg biomasa creada / Y)
-            cons_chl = crec_chl / Y_chlorella
-            cons_sce = crec_sce / Y_scenedesmus 
-            cons_plk = crec_plk / Y_planktothrix
+            # Consumo de nitrógeno (solo las células que crecen consumen; las que mueren no suman N)
+            cons_chl = (crec_chl / Y_chlorella) if crec_chl > 0 else 0
+            cons_sce = (crec_sce / Y_scenedesmus) if crec_sce > 0 else 0
+            cons_plk = (crec_plk / Y_planktothrix) if crec_plk > 0 else 0
 
             consumo_total_hoy = cons_chl + cons_sce + cons_plk
 
-            if consumo_total_hoy > nitrogeno_hoy:
+            # CORRECCIÓN 3: CONSERVACIÓN ESTRICTA DE MASA
+            if consumo_total_hoy > nitrogeno_hoy and nitrogeno_hoy > 0:
                 reparticion = nitrogeno_hoy / consumo_total_hoy
-                cons_chl = cons_chl * reparticion
-                cons_sce = cons_sce * reparticion
-                cons_plk = cons_plk * reparticion
+                cons_chl *= reparticion
+                cons_sce *= reparticion
+                cons_plk *= reparticion
+                
+                # Se castiga el crecimiento si no hubo suficiente nitrógeno para la demanda
+                crec_chl = cons_chl * Y_chlorella
+                crec_sce = cons_sce * Y_scenedesmus
+                crec_plk = cons_plk * Y_planktothrix
+                
                 consumo_total_hoy = nitrogeno_hoy
                 st.session_state.dia_actual = dia
 
-            nitrogeno_hoy = nitrogeno_hoy - consumo_total_hoy
+            nitrogeno_hoy = max(0, nitrogeno_hoy - consumo_total_hoy)
             N_chlorella += crec_chl
             N_scenedesmus += crec_sce
             N_planktothrix += crec_plk
@@ -1459,9 +1473,9 @@ if st.session_state.dibujar_grafica:
             tasa_crecimiento_luz_plank = mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible))
 
             # CORRECCIÓN: SE MULTIPLICA LA TASA DE LUZ POR dt PARA ALINEARSE CON LA INTEGRACIÓN HORARIA Y EVITAR EXPLOSIÓN MATEMÁTICA.
-            N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl * dt)
-            N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce * dt)
-            N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank * dt)
+            #N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl * dt)
+            #N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce * dt)
+            #N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank * dt)
 
         # FUERA DEL SUB-BUCLE HORARIO: SE MANTIENE EL REGISTRO DE DATOS UNA SOLA VEZ AL DÍA COMO EN TU CÓDIGO ORIGINAL
         registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
