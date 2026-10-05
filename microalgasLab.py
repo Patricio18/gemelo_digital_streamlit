@@ -436,9 +436,9 @@ with st.sidebar:
     # ---------------------------------------------------------------------------------------------------------------#
     
     with st.expander("Cantidad inicial de microalgas (cel/ml)", expanded=False):
-            cantidad_inicial_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
-            cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
-            cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
+            cantidad_inicial_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=100000.0, value=50.0, step=0.1)
+            cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=100000.0, value=50.0, step=0.1)
+            cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=100000.0, value=50.0, step=0.1)
     
     with st.expander("📈Tasa máxima de crecimiento μmax (d⁻¹)", expanded=False):
             mu_maxChlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
@@ -1320,13 +1320,13 @@ if st.session_state.dibujar_grafica:
     haldane_planktothrix = modelo_haldane(mu_maxPlanktothrix, alphaP, rango_luz, tauP, R_planktothrix)
 
     df4 = pd.DataFrame({
-        'Intensidad de Luz (Lux)': rango_luz,
+        f'Intensidad de Luz ({unidad_de_luz})': rango_luz,
         'Chlorella': haldane_chlorella,
         'Scenedesmus': haldane_scenedesmus,
         'Planktothrix': haldane_planktothrix
     })
-    #df_melted4 = df4.melt(id_vars='Intensidad de Luz (μmol/m²/s)', var_name='Especie', value_name='Tasa metabólica ajustada')
-    total_luz = len(df4['Intensidad de Luz (Lux)'])
+    #df_melted4 = df4.melt(id_vars=f'Intensidad de Luz ({unidad_de_luz})', var_name='Especie', value_name='Tasa metabólica ajustada')
+    total_luz = len(df4[f'Intensidad de Luz ({unidad_de_luz})'])
     haldane_diario = (total_luz / total_dias)
 
     #/////////////////////
