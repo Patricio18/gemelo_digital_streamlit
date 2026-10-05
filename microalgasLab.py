@@ -154,9 +154,10 @@ if 'microalgas_totales_S' not in st.session_state:
 if 'microalgas_totales_P' not in st.session_state:
     st.session_state.microalgas_totales_P = 0
 
-cantidadMicroalgasC = st.session_state.microalgas_totales_C
-cantidadMicroalgasS = st.session_state.microalgas_totales_S
-cantidadMicroalgasP = st.session_state.microalgas_totales_P
+factor_visual = 0.1
+cantidadMicroalgasC = int(st.session_state.microalgas_totales_C * factor_visual)
+cantidadMicroalgasS = int(st.session_state.microalgas_totales_S * factor_visual)
+cantidadMicroalgasP = int(st.session_state.microalgas_totales_P * factor_visual)
 
 
 
@@ -435,10 +436,10 @@ with st.sidebar:
     #              P  A  R  Á  M  E  T  R  O  S      D  E      L  A     S  I  M  U  L  A  C  I  Ó  N
     # ---------------------------------------------------------------------------------------------------------------#
     
-    with st.expander("Cantidad inicial de microalgas (cel/ml)", expanded=False):
-            cantidad_inicial_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=100000.0, value=50.0, step=0.1)
-            cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=100000.0, value=50.0, step=0.1)
-            cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=100000.0, value=50.0, step=0.1)
+    with st.expander("Cantidad inicial de microalgas (mg/L)", expanded=False):
+            cantidad_inicial_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=1000.0, value=2.0, step=0.1)
+            cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=1000.0, value=2.0, step=0.1)
+            cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=1000.0, value=2.0, step=0.1)
     
     with st.expander("📈Tasa máxima de crecimiento μmax (d⁻¹)", expanded=False):
             mu_maxChlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
@@ -460,11 +461,11 @@ with st.sidebar:
             Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=30.0, value=0.5, step=0.01)
 
     with st.expander("🔋Capacidad de carga", expanded=False):
-            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=500000.0, value=1000.0, step=0.1)
+            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5000.0, value=1000.0, step=1.0)
             st.session_state.microalgas_totales_C = Kc_chlorella
-            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=500000.0, value=1000.0, step=0.1)
+            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5000.0, value=1000.0, step=1.0)
             st.session_state.microalgas_totales_S = Kc_scenedesmus
-            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=500000.0, value=1000.0, step=0.1)
+            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5000.0, value=1000.0, step=1.0)
             st.session_state.microalgas_totales_P = Kc_planktothrix
 
     dias_simulacion = st.slider("Duración de la simulación (días)", 1, 30, 15, step=1)
@@ -974,10 +975,10 @@ with right_column:
             graph1 = st.empty()
             df_skeleton = pd.DataFrame({
                 'Días': [0, 0, 0],
-                'Cantidad de células (cel/ml)': [0, 0, 0],
+                'Biomasa (mg/L)': [0, 0, 0],
                 'Especie': ['Chlorella', 'Scenedesmus', 'Planktothrix']
             })
-            fig_exp_vacia = px.line(df_skeleton, x='Días', y='Cantidad de células (cel/ml)', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Días', 'Cantidad de células (cel/ml)', 'Especie']).update_layout(
+            fig_exp_vacia = px.line(df_skeleton, x='Días', y='Biomasa (mg/L)', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Días', 'Biomasa (mg/L)', 'Especie']).update_layout(
                 xaxis = dict(
                             range=[0, 30],
                             title='Días'
@@ -985,7 +986,7 @@ with right_column:
                 yaxis = dict(
                             type='log',
                             range=[0, 7],
-                            title='Cantidad de células (cel/ml)',
+                            title='Biomasa (mg/L)',
                             exponentformat='power'
                             ),
                 legend = dict(title='Especie'),
@@ -1000,10 +1001,10 @@ with right_column:
             graph2 = st.empty()
             df_skeleton2 = pd.DataFrame({
                 'Días': [0, 0, 0],
-                'Cantidad de células (cel/ml)': [0, 0, 0],
+                'Biomasa (mg/L)': [0, 0, 0],
                 'Especie': ['Chlorella', 'Scenedesmus', 'Planktothrix']
             })
-            fig_log_vacia = px.line(df_skeleton2, x='Días', y='Cantidad de células (cel/ml)', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Días', 'Cantidad de células (cel/ml)', 'Especie']).update_layout(
+            fig_log_vacia = px.line(df_skeleton2, x='Días', y='Biomasa (mg/L)', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Días', 'Biomasa (mg/L)', 'Especie']).update_layout(
                 xaxis = dict(
                             range=[0, 30],
                             title='Días'
@@ -1011,7 +1012,7 @@ with right_column:
                 yaxis = dict(
                             type='log',
                             range=[0, 7],
-                            title='Cantidad de células (cel/ml)',
+                            title='Biomasa (mg/L)',
                             exponentformat='power'
                             ),
                 legend = dict(title='Especie'),
@@ -1041,7 +1042,7 @@ with right_column:
                 yaxis = dict(
                             #type='log',
                             range=[0, 5],
-                            title='Cantidad de Celtulas (cel/ml)',
+                            title='Biomasa (mg/L)',
                             #exponentformat='power'
                             ),
                 legend = dict(title='Especie'),
@@ -1164,7 +1165,7 @@ with right_column:
                             ),
                 yaxis = dict(
                             #range=[0, 200],
-                            title='Cantidad de celulas (cel/ml)',
+                            title='Biomasa (mg/L)',
                             exponentformat='power'
                             ),
 
@@ -1213,20 +1214,20 @@ with right_column:
                 pd.DataFrame({
                     'Dia': [0, 0, 0],
                     'Especie': ['Chlorella', 'Scenedesmus', 'Planktothrix'],
-                    'Cantidad de celulas (cel/ml)': [0, 0, 0]
+                    'Biomasa (mg/L)': [0, 0, 0]
                 }),
                 x='Dia',
-                y='Cantidad de celulas (cel/ml)',
+                y='Biomasa (mg/L)',
                 color='Especie',
                 color_discrete_sequence=['blue', 'green', 'orange'],
-                hover_data=['Dia', 'Cantidad de celulas (cel/ml)', 'Especie']
+                hover_data=['Dia', 'Biomasa (mg/L)', 'Especie']
             ).update_layout(
                 xaxis = dict(
                     range=[0, 30],
                     title='Días',
                 ),
                 yaxis = dict(
-                    title='Cantidad de celulas (cel/ml)',
+                    title='Biomasa (mg/L)',
                     type='log',
                     range=[0, 5],
                     exponentformat='power'
@@ -1265,9 +1266,9 @@ if st.session_state.dibujar_grafica:
 
 
     # Personalización de la gráfica estableciendo colores y títulos a los ejes
-    df_melted = df.melt(id_vars='Dias', var_name='Especie', value_name='Cantidad de células (cel/ml)')
+    df_melted = df.melt(id_vars='Dias', var_name='Especie', value_name='Biomasa (mg/L)')
     max_dias = df_melted['Dias'].max()
-    max_celulas = df_melted['Cantidad de células (cel/ml)'].max()
+    max_celulas = df_melted['Biomasa (mg/L)'].max()
 
     #/////////////////////
     #  G R A F I C A   2
@@ -1284,9 +1285,9 @@ if st.session_state.dibujar_grafica:
         'Planktothrix': np.round(Log_planktothrix).astype('int64')
     })    
 
-    df_melted2 = df2.melt(id_vars='Días', var_name='Especie', value_name='Cantidad de células (cel/ml)')
+    df_melted2 = df2.melt(id_vars='Días', var_name='Especie', value_name='Biomasa (mg/L)')
     max_dias = df_melted2['Días'].max()
-    max_celulas = df_melted2['Cantidad de células (cel/ml)'].max()
+    max_celulas = df_melted2['Biomasa (mg/L)'].max()
 
 
     #/////////////////////
@@ -1402,41 +1403,33 @@ if st.session_state.dibujar_grafica:
         # PARA EVITAR SOBREESTIMACIONES Y VALORES NEGATIVOS DEL MÉTODO DE EULER CON PASOS DE 1 DÍA ENTERO.
         dt = 1.0 / 24.0
         for _ in range(24):
-            #GRAFICA 6
-# CORRECCIÓN: PESO CELULAR (mg/célula) PARA CONVERTIR POBLACIÓN A BIOMASA Y CORREGIR EL RENDIMIENTO Y.
-            peso_celular_C = 2e-8  # ~20 picogramos por célula de Chlorella
-            peso_celular_S = 4e-8  # Estimación base para Scenedesmus
-            peso_celular_P = 6e-8  # Estimación base para Planktothrix
-
+            #GRAFICA 6        
             # CORRECCIÓN: ATENUACIÓN DE LUZ CALCULADA PRIMERO.
-            k_ext_C = 0.0001
-            k_ext_S = 0.0001
-            k_ext_P = 0.0001
+            k_ext_C = 0.005
+            k_ext_S = 0.005
+            k_ext_P = 0.005
             luz_disponible = luz_incidente * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
 
             if nitrogeno_hoy > 0:
-                # CORRECCIÓN: FACTOR DE LIMITACIÓN DE MONOD (Adimensional, va de 0 a 1)
                 lim_N_chl = nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy)
                 lim_N_sce = nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy)
                 lim_N_plk = nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy)
             else:
                 lim_N_chl = lim_N_sce = lim_N_plk = 0
             
-            # CORRECCIÓN: MODELO MULTIPLICATIVO PARA LA TASA DE CRECIMIENTO REAL.
-            # Se unifica el efecto de la luz (Saturación) con la restricción de Nitrógeno.
             mu_real_chl = (mu_maxChlo * (luz_disponible/(KI_chlorella + luz_disponible))) * lim_N_chl
             mu_real_sce = (mu_maxScen * (luz_disponible/(KI_scenedesmus + luz_disponible))) * lim_N_sce
             mu_real_plk = (mu_maxPlank * (luz_disponible/(KI_planktothrix + luz_disponible))) * lim_N_plk
 
-            # CRECIMIENTO EN CÉLULAS (Aplicando dt)
+            # Crecimiento en mg/L
             crec_chl = mu_real_chl * N_chlorella * dt
             crec_sce = mu_real_sce * N_scenedesmus * dt
             crec_plk = mu_real_plk * N_planktothrix * dt
 
-            # CORRECCIÓN: CONSUMO DE NITRÓGENO BASADO EN LA MASA REAL DE LAS CÉLULAS CREADAS Y NO EN SU CONTEO.
-            cons_chl = (crec_chl * peso_celular_C) / Y_chlorella
-            cons_sce = (crec_sce * peso_celular_S) / Y_scenedesmus 
-            cons_plk = (crec_plk * peso_celular_P) / Y_planktothrix
+            # Consumo de nitrógeno nativo (mg N consumidos = mg biomasa creada / Y)
+            cons_chl = crec_chl / Y_chlorella
+            cons_sce = crec_sce / Y_scenedesmus 
+            cons_plk = crec_plk / Y_planktothrix
 
             consumo_total_hoy = cons_chl + cons_sce + cons_plk
 
@@ -1477,18 +1470,18 @@ if st.session_state.dibujar_grafica:
         
         registro_historico2.append({'Días': dia, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
         df_historico2 = pd.DataFrame(registro_historico2)
-        df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Especie (cel/ml)')
+        df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Biomasa (mg/L)')
         #################################################################################################
         #I  N  I  C  I  O    D  E    G  E  N  E  R  A  C  I  Ó  N    D  E    G  R  Á  F  I  C  A  S
         #################################################################################################
         fig1 = px.line(
             df_filtrado,
             x='Dias',
-            y='Cantidad de células (cel/ml)',
+            y='Biomasa (mg/L)',
             color='Especie',
-            #hover_data=['Dias', 'Cantidad de células (g/ml)', 'Especie'],
+            #hover_data=['Dias', 'Biomasa (mg/L)', 'Especie'],
             #title='Crecimiento Exponencial de Microalgas',
-            labels={'value': 'Cantidad de células (cel/ml)',
+            labels={'value': 'Biomasa (mg/L)',
                     'variable': 'Especie',
                     'Dias': 'Tiempo (días)'}, # Etiquetas bonitas
             #markers=True, # Poner puntitos en cada dato
@@ -1511,7 +1504,7 @@ if st.session_state.dibujar_grafica:
             yaxis=dict(
                 type='log',
                 #range=[0, 7],
-                title='Cantidad de células (cel/ml)',
+                title='Biomasa (mg/L)',
                 exponentformat='power',
                 #tickformat=".2e",
                 #nticks=6,
@@ -1525,11 +1518,11 @@ if st.session_state.dibujar_grafica:
         fig2 = px.line(
             df_filtrado2, 
             x='Días', 
-            y='Cantidad de células (cel/ml)',
+            y='Biomasa (mg/L)',
             color='Especie',
-            #hover_data=['Días', 'Cantidad de células (g/ml)', 'Especie'],
+            #hover_data=['Días', 'Biomasa (mg/L)', 'Especie'],
             #title='Cinética de Crecimiento de Microalgas',
-            labels={'value': 'Cantidad de células (cel/ml)',
+            labels={'value': 'Biomasa (mg/L)',
                     'variable': 'Especie',
                     'Días': 'Tiempo (días)'}, # Etiquetas bonitas
             #markers=True, # Poner puntitos en cada dato
@@ -1553,7 +1546,7 @@ if st.session_state.dibujar_grafica:
             yaxis=dict(
                 type='log',
                 #range=[0, 7],
-                title='Cantidad de células (cel/ml)',
+                title='Biomasa (mg/L)',
                 exponentformat='power',
                 #tickformat=".2e",
                 #nticks=7
@@ -1735,7 +1728,7 @@ if st.session_state.dibujar_grafica:
             yaxis=dict(
                 #type='log',
                 #range=[0, 200   ],
-                title='Cantidad de celulas (cel/ml)',
+                title='Biomasa (mg/L)',
                 exponentformat='power'
                 #tickformat=".2e",
                 #nticks=7
@@ -1780,7 +1773,7 @@ if st.session_state.dibujar_grafica:
     
    #----------------------------------------------------------------------------------------------------------------- 
 
-        fig7 = px.line(df_melted7, x='Días', y='Especie (cel/ml)', color='Especie',
+        fig7 = px.line(df_melted7, x='Días', y='Especie (mg/L)', color='Especie',
                     #hover_data=['Días', 'Tasa de Crecimiento', 'Especie'],
                     #title='Crecimiento Exponencial de Microalgas',
                     labels={'value': 'Nitrogeno (mg/L)',
@@ -1807,7 +1800,7 @@ if st.session_state.dibujar_grafica:
             yaxis=dict(
                 #type='log',
                 #range=[0, 200   ],
-                title='Cantidad de celulas (cel/ml)',
+                title='Biomasa (mg/L)',
                 exponentformat='power'
                 #tickformat=".2e",
                 #nticks=7
