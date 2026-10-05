@@ -277,9 +277,9 @@ with st.sidebar:
                 R_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_scenedesmus")
                 R_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_planktothrix")
             with st.expander("Coeficiente de saturacion luminosa", expanded=False):
-                KI_chlorella = st.number_input(":green[Chlorella]", min_value=0.01, max_value=800.0, value=50, step=0.1, key="KI_chlorella")
-                KI_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.01, max_value=800.0, value=50, step=0.1, key="KI_scenedesmus")
-                KI_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=800.0, value=50, step=0.1, key="KI_planktothrix")
+                KI_chlorella = st.number_input(":green[Chlorella]", min_value=0.01, max_value=800.0, value=50.0, step=0.1, key="KI_chlorella")
+                KI_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.01, max_value=800.0, value=50.0, step=0.1, key="KI_scenedesmus")
+                KI_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=800.0, value=50.0, step=0.1, key="KI_planktothrix")
             #R = st.number_input("Valor de la tasa de respiración (R)", min_value= max_value)
         
         temperatura = st.slider("🌡️Seleccione la Temperatura (°C)", 0, 45, 25, step=1)
