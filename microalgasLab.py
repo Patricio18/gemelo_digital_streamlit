@@ -1470,7 +1470,7 @@ if st.session_state.dibujar_grafica:
         
         registro_historico2.append({'Días': dia, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
         df_historico2 = pd.DataFrame(registro_historico2)
-        df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Biomasa (mg/L)')
+        df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie (mg/L)', value_name='Biomasa (mg/L)')
         #################################################################################################
         #I  N  I  C  I  O    D  E    G  E  N  E  R  A  C  I  Ó  N    D  E    G  R  Á  F  I  C  A  S
         #################################################################################################
