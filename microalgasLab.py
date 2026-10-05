@@ -1607,31 +1607,33 @@ if st.session_state.dibujar_grafica:
 
         #-----------------------------------------------------------------------------------------------------------------
 
+        #-----------------------------------------------------------------------------------------------------------------
+        # CORRECCIÓN DE ETIQUETA DINÁMICA: Se reemplaza el texto estático "Lux" por la variable seleccionada en el UI
+        nombre_columna_luz = f'Intensidad de Luz ({unidad_de_luz})'
+        
+        df_filtrado4 = df_filtrado4.rename(columns={'Intensidad de Luz (Lux)': nombre_columna_luz})
+
         df_haldane_animado = df_filtrado4.melt(
-            id_vars='Intensidad de Luz (Lux)',
+            id_vars=nombre_columna_luz,
             var_name='Especie',
             value_name='Tasa de crecimiento neta'
         )
         
         grafica_haldane = px.line(
             df_haldane_animado, 
-            x='Intensidad de Luz (Lux)', 
+            x=nombre_columna_luz, 
             y='Tasa de crecimiento neta', 
             color='Especie', 
             color_discrete_sequence=['blue', 'green', 'orange'], 
-            hover_data=['Intensidad de Luz (Lux)', 'Tasa de crecimiento neta', 'Especie']).update_layout(
-                #uirevision='fixed',
+            hover_data=[nombre_columna_luz, 'Tasa de crecimiento neta', 'Especie']).update_layout(
                 xaxis = dict(
                             range=[0, 15000],
-                            title='Intensidad de Luz (Lux)'
+                            title=nombre_columna_luz
                             ),
                 yaxis = dict(
-                            #type='log',
-                            #range=[0, 1.5],
                             title='Tasa de crecimiento neta (día<sup>-1</sup>)',
                             tickformat=".1f",
                             dtick=0.1
-                            #exponentformat='power'
                             ),
                 legend = dict(title='Especie'),
                 margin=dict(l=20, r=20, t=0, b=5),
@@ -1644,7 +1646,7 @@ if st.session_state.dibujar_grafica:
             line_width=2,
             line_dash="dash",
             line_color="red",
-            annotation_text=f"{st.session_state.intensidad_actual} Lux",
+            annotation_text=f"{st.session_state.intensidad_actual} {unidad_de_luz}",
             annotation_position="top right"
         )
         graph4.plotly_chart(grafica_haldane, use_container_width=True)
