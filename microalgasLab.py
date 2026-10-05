@@ -1401,31 +1401,48 @@ if st.session_state.dibujar_grafica:
         dt = 1.0 / 24.0
         for _ in range(24):
             #GRAFICA 6
-            if nitrogeno_hoy > 0:
-                mu_chl = mu_maxChlo * (nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy))
-                mu_sce = mu_maxScen * (nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy))
-                mu_plk = mu_maxPlank * (nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy))
-            else:
-                mu_chl = mu_sce = mu_plk = 0
-            
-            # CORRECCIÓN: MULTIPLICAR POR dt PARA FRACCIONAR EL PASO DE INTEGRACIÓN Y ESTABILIZAR EL CRECIMIENTO.
-            crec_chl = mu_chl * N_chlorella * dt
-            crec_sce = mu_sce * N_scenedesmus * dt
-            crec_plk = mu_plk * N_planktothrix * dt
+# CORRECCIÓN: PESO CELULAR (mg/célula) PARA CONVERTIR POBLACIÓN A BIOMASA Y CORREGIR EL RENDIMIENTO Y.
+            peso_celular_C = 2e-8  # ~20 picogramos por célula de Chlorella
+            peso_celular_S = 4e-8  # Estimación base para Scenedesmus
+            peso_celular_P = 6e-8  # Estimación base para Planktothrix
 
-            cons_chl = crec_chl / Y_chlorella
-            cons_sce = crec_sce / Y_scenedesmus 
-            cons_plk = crec_plk / Y_planktothrix
+            # CORRECCIÓN: ATENUACIÓN DE LUZ CALCULADA PRIMERO.
+            k_ext_C = 0.0001
+            k_ext_S = 0.0001
+            k_ext_P = 0.0001
+            luz_disponible = (intensidad * 0.015) * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
+
+            if nitrogeno_hoy > 0:
+                # CORRECCIÓN: FACTOR DE LIMITACIÓN DE MONOD (Adimensional, va de 0 a 1)
+                lim_N_chl = nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy)
+                lim_N_sce = nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy)
+                lim_N_plk = nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy)
+            else:
+                lim_N_chl = lim_N_sce = lim_N_plk = 0
+            
+            # CORRECCIÓN: MODELO MULTIPLICATIVO PARA LA TASA DE CRECIMIENTO REAL.
+            # Se unifica el efecto de la luz (Saturación) con la restricción de Nitrógeno.
+            mu_real_chl = (mu_maxChlo * (luz_disponible/(KI_chlorella + luz_disponible))) * lim_N_chl
+            mu_real_sce = (mu_maxScen * (luz_disponible/(KI_scenedesmus + luz_disponible))) * lim_N_sce
+            mu_real_plk = (mu_maxPlank * (luz_disponible/(KI_planktothrix + luz_disponible))) * lim_N_plk
+
+            # CRECIMIENTO EN CÉLULAS (Aplicando dt)
+            crec_chl = mu_real_chl * N_chlorella * dt
+            crec_sce = mu_real_sce * N_scenedesmus * dt
+            crec_plk = mu_real_plk * N_planktothrix * dt
+
+            # CORRECCIÓN: CONSUMO DE NITRÓGENO BASADO EN LA MASA REAL DE LAS CÉLULAS CREADAS Y NO EN SU CONTEO.
+            cons_chl = (crec_chl * peso_celular_C) / Y_chlorella
+            cons_sce = (crec_sce * peso_celular_S) / Y_scenedesmus 
+            cons_plk = (crec_plk * peso_celular_P) / Y_planktothrix
 
             consumo_total_hoy = cons_chl + cons_sce + cons_plk
 
             if consumo_total_hoy > nitrogeno_hoy:
                 reparticion = nitrogeno_hoy / consumo_total_hoy
-
                 cons_chl = cons_chl * reparticion
                 cons_sce = cons_sce * reparticion
                 cons_plk = cons_plk * reparticion
-
                 consumo_total_hoy = nitrogeno_hoy
                 st.session_state.dia_actual = dia
 
