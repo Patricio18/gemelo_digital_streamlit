@@ -277,25 +277,25 @@ with st.sidebar:
                 R_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_scenedesmus")
                 R_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.1, step=0.1, key="R_planktothrix")
             with st.expander("Coeficiente de saturacion luminosa", expanded=False):
-                KI_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10.0, value=0.5, step=0.1, key="KI_chlorella")
-                KI_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10.0, value=0.5, step=0.1, key="KI_scenedesmus")
-                KI_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10.0, value=0.5, step=0.1, key="KI_planktothrix")
+                KI_chlorella = st.number_input(":green[Chlorella]", min_value=0.01, max_value=800.0, value=50, step=0.1, key="KI_chlorella")
+                KI_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.01, max_value=800.0, value=50, step=0.1, key="KI_scenedesmus")
+                KI_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=800.0, value=50, step=0.1, key="KI_planktothrix")
             #R = st.number_input("Valor de la tasa de respiración (R)", min_value= max_value)
         
         temperatura = st.slider("🌡️Seleccione la Temperatura (°C)", 0, 45, 25, step=1)
         with st.expander("🔥Variables de temperatura", expanded=False):
             with st.expander("Valor de la tasa metabólica de referencia", expanded=False):
-                resp_refC = st.number_input(":green[Chlorella]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
-                resp_refS = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
-                resp_refP = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.1, step=0.1)
+                resp_refC = st.number_input(":green[Chlorella]", min_value=0.0, max_value=0.5, value=0.05, step=0.01)
+                resp_refS = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=0.5, value=0.05, step=0.01)
+                resp_refP = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=0.5, value=0.05, step=0.01)
             with st.expander("Valor del Q10", expanded=False):
                 q10C = st.number_input(":green[Chlorella]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
                 q10S = st.number_input(":blue[Scenedesmus]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
                 q10P = st.number_input(":orange[Planktothrix]", min_value=1.0, max_value=4.0, value=2.0, step=0.1)
             with st.expander("Valor de la temperatura de referencia", expanded=False):
-                temp_refC = st.number_input(":green[Chlorella]", min_value=15, max_value=30, value=25, step=1)
-                temp_refS = st.number_input(":blue[Scenedesmus]", min_value=15, max_value=30, value=25, step=1)
-                temp_refP = st.number_input(":orange[Planktothrix]", min_value=15, max_value=30, value=25, step=1)
+                temp_refC = st.number_input(":green[Chlorella]", min_value=5, max_value=35, value=25, step=1)
+                temp_refS = st.number_input(":blue[Scenedesmus]", min_value=5, max_value=35, value=25, step=1)
+                temp_refP = st.number_input(":orange[Planktothrix]", min_value=5, max_value=35, value=25, step=1)
         nitrogeno = st.slider("🧪Seleccione la cantidad de Nitrógeno (mg/L)", 0, 200, 100, step=1)
         
         if color_de_luz == "🟡Amarillo":
@@ -438,7 +438,7 @@ with st.sidebar:
             cantidad_inicial_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
             cantidad_inicial_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5000.0, value=50.0, step=0.1)
     
-    with st.expander("📈Tasa máxima de crecimiento (1/días)", expanded=False):
+    with st.expander("📈Tasa máxima de crecimiento μmax (d⁻¹)", expanded=False):
             mu_maxChlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=5.0, value=1.2, step=0.01)
             mu_maxScenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=5.0, value=1.5, step=0.01)
             mu_maxPlanktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=5.0, value=2.0, step=0.01)
@@ -453,16 +453,16 @@ with st.sidebar:
             kn_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0001, max_value=100.0, value=8.584, step=0.1)
 
     with st.expander("⚡Rendimiento", expanded=False):
-            Y_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=30.0, value=0.5, step=0.1)
-            Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=30.0, value=0.5, step=0.1)
-            Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=30.0, value=0.5, step=0.1)
+            Y_chlorella = st.number_input(":green[Chlorella]", min_value=0.01, max_value=30.0, value=0.5, step=0.01)
+            Y_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.01, max_value=30.0, value=0.5, step=0.01)
+            Y_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.01, max_value=30.0, value=0.5, step=0.01)
 
     with st.expander("🔋Capacidad de carga", expanded=False):
-            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10000.0, value=1.0, step=0.1)
+            Kc_chlorella = st.number_input(":green[Chlorella]", min_value=0.0, max_value=10000.0, value=1000.0, step=0.1)
             st.session_state.microalgas_totales_C = Kc_chlorella
-            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10000.0, value=1.0, step=0.1)
+            Kc_scenedesmus = st.number_input(":blue[Scenedesmus]", min_value=0.0, max_value=10000.0, value=1000.0, step=0.1)
             st.session_state.microalgas_totales_S = Kc_scenedesmus
-            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10000.0, value=1.0, step=0.1)
+            Kc_planktothrix = st.number_input(":orange[Planktothrix]", min_value=0.0, max_value=10000.0, value=1000.0, step=0.1)
             st.session_state.microalgas_totales_P = Kc_planktothrix
 
     dias_simulacion = st.slider("Duración de la simulación (días)", 1, 30, 15, step=1)
@@ -502,7 +502,9 @@ with st.sidebar:
         return ajuste
     
     def monod_multiespecie(mu_C, y_C, N_C, mu_S, y_S, N_S, mu_P, y_P, N_P): 
-        ds = - ((mu_C/y_C)*N_C) + ((mu_S/y_S)*N_S) + ((mu_P/y_P)*N_P)
+        # CORRECCIÓN: FACTORIZACIÓN DEL SIGNO NEGATIVO PARA RESPETAR LA LEY DE CONSERVACIÓN DE MASA.
+        # AHORA TODAS LAS ESPECIES SUMAN AL CONSUMO TOTAL QUE LUEGO SE RESTARÁ AL SISTEMA.
+        ds = - ( ((mu_C/y_C)*N_C) + ((mu_S/y_S)*N_S) + ((mu_P/y_P)*N_P) )
         crec_c = (mu_C*N_C)
         crec_s = (mu_S*N_S)   
         crec_p = (mu_P*N_P)
@@ -1394,53 +1396,66 @@ if st.session_state.dibujar_grafica:
         limite_temp = (dia/int(max_dias))*45
         df_filtrado5 = df_melted5[df_melted5['Temperatura (°C)'] <= limite_temp]
 
-        #GRAFICA 6
-        if nitrogeno_hoy > 0:
-            mu_chl = mu_maxChlo * (nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy))
-            mu_sce = mu_maxScen * (nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy))
-            mu_plk = mu_maxPlank * (nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy))
-        else:
-            mu_chl = mu_sce = mu_plk = 0
-        
-        crec_chl = mu_chl * N_chlorella
-        crec_sce = mu_sce * N_scenedesmus
-        crec_plk = mu_plk * N_planktothrix
+# CORRECCIÓN: INTEGRACIÓN NUMÉRICA ESTABILIZADA. SE IMPLEMENTA UN SUB-BUCLE HORARIO (dt=1/24)
+        # PARA EVITAR SOBREESTIMACIONES Y VALORES NEGATIVOS DEL MÉTODO DE EULER CON PASOS DE 1 DÍA ENTERO.
+        dt = 1.0 / 24.0
+        for _ in range(24):
+            #GRAFICA 6
+            if nitrogeno_hoy > 0:
+                mu_chl = mu_maxChlo * (nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy))
+                mu_sce = mu_maxScen * (nitrogeno_hoy / (Ks_scenedesmus + nitrogeno_hoy))
+                mu_plk = mu_maxPlank * (nitrogeno_hoy / (Ks_planktothrix + nitrogeno_hoy))
+            else:
+                mu_chl = mu_sce = mu_plk = 0
+            
+            # CORRECCIÓN: MULTIPLICAR POR dt PARA FRACCIONAR EL PASO DE INTEGRACIÓN Y ESTABILIZAR EL CRECIMIENTO.
+            crec_chl = mu_chl * N_chlorella * dt
+            crec_sce = mu_sce * N_scenedesmus * dt
+            crec_plk = mu_plk * N_planktothrix * dt
 
-        cons_chl = crec_chl / Y_chlorella
-        cons_sce = crec_sce / Y_scenedesmus 
-        cons_plk = crec_plk / Y_planktothrix
+            cons_chl = crec_chl / Y_chlorella
+            cons_sce = crec_sce / Y_scenedesmus 
+            cons_plk = crec_plk / Y_planktothrix
 
-        consumo_total_hoy = cons_chl + cons_sce + cons_plk
+            consumo_total_hoy = cons_chl + cons_sce + cons_plk
 
-        if consumo_total_hoy > nitrogeno_hoy:
-            reparticion = nitrogeno_hoy / consumo_total_hoy
+            if consumo_total_hoy > nitrogeno_hoy:
+                reparticion = nitrogeno_hoy / consumo_total_hoy
 
-            cons_chl = cons_chl * reparticion
-            cons_sce = cons_sce * reparticion
-            cons_plk = cons_plk * reparticion
+                cons_chl = cons_chl * reparticion
+                cons_sce = cons_sce * reparticion
+                cons_plk = cons_plk * reparticion
 
-            consumo_total_hoy = nitrogeno_hoy
-            st.session_state.dia_actual = dia
+                consumo_total_hoy = nitrogeno_hoy
+                st.session_state.dia_actual = dia
 
-        nitrogeno_hoy = nitrogeno_hoy - consumo_total_hoy
-        N_chlorella += crec_chl
-        N_scenedesmus += crec_sce
-        N_planktothrix += crec_plk
+            nitrogeno_hoy = nitrogeno_hoy - consumo_total_hoy
+            N_chlorella += crec_chl
+            N_scenedesmus += crec_sce
+            N_planktothrix += crec_plk
 
-        registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
+            #GRAFICA 7
+            # CORRECCIÓN: SE REEMPLAZA EL USO DE LA SECCIÓN EFICAZ DE ABSORCIÓN (alpha) 
+            # POR COEFICIENTES DE EXTINCIÓN EMPÍRICOS (k_ext) INDEPENDIENTES PARA RESPETAR LA LEY DE BEER-LAMBERT.
+            k_ext_C = 0.0001
+            k_ext_S = 0.0001
+            k_ext_P = 0.0001
+            luz_disponible = (intensidad * 0.015) * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
+            tasa_crecimiento_luz_chl = mu_maxChlorella * (luz_disponible/(KI_chlorella + luz_disponible))
+            tasa_crecimiento_luz_sce = mu_maxScenedesmus * (luz_disponible/(KI_scenedesmus + luz_disponible))
+            tasa_crecimiento_luz_plank = mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible))
+
+            # CORRECCIÓN: SE MULTIPLICA LA TASA DE LUZ POR dt PARA ALINEARSE CON LA INTEGRACIÓN HORARIA Y EVITAR EXPLOSIÓN MATEMÁTICA.
+            N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl * dt)
+            N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce * dt)
+            N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank * dt)
+
+        # FUERA DEL SUB-BUCLE HORARIO: SE MANTIENE EL REGISTRO DE DATOS UNA SOLA VEZ AL DÍA COMO EN TU CÓDIGO ORIGINAL
+        registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
         df_historico = pd.DataFrame(registro_historico)
         df_melted6 = df_historico.melt(id_vars=['Dias', 'Nitrógeno (mg/L)'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Consumo de Nitrogeno (mg/L)')
         
-        #GRAFICA 7
-        luz_disponible = (intensidad * 0.015) * np.exp(-((alphaC*N_chlorella)+(alphaS*N_scenedesmus)+(alphaP*N_planktothrix)))
-        tasa_crecimiento_luz_chl = mu_maxChlorella * (luz_disponible/(KI_chlorella + luz_disponible))
-        tasa_crecimiento_luz_sce = mu_maxScenedesmus * (luz_disponible/(KI_scenedesmus + luz_disponible))
-        tasa_crecimiento_luz_plank = mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible))
-
-        N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl)
-        N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce)
-        N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank)
-        registro_historico2.append({'Días': dia, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
+        registro_historico2.append({'Días': dia, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
         df_historico2 = pd.DataFrame(registro_historico2)
         df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Especie (cel/ml)')
         #################################################################################################
