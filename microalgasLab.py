@@ -1315,7 +1315,11 @@ if st.session_state.dibujar_grafica:
     #/////////////////////
     #  G R A F I C A   4
     #/////////////////////
-    rango_luz = np.linspace(0, 15000, 101)
+    if unidad_de_luz == 'lux':
+        rango_luz = np.linspace(0, 15000, 101)
+    else:
+        rango_luz = np.linspace(0, 800, 101)
+
     haldane_chlorella = modelo_haldane(mu_maxChlorella, alphaC, rango_luz, tauC, R_chlorella)
     haldane_scenedesmus = modelo_haldane(mu_maxScenedesmus, alphaS, rango_luz, tauS, R_scenedesmus)
     haldane_planktothrix = modelo_haldane(mu_maxPlanktothrix, alphaP, rango_luz, tauP, R_planktothrix)
@@ -1460,23 +1464,7 @@ if st.session_state.dibujar_grafica:
             N_scenedesmus += crec_sce
             N_planktothrix += crec_plk
 
-            #GRAFICA 7
-            # CORRECCIÓN: SE REEMPLAZA EL USO DE LA SECCIÓN EFICAZ DE ABSORCIÓN (alpha) 
-            # POR COEFICIENTES DE EXTINCIÓN EMPÍRICOS (k_ext) INDEPENDIENTES PARA RESPETAR LA LEY DE BEER-LAMBERT.
-            k_ext_C = 0.0001
-            k_ext_S = 0.0001
-            k_ext_P = 0.0001
-            #luz_disponible = (intensidad * 0.015) * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
-            luz_disponible = luz_incidente * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
-            tasa_crecimiento_luz_chl = mu_maxChlorella * (luz_disponible/(KI_chlorella + luz_disponible))
-            tasa_crecimiento_luz_sce = mu_maxScenedesmus * (luz_disponible/(KI_scenedesmus + luz_disponible))
-            tasa_crecimiento_luz_plank = mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible))
-
-            # CORRECCIÓN: SE MULTIPLICA LA TASA DE LUZ POR dt PARA ALINEARSE CON LA INTEGRACIÓN HORARIA Y EVITAR EXPLOSIÓN MATEMÁTICA.
-            #N_chlorella += (N_chlorella * tasa_crecimiento_luz_chl * dt)
-            #N_scenedesmus += (N_scenedesmus * tasa_crecimiento_luz_sce * dt)
-            #N_planktothrix += (N_planktothrix * tasa_crecimiento_luz_plank * dt)
-
+        #GRAFICA 7
         # FUERA DEL SUB-BUCLE HORARIO: SE MANTIENE EL REGISTRO DE DATOS UNA SOLA VEZ AL DÍA COMO EN TU CÓDIGO ORIGINAL
         registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
         df_historico = pd.DataFrame(registro_historico)
