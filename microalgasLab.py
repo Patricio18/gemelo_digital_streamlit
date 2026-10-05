@@ -267,9 +267,9 @@ with st.sidebar:
             luz_incidente = intensidad*0.015
         with st.expander("💡Variables de intensidad de luz", expanded=False):
             with st.expander("Valor de la  absorción de fotones (alpha)", expanded=False):
-                alphaC = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=0.01, value=0.001, step=0.0001, format="%.4f", key="alphaC")
-                alphaS = st.number_input(":blue[Scenedesmus]", min_value=0.0001, max_value=0.01, value=0.001, step=0.0001, format="%.4f", key="alphaS")
-                alphaP = st.number_input(":orange[Planktothrix]", min_value=0.0001, max_value=0.01, value=0.001, step=0.0001, format="%.4f", key="alphaP")
+                alphaC = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=0.02, value=0.001, step=0.0001, format="%.4f", key="alphaC")
+                alphaS = st.number_input(":blue[Scenedesmus]", min_value=0.0001, max_value=0.02, value=0.001, step=0.0001, format="%.4f", key="alphaS")
+                alphaP = st.number_input(":orange[Planktothrix]", min_value=0.0001, max_value=0.02, value=0.001, step=0.0001, format="%.4f", key="alphaP")
             with st.expander("Valor del tiempo de recambio de los centros de reacción (tau)", expanded=False):
                 tauC = st.number_input(":green[Chlorella]", min_value=0.001, max_value=0.5, value=0.1, step=0.001, format="%.3f", key="tauC")
                 tauS = st.number_input(":blue[Scenedesmus]", min_value=0.001, max_value=0.5, value=0.1, step=0.001, format="%.3f", key="tauS")
