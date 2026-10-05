@@ -261,8 +261,10 @@ with st.sidebar:
         unidad_de_luz = st.radio('Elige la unidad de luz',("μmol m⁻² s⁻¹","lux"), horizontal=True)
         if unidad_de_luz == "μmol m⁻² s⁻¹":
             intensidad = st.slider("☀️Seleccione la Intensidad de luz (μmol m⁻² s⁻¹)", 0, 800, 300, step=1)
+            luz_incidente = intensidad
         if unidad_de_luz == "lux":
             intensidad = st.slider("☀️Seleccione la Intensidad de luz (lux)", 0, 15000, 300, step=1)
+            luz_incidente = intensidad*0.015
         with st.expander("💡Variables de intensidad de luz", expanded=False):
             with st.expander("Valor de la  absorción de fotones (alpha)", expanded=False):
                 alphaC = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=0.01, value=0.001, step=0.0001, format="%.4f", key="alphaC")
@@ -1410,7 +1412,7 @@ if st.session_state.dibujar_grafica:
             k_ext_C = 0.0001
             k_ext_S = 0.0001
             k_ext_P = 0.0001
-            luz_disponible = (intensidad * 0.015) * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
+            luz_disponible = luz_incidente * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
 
             if nitrogeno_hoy > 0:
                 # CORRECCIÓN: FACTOR DE LIMITACIÓN DE MONOD (Adimensional, va de 0 a 1)
@@ -1457,7 +1459,8 @@ if st.session_state.dibujar_grafica:
             k_ext_C = 0.0001
             k_ext_S = 0.0001
             k_ext_P = 0.0001
-            luz_disponible = (intensidad * 0.015) * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
+            #luz_disponible = (intensidad * 0.015) * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
+            luz_disponible = luz_incidente * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
             tasa_crecimiento_luz_chl = mu_maxChlorella * (luz_disponible/(KI_chlorella + luz_disponible))
             tasa_crecimiento_luz_sce = mu_maxScenedesmus * (luz_disponible/(KI_scenedesmus + luz_disponible))
             tasa_crecimiento_luz_plank = mu_maxPlanktothrix * (luz_disponible/(KI_planktothrix + luz_disponible))
