@@ -1614,7 +1614,7 @@ if st.session_state.dibujar_grafica:
             color_discrete_sequence=['green', 'blue', 'orange'], 
             hover_data=[nombre_columna_luz, 'Tasa de crecimiento neta', 'Especie']).update_layout(
                 xaxis = dict(
-                            range=[0, 800],
+                            range=[0, 15000],
                             title=nombre_columna_luz
                             ),
                 yaxis = dict(
@@ -1720,21 +1720,19 @@ if st.session_state.dibujar_grafica:
                 #dtick=2
             ),
             yaxis=dict(
-                title = 'Nitrogeno restante (mg/L)',
-                overlaying = 'y',
-                side = 'left',
-                range=[0, st.session_state.nitrogeno_actual]
-            ),
-            yaxis2=dict(
                 #type='log',
                 #range=[0, 200   ],
                 title='Biomasa (mg/L)',
-                exponentformat='power',
-                side = 'right'
+                exponentformat='power'
                 #tickformat=".2e",
                 #nticks=7
             ),
-
+            yaxis2=dict(
+                title = 'Nitrogeno restante (mg/L)',
+                overlaying = 'y',
+                side = 'right',
+                range=[0, st.session_state.nitrogeno_actual]
+            ),
             legend = dict(
                 orientation="h",
                 yanchor="bottom",
