@@ -1729,7 +1729,7 @@ if st.session_state.dibujar_grafica:
                 #type='log',
                 #range=[0, 200   ],
                 title='Biomasa (mg/L)',
-                exponentformat='power'
+                exponentformat='power',
                 side = 'right'
                 #tickformat=".2e",
                 #nticks=7
