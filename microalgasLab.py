@@ -1181,14 +1181,65 @@ with right_column:
                 ),
 
             )
-            fig_mondod_multiespecie_vacia.add_hline(
-                y=st.session_state.nitrogeno_actual,
-                line_width=2,
-                line_dash="dash",
-                line_color="red",
-                annotation_text=f"{st.session_state.nitrogeno_actual} mg/L",
-                annotation_position="top right"
+            fig_mondod_multiespecie_vacia.add_trace(
+                go.Scatter(
+                    x=df_skeleton6['Dia'],
+                    y=df_skeleton6['Nitrógeno (mg/L)'],
+                    mode='lines',
+                    name='Nitrogeno restante',
+                    line=dict(color='gray', width=2, dash='dot'),
+                    yaxis='y2'
+                )
             )
+            fig_mondod_multiespecie_vacia.update_layout(
+                margin=dict(l=10, r=10, t=20, b=5),
+                hovermode='x unified',
+                height=300, 
+                xaxis = dict(
+                            range=[0, 30],
+                            title='Días'
+                            ),
+                yaxis = dict(
+                            #range=[0, 200],
+                            title='Biomasa (mg/L)',
+                            exponentformat='power'
+                            ),
+
+                yaxis2=dict(
+                    title = 'Nitrogeno restante (mg/L)',
+                    overlaying = 'y',
+                    side = 'right',
+                    range=[0, 200]
+                ),
+                legend = dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.02,
+                    xanchor="right",
+                    x=1,
+                    title = None,
+                    font = dict(size = 10)
+                ),
+
+            )
+            fig_mondod_multiespecie_vacia.add_trace(
+                go.Scatter(
+                    x=df_skeleton6['Dia'],
+                    y=df_skeleton6['Nitrógeno (mg/L)'],
+                    mode='lines',
+                    name='Nitrogeno inicial',
+                    line=dict(color='red', width=1, dash='dash'),
+                    yaxis='y2'
+                )
+            )
+            #fig_mondod_multiespecie_vacia.add_hline(
+             #   y=st.session_state.nitrogeno_actual,
+            #    line_width=2,
+            #    line_dash="dash",
+             #   line_color="red",
+             #   annotation_text=f"{st.session_state.nitrogeno_actual} mg/L",
+              #  annotation_position="top right"
+            #)
 
             fig_mondod_multiespecie_vacia.add_vline(
                 x=st.session_state.dia_actual,
