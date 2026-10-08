@@ -1185,7 +1185,7 @@ with right_column:
             fig_mondod_multiespecie_vacia.add_trace(
                 go.Scatter(
                     x=df_skeleton6['Dia'],
-                    y=df_skeleton6[st.session_state.nitrogeno_actual, 'Nitrógeno (mg/L)'],
+                    y=df_skeleton6[st.session_state.nitrogeno_actual, st.session_state.nitrogeno_actual],
                     mode='lines',
                     name='Nitrogeno inicial',
                     line=dict(color='red', width=1, dash='dash'),
