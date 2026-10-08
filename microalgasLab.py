@@ -1751,7 +1751,7 @@ if st.session_state.dibujar_grafica:
             line_color="red",
             annotation_text=f"{st.session_state.nitrogeno_actual} mg/L",
             annotation_position="top right",
-            yaxis="y2"
+            side="right"
         )
         if st.session_state.dia_actual != 0 and dia >= st.session_state.dia_actual:
             
