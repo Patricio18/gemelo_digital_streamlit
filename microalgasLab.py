@@ -259,13 +259,8 @@ with st.sidebar:
             ("🟡Amarillo","🔴Rojo","🟢Verde","🟣Violeta"),
             horizontal=True
         )  
-        unidad_de_luz = st.radio('Elige la unidad de luz',("μmol m⁻² s⁻¹","lux"), horizontal=True)
-        if unidad_de_luz == "μmol m⁻² s⁻¹":
-            intensidad = st.slider("☀️Seleccione la Intensidad de luz (μmol m⁻² s⁻¹)", 0, 800, 300, step=1)
-            luz_incidente = intensidad
-        if unidad_de_luz == "lux":
-            intensidad = st.slider("☀️Seleccione la Intensidad de luz (lux)", 0, 15000, 300, step=1)
-            luz_incidente = intensidad*0.015
+        intensidad = st.slider("☀️Seleccione la Intensidad de luz (μmol m⁻² s⁻¹)", 0, 800, 300, step=1)
+        #luz_incidente = intensidad
         with st.expander("💡Variables de intensidad de luz", expanded=False):
             with st.expander("Valor de la  absorción de fotones (alpha)", expanded=False):
                 alphaC = st.number_input(":green[Chlorella]", min_value=0.0001, max_value=0.02, value=0.001, step=0.0001, format="%.4f", key="alphaC")
@@ -1072,7 +1067,7 @@ with right_column:
             
             grafica_haldane = px.line(df4, x='Intensidad de Luz (Lux)', y='Tasa metabólica ajusada', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Intensidad de Luz (Lux)', 'Tasa metabólica ajusada', 'Especie']).update_layout(
                 xaxis = dict(
-                            range=[0, 15000],
+                            range=[0, 800],
                             title='Intensidad de Luz (Lux)'
                             ),
                 yaxis = dict(
@@ -1259,9 +1254,9 @@ if st.session_state.dibujar_grafica:
     #Dataframe con los resultados de la cantidad de microalgas que se reproducieron en función del tiempo para cada especie
     df = pd.DataFrame({
         'Dias': tiempo_dias,
-        'Chlorella': np.round(exp_chlorella).astype('int64'),
-        'Scenedesmus': np.round(exp_scenedesmus).astype('int64'),
-        'Planktothrix': np.round(exp_planktothrix).astype('int64')
+        'Chlorella': exp_chlorella,
+        'Scenedesmus': exp_scenedesmus,
+        'Planktothrix': exp_planktothrix
     })
 
 
@@ -1280,9 +1275,9 @@ if st.session_state.dibujar_grafica:
 
     df2 = pd.DataFrame({
         'Días': tiempo_dias,
-        'Chlorella': np.round(Log_chlorella).astype('int64'),
-        'Scenedesmus': np.round(Log_scenedesmus).astype('int64'),
-        'Planktothrix': np.round(Log_planktothrix).astype('int64')
+        'Chlorella': Log_chlorella,
+        'Scenedesmus': Log_scenedesmus,
+        'Planktothrix': Log_planktothrix
     })    
 
     df_melted2 = df2.melt(id_vars='Días', var_name='Especie', value_name='Biomasa (mg/L)')
@@ -1315,23 +1310,20 @@ if st.session_state.dibujar_grafica:
     #/////////////////////
     #  G R A F I C A   4
     #/////////////////////
-    if unidad_de_luz == 'lux':
-        rango_luz = np.linspace(0, 15000, 101)
-    else:
-        rango_luz = np.linspace(0, 800, 101)
+    rango_luz = np.linspace(0, 800, 101)
 
     haldane_chlorella = modelo_haldane(mu_maxChlorella, alphaC, rango_luz, tauC, R_chlorella)
     haldane_scenedesmus = modelo_haldane(mu_maxScenedesmus, alphaS, rango_luz, tauS, R_scenedesmus)
     haldane_planktothrix = modelo_haldane(mu_maxPlanktothrix, alphaP, rango_luz, tauP, R_planktothrix)
 
     df4 = pd.DataFrame({
-        f'Intensidad de Luz ({unidad_de_luz})': rango_luz,
+        f'Intensidad de Luz (μmol m⁻² s⁻¹)': rango_luz,
         'Chlorella': haldane_chlorella,
         'Scenedesmus': haldane_scenedesmus,
         'Planktothrix': haldane_planktothrix
     })
     #df_melted4 = df4.melt(id_vars=f'Intensidad de Luz ({unidad_de_luz})', var_name='Especie', value_name='Tasa metabólica ajustada')
-    total_luz = len(df4[f'Intensidad de Luz ({unidad_de_luz})'])
+    total_luz = len(df4[f'Intensidad de Luz (μmol m⁻² s⁻¹)'])
     haldane_diario = (total_luz / total_dias)
 
     #/////////////////////
@@ -1412,7 +1404,7 @@ if st.session_state.dibujar_grafica:
             k_ext_C = 0.005
             k_ext_S = 0.005
             k_ext_P = 0.005
-            luz_disponible = luz_incidente * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
+            luz_disponible = intensidad * np.exp(-((k_ext_C*N_chlorella)+(k_ext_S*N_scenedesmus)+(k_ext_P*N_planktothrix)))
 
             if nitrogeno_hoy > 0:
                 lim_N_chl = nitrogeno_hoy / (Ks_chlorella + nitrogeno_hoy)
@@ -1466,11 +1458,11 @@ if st.session_state.dibujar_grafica:
 
         #GRAFICA 7
         # FUERA DEL SUB-BUCLE HORARIO: SE MANTIENE EL REGISTRO DE DATOS UNA SOLA VEZ AL DÍA COMO EN TU CÓDIGO ORIGINAL
-        registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
+        registro_historico.append({'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
         df_historico = pd.DataFrame(registro_historico)
         df_melted6 = df_historico.melt(id_vars=['Dias', 'Nitrógeno (mg/L)'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Consumo de Nitrogeno (mg/L)')
         
-        registro_historico2.append({'Días': dia, 'Chlorella': np.round(N_chlorella).astype('int64'), 'Scenedesmus': np.round(N_scenedesmus).astype('int64'), 'Planktothrix': np.round(N_planktothrix).astype('int64')}) #{'Dias': dia, 'Nitrógeno (mg/L)': nitrogeno_hoy, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix}
+        registro_historico2.append({'Días': dia, 'Chlorella': N_chlorella, 'Scenedesmus': N_scenedesmus, 'Planktothrix': N_planktothrix})
         df_historico2 = pd.DataFrame(registro_historico2)
         df_melted7 = df_historico2.melt(id_vars=['Días'], value_vars=['Chlorella', 'Scenedesmus', 'Planktothrix'], var_name='Especie', value_name='Biomasa (mg/L)')
         #################################################################################################
@@ -1570,7 +1562,7 @@ if st.session_state.dibujar_grafica:
             x='Nitrógeno (mg/L)', 
             y='Tasa de Crecimiento', 
             color='Especie', 
-            color_discrete_sequence=['blue', 'green', 'orange'], 
+            color_discrete_sequence=['green', 'blue', 'orange'], 
             hover_data=['Nitrógeno (mg/L)', 'Tasa de Crecimiento', 'Especie']).update_layout(
                 #uirevision='fixed',
                 xaxis = dict(
@@ -1604,7 +1596,7 @@ if st.session_state.dibujar_grafica:
 
         #-----------------------------------------------------------------------------------------------------------------
         # CORRECCIÓN DE ETIQUETA DINÁMICA: Se reemplaza el texto estático "Lux" por la variable seleccionada en el UI
-        nombre_columna_luz = f'Intensidad de Luz ({unidad_de_luz})'
+        nombre_columna_luz = f'Intensidad de Luz (μmol m⁻² s⁻¹)'
         
         df_filtrado4 = df_filtrado4.rename(columns={'Intensidad de Luz (Lux)': nombre_columna_luz})
 
@@ -1619,7 +1611,7 @@ if st.session_state.dibujar_grafica:
             x=nombre_columna_luz, 
             y='Tasa de crecimiento neta', 
             color='Especie', 
-            color_discrete_sequence=['blue', 'green', 'orange'], 
+            color_discrete_sequence=['green', 'blue', 'orange'], 
             hover_data=[nombre_columna_luz, 'Tasa de crecimiento neta', 'Especie']).update_layout(
                 xaxis = dict(
                             range=[0, 15000],
@@ -1641,7 +1633,7 @@ if st.session_state.dibujar_grafica:
             line_width=2,
             line_dash="dash",
             line_color="red",
-            annotation_text=f"{st.session_state.intensidad_actual} {unidad_de_luz}",
+            annotation_text=f"{st.session_state.intensidad_actual} μmol m⁻² s⁻¹",
             annotation_position="top right"
         )
         graph4.plotly_chart(grafica_haldane, use_container_width=True)
@@ -1728,6 +1720,12 @@ if st.session_state.dibujar_grafica:
                 #dtick=2
             ),
             yaxis=dict(
+                title = 'Nitrogeno restante (mg/L)',
+                overlaying = 'y',
+                side = 'right',
+                range=[0, st.session_state.nitrogeno_actual]
+            ),
+            yaxis2=dict(
                 #type='log',
                 #range=[0, 200   ],
                 title='Biomasa (mg/L)',
@@ -1735,12 +1733,7 @@ if st.session_state.dibujar_grafica:
                 #tickformat=".2e",
                 #nticks=7
             ),
-            yaxis2=dict(
-                title = 'Nitrogeno restante (mg/L)',
-                overlaying = 'y',
-                side = 'right',
-                range=[0, st.session_state.nitrogeno_actual]
-            ),
+
             legend = dict(
                 orientation="h",
                 yanchor="bottom",
@@ -1753,7 +1746,7 @@ if st.session_state.dibujar_grafica:
             
         )
         fig6.add_hline(
-            y=st.session_state.nitrogeno_actual, 
+            y=st.session_state.nitrogeno_actual,
             line_width=1, 
             line_dash="dash", 
             line_color="red",
