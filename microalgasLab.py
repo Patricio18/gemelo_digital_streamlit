@@ -1614,7 +1614,7 @@ if st.session_state.dibujar_grafica:
             color_discrete_sequence=['green', 'blue', 'orange'], 
             hover_data=[nombre_columna_luz, 'Tasa de crecimiento neta', 'Especie']).update_layout(
                 xaxis = dict(
-                            range=[0, 15000],
+                            range=[0, 800],
                             title=nombre_columna_luz
                             ),
                 yaxis = dict(
@@ -1722,7 +1722,7 @@ if st.session_state.dibujar_grafica:
             yaxis=dict(
                 title = 'Nitrogeno restante (mg/L)',
                 overlaying = 'y',
-                side = 'right',
+                side = 'left',
                 range=[0, st.session_state.nitrogeno_actual]
             ),
             yaxis2=dict(
