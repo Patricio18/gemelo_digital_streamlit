@@ -1749,7 +1749,7 @@ if st.session_state.dibujar_grafica:
                 x=[0, dias_simulacion],
                 y=[st.session_state.nitrogeno_actual, st.session_state.nitrogeno_actual],
                 mode='lines',
-                name='Nitrogeno restante',
+                name='Nitrogeno inicial',
                 line=dict(color='red', width=2, dash='dot'),
                 yaxis='y2'
             )
