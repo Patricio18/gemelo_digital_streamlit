@@ -1744,14 +1744,15 @@ if st.session_state.dibujar_grafica:
             )
             
         )
-        fig6.add_hline(
-            y=st.session_state.nitrogeno_actual,
-            line_width=1, 
-            line_dash="dash", 
-            line_color="red",
-            annotation_text=f"{st.session_state.nitrogeno_actual} mg/L",
-            annotation_position="top right",
-            side="right"
+        fig6.add_trace(
+            go.Scatter(
+                x=[0, dias_simulacion],
+                y=[st.session_state.nitrogeno_actual, st.session_state.nitrogeno_actual],
+                mode='lines',
+                name='Nitrogeno restante',
+                line=dict(color='red', width=2, dash='dot'),
+                yaxis='y2'
+            )
         )
         if st.session_state.dia_actual != 0 and dia >= st.session_state.dia_actual:
             
