@@ -1502,7 +1502,7 @@ if st.session_state.dibujar_grafica:
                 type='log',
                 #range=[0, 7],
                 title='Biomasa (mg/L)',
-                exponentformat='power',
+                #Sexponentformat='power',
                 #tickformat=".2e",
                 #nticks=6,
                 dtick=6
@@ -1544,7 +1544,7 @@ if st.session_state.dibujar_grafica:
                 type='log',
                 #range=[0, 7],
                 title='Biomasa (mg/L)',
-                exponentformat='power',
+                #exponentformat='power',
                 #tickformat=".2e",
                 #nticks=7
                 dtick=1
