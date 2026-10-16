@@ -1541,7 +1541,7 @@ if st.session_state.dibujar_grafica:
                 #dtick=2
             ),
             yaxis=dict(
-                #type='log',
+                type='log',
                 #range=[0, 7],
                 title='Biomasa (mg/L)',
                 exponentformat='power',
