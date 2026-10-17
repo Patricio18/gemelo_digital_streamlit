@@ -1499,7 +1499,7 @@ if st.session_state.dibujar_grafica:
                 #dtick=2
             ),
             yaxis=dict(
-                type='log',
+                type='linear',
                 autorange=True,
                 tickmode='auto',
                 nticks=6,
@@ -1543,7 +1543,7 @@ if st.session_state.dibujar_grafica:
                 #dtick=2
             ),
             yaxis=dict(
-                type='log',
+                type='linear',
                 autorange=True,
                 tickmode='auto',
                 nticks=6,
