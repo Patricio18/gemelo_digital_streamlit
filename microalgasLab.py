@@ -1500,12 +1500,14 @@ if st.session_state.dibujar_grafica:
             ),
             yaxis=dict(
                 type='log',
-                #range=[0, 7],
+                autorange=True,
+                tickmode='auto',
+                nticks=6,
+                showticklabels=True,
+                exponentformat='power',
+                showexponent='all',
+                automargin=True,
                 title='Biomasa (mg/L)',
-                #Sexponentformat='power',
-                #tickformat=".2e",
-                #nticks=6,
-                dtick=6
             )
         )
         graph1.plotly_chart(fig1, use_container_width=True,)
@@ -1542,12 +1544,15 @@ if st.session_state.dibujar_grafica:
             ),
             yaxis=dict(
                 type='log',
-                #range=[0, 7],
+                autorange=True,
+                tickmode='auto',
+                nticks=6,
+                showticklabels=True,
+                exponentformat='power',
+                showexponent='all',
+                automargin=True,
                 title='Biomasa (mg/L)',
-                #exponentformat='power',
-                #tickformat=".2e",
-                #nticks=7
-                dtick=1
+
             )
         )
         
