@@ -1424,7 +1424,7 @@ if st.session_state.dibujar_grafica:
 
         # Integración de F y G con pasos horarios (tiempo en días).
         #dt = 1.0 / 24.0
-        pasos_por_dia = 24
+        pasos_por_dia = 48
         dt = 1.0 / pasos_por_dia
         for _ in range(pasos_por_dia):
             # Gráfica 6: C + F, con el mismo nitrógeno disponible para las tres especies.
