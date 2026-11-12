@@ -1423,8 +1423,10 @@ if st.session_state.dibujar_grafica:
         df_filtrado5 = df_melted5[df_melted5['Temperatura (°C)'] <= limite_temp]
 
         # Integración de F y G con pasos horarios (tiempo en días).
-        dt = 1.0 / 24.0
-        for _ in range(24):
+        #dt = 1.0 / 24.0
+        pasos_por_dia = 24
+        dt = 1.0 / pasos_por_dia
+        for _ in range(pasos_por_dia):
             # Gráfica 6: C + F, con el mismo nitrógeno disponible para las tres especies.
             mu_N_C = monod(mu_maxChlo, nitrogeno_hoy, Ks_chlorella)
             mu_N_S = monod(mu_maxScen, nitrogeno_hoy, Ks_scenedesmus)
