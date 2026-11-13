@@ -1398,7 +1398,8 @@ if st.session_state.dibujar_grafica:
     biomasa_luz = np.array([cantidad_inicial_chlorella, cantidad_inicial_scenedesmus, cantidad_inicial_planktothrix], dtype=float)
     mu_max_luz = np.array([mu_maxChlo, mu_maxScen, mu_maxPlank])
     KI_luz = np.array([KI_chlorella, KI_scenedesmus, KI_planktothrix])
-    coef_extincion = np.array([0.005, 0.005, 0.005])
+    #coef_extincion = np.array([0.005, 0.005, 0.005])
+    coef_extincion = np.array([0.0, 0.0, 0.0])
     registro_historico2 = []
     registro_historico2.append({'Días': 0, 'Chlorella': biomasa_luz[0], 'Scenedesmus': biomasa_luz[1], 'Planktothrix': biomasa_luz[2]})
 
