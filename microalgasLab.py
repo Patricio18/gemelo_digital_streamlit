@@ -1077,7 +1077,7 @@ with right_column:
                 'Tasa metabólica ajusada': [0, 0, 0]
             })
             
-            grafica_haldane = px.line(df4, x='Intensidad de Luz (μmol m⁻² s⁻¹)', y='Tasa metabólica ajusada', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Intensidad de Luz (Lux)', 'Tasa metabólica ajusada', 'Especie']).update_layout(
+            grafica_haldane = px.line(df4, x='Intensidad de Luz (μmol m⁻² s⁻¹)', y='Tasa metabólica ajusada', color='Especie', color_discrete_sequence=['blue', 'green', 'orange'], hover_data=['Intensidad de Luz (μmol m⁻² s⁻¹)', 'Tasa metabólica ajusada', 'Especie']).update_layout(
                 xaxis = dict(
                             range=[0, 800],
                             title='Intensidad de Luz (μmol m⁻² s⁻¹)'
