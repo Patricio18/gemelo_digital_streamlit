@@ -1609,7 +1609,7 @@ if st.session_state.dibujar_grafica:
         # CORRECCIÓN DE ETIQUETA DINÁMICA: Se reemplaza el texto estático "Lux" por la variable seleccionada en el UI
         nombre_columna_luz = f'Intensidad de Luz (μmol m⁻² s⁻¹)'
         
-        df_filtrado4 = df_filtrado4.rename(columns={'Intensidad de Luz (Lux)': nombre_columna_luz})
+        df_filtrado4 = df_filtrado4.rename(columns={'Intensidad de Luz (μmol m⁻² s⁻¹)': nombre_columna_luz})
 
         df_haldane_animado = df_filtrado4.melt(
             id_vars=nombre_columna_luz,
