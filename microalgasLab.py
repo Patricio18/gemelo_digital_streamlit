@@ -1072,7 +1072,7 @@ with right_column:
             st.latex(r'''\scriptsize \mu(I) = k \cdot \frac{\alpha I}{\tau \alpha I^2 + \alpha I + 1} - R''')
             graph4 = st.empty()
             df4 = pd.DataFrame({
-                'Intensidad de Luz (Lux)': [0, 0, 0],
+                'Intensidad de Luz (μmol m⁻² s⁻¹)': [0, 0, 0],
                 'Especie': ['Chlorella', 'Scenedesmus', 'Planktothrix'],
                 'Tasa metabólica ajusada': [0, 0, 0]
             })
